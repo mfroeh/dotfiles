@@ -1,6 +1,7 @@
 alias vi=nvim
 
 export PATH="$HOME/.config/emacs/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"

@@ -3,25 +3,59 @@ command_exists() {
     type "$1" &> /dev/null ;
 }
 
+dir_exists() {
+ echo ""
+}
+
+package_exists() {
+    sudo pacman -Qm | grep -q $1
+}
+
+install() {
+    echo ">>> Installing $1"
+    yay -S --noconfirm --needed --noprovides --cleanafter --nodiffmenu $1
+}
+
 cd $HOME
 
-echo "Init submodules"
+echo ">>> Updating submodules"
 yadm submodule update --recursive --init
 
-echo "Updating packages"
-pacman -Syu
-
-echo "Installing yay"
-if ! command_exists yay ; then
-sudo pacman -S --noconfirm --needed git base-devel && git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si --noconfirm && cd $HOME && rm -rf yay-bin
+if ! command_exists yay; then
+    echo ">>> Installing yay"
+    sudo pacman -S --noconfirm --needed git base-devel && git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si --noconfirm && cd $HOME && rm -rf yay-bin
 fi
 yay -Syu
 
-echo "Installing programs"
-PROGRAMS="xorg kitty neovim brave-bin github-cli"
-# DEPS="unzip python-pip"
-DEPS=""
-yay -S --noconfirm --cleanafter --nodiffmenu --noprovides --removemake --needed $DEPS $PROGRAMS
+# Neovim and doomemacs
+install neovim
+install xclip
 
-echo "Installing kinto"
-# /bin/bash -c "$(wget -qO- https://raw.githubusercontent.com/rbreaves/kinto/HEAD/install/linux.sh || curl -fsSL https://raw.githubusercontent.com/rbreaves/kinto/HEAD/install/linux.sh)"
+install emacs
+install ripgrep
+install fd
+git clone https://github.com/hlissner/doom-emacs ~/.config/emacs
+~/.config/emacs/bin/doom install
+
+install nerd-fonts-source-code-pro
+
+
+# Other
+for P in xorg kitty phonon-qt5-vlc brave-bin github-cli bitwarden pcloud-drive zsh discord 
+do
+    install $P
+done
+
+DEPS="unzip"
+
+if [ ! -d "$HOME/.oh-my-zsh/" ]; then
+    echo "Installing oh-my-zsh"
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --keep-zshrc
+    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+fi
+
+
+#
+# echo "Installing kinto"
+# # /bin/bash -c "$(wget -qO- https://raw.githubusercontent.com/rbreaves/kinto/HEAD/install/linux.sh || curl -fsSL https://raw.githubusercontent.com/rbreaves/kinto/HEAD/install/linux.sh)"
