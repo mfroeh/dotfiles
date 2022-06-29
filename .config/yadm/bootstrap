@@ -1,6 +1,27 @@
 #!/bin/sh
+command_exists() {
+    type "$1" &> /dev/null ;
+}
 
 cd $HOME
 
 echo "Init submodules"
 yadm submodule update --recursive --init
+
+echo "Updating packages"
+pacman -Syu
+
+echo "Installing yay"
+if ! command_exists yay ; then
+sudo pacman -S --noconfirm --needed git base-devel && git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si --noconfirm && cd $HOME && rm -rf yay-bin
+fi
+yay -Syu
+
+echo "Installing programs"
+PROGRAMS="xorg kitty neovim brave-bin github-cli"
+# DEPS="unzip python-pip"
+DEPS=""
+yay -S --noconfirm --cleanafter --nodiffmenu --noprovides --removemake --needed $DEPS $PROGRAMS
+
+echo "Installing kinto"
+# /bin/bash -c "$(wget -qO- https://raw.githubusercontent.com/rbreaves/kinto/HEAD/install/linux.sh || curl -fsSL https://raw.githubusercontent.com/rbreaves/kinto/HEAD/install/linux.sh)"
