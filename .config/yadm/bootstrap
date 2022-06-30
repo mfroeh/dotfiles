@@ -6,19 +6,6 @@ command_exists() {
     type "$1" &> /dev/null ;
 }
 
-install() {
-    echo ">>> Installing $1"
-    yay -S --noconfirm --needed --noprovides --cleanafter --nodiffmenu $1
-}
-
-install_all() {
-    local -n arr=$1
-    for P in "${arr[@]}"
-    do
-        install $P
-    done
-}
-
 cd $HOME
 echo ">>> Updating submodules"
 yadm submodule update --recursive --init
@@ -38,7 +25,6 @@ terminal=(
     "zsh"
     "antigen"
 )
-install_all terminal
 
 cli_tools=(
     "ripgrep"
@@ -46,23 +32,19 @@ cli_tools=(
     "xclip"
     "github-cli"
 )
-install_all cli_tools
 
 editor=(
     "neovim"
     "emacs"
 )
-install_all editor
 
 fonts=(
     "nerd-fonts-source-code-pro"
 )
-install_all fonts
 
 window=(
     "xorg"
 )
-install_all window
 
 apps=(
     "phonon-qt5-vlc"
@@ -71,22 +53,33 @@ apps=(
     "discord"
     "gimp"
 )
-install_all apps
 
 vm=(
     "virtualbox-host-modules-arch"
     "virtualbox"
     "virtualbox-guest-iso"
 )
-install vm
 
 programming=(
     "npm"
     "python-pip"
     "gcc"
 )
-install_all programming
 
+packages=(
+    ${terminal[@]}
+    ${cli_tools[@]}
+    ${editor[@]}
+    ${fonts[@]}
+    ${window[@]}
+    ${apps[@]}
+    ${vm[@]}
+    ${programming[@]}
+)
+yay -S --noconfirm --needed --noprovides --cleanafter --nodiffmenu ${packages[@]}
+
+# Change shell
+chsh
 
 # Setup doom-emacs
 if [ ! -d "$HOME/.config/emacs" ]; then
