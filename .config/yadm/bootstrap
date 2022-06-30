@@ -1,14 +1,9 @@
 #!/bin/sh
+# Bootstrapping script for arch linux installed with the archinstall script using kde-plasma as DE and X11 windows.
+# Install kde and nvidia using archinstall.
+
 command_exists() {
     type "$1" &> /dev/null ;
-}
-
-dir_exists() {
- echo ""
-}
-
-package_exists() {
-    sudo pacman -Qm | grep -q $1
 }
 
 install() {
@@ -16,46 +11,94 @@ install() {
     yay -S --noconfirm --needed --noprovides --cleanafter --nodiffmenu $1
 }
 
-cd $HOME
+install_all() {
+    local -n arr=$1
+    for P in "${arr[@]}"
+    do
+        install $P
+    done
+}
 
+cd $HOME
 echo ">>> Updating submodules"
 yadm submodule update --recursive --init
 
+
+# Install yay
 if ! command_exists yay; then
     echo ">>> Installing yay"
     sudo pacman -S --noconfirm --needed git base-devel && git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si --noconfirm && cd $HOME && rm -rf yay-bin
 fi
-yay -Syu
-
-# Neovim and doomemacs
-install neovim
-install xclip
-
-install emacs
-install ripgrep
-install fd
-git clone https://github.com/hlissner/doom-emacs ~/.config/emacs
-~/.config/emacs/bin/doom install
-
-install nerd-fonts-source-code-pro
+yay -Syu --noconfirm
 
 
-# Other
-for P in xorg kitty phonon-qt5-vlc brave-bin github-cli bitwarden pcloud-drive zsh discord 
-do
-    install $P
-done
+# Install packages
+terminal=(
+    "kitty"
+    "zsh"
+    "antigen"
+)
+install_all terminal
 
-DEPS="unzip"
+cli_tools=(
+    "ripgrep"
+    "fd"
+    "xclip"
+    "github-cli"
+)
+install_all cli_tools
 
-if [ ! -d "$HOME/.oh-my-zsh/" ]; then
-    echo "Installing oh-my-zsh"
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --keep-zshrc
-    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+editor=(
+    "neovim"
+    "emacs"
+)
+install_all editor
+
+fonts=(
+    "nerd-fonts-source-code-pro"
+)
+install_all fonts
+
+window=(
+    "xorg"
+)
+install_all window
+
+apps=(
+    "phonon-qt5-vlc"
+    "bitwarden"
+    "pcloud-drive"
+    "discord"
+    "gimp"
+)
+install_all apps
+
+vm=(
+    "virtualbox-host-modules-arch"
+    "virtualbox"
+    "virtualbox-guest-iso"
+)
+install vm
+
+programming=(
+    "npm"
+    "python-pip"
+    "gcc"
+)
+install_all programming
+
+
+# Setup doom-emacs
+if [ ! -d "$HOME/.config/emacs" ]; then
+    git clone https://github.com/hlissner/doom-emacs ~/.config/emacs
+    ~/.config/emacs/bin/doom install
 fi
 
+# Setup VirtualBox
+sudo modprobe vboxdrv
+sudo usermod -aG vboxusers $USER
 
+# Kinto
 #
 # echo "Installing kinto"
 # # /bin/bash -c "$(wget -qO- https://raw.githubusercontent.com/rbreaves/kinto/HEAD/install/linux.sh || curl -fsSL https://raw.githubusercontent.com/rbreaves/kinto/HEAD/install/linux.sh)"

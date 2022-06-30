@@ -1,0 +1,86 @@
+#!/bin/sh
+command_exists() {
+    type "$1" &> /dev/null ;
+}
+
+dir_exists() {
+ echo ""
+}
+
+package_exists() {
+    sudo pacman -Qm | grep -q $1
+}
+
+install() {
+    echo ">>> Installing $1"
+    yay -S --noconfirm --needed --noprovides --cleanafter --nodiffmenu $1
+}
+
+
+cd $HOME
+echo ">>> Updating submodules"
+yadm submodule update --recursive --init
+
+
+if ! command_exists yay; then
+    echo ">>> Installing yay"
+    sudo pacman -S --noconfirm --needed git base-devel && git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si --noconfirm && cd $HOME && rm -rf yay-bin
+fi
+yay -Syu
+
+
+# Neovim
+for P in neovim xclip
+do
+    install $P
+done
+
+
+# Doomemacs
+for P in emacs ripgrep fd
+do 
+    install $P
+done
+git clone https://github.com/hlissner/doom-emacs ~/.config/emacs
+~/.config/emacs/bin/doom install
+
+
+# Fonts
+for F in nerd-fonts-source-code-pro
+do
+    install $F
+done
+
+
+# Window and desktop stuff
+for P in xorg
+do
+    install $P
+done
+
+
+# Programming
+for P in npm
+do 
+    install $P
+done
+
+# Other
+for P in kitty phonon-qt5-vlc brave-bin github-cli bitwarden pcloud-drive zsh discord 
+do
+    install $P
+done
+
+DEPS="unzip"
+
+if [ ! -d "$HOME/.oh-my-zsh/" ]; then
+    echo "Installing oh-my-zsh"
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --keep-zshrc
+    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+fi
+
+
+#
+# echo "Installing kinto"
+# # /bin/bash -c "$(wget -qO- https://raw.githubusercontent.com/rbreaves/kinto/HEAD/install/linux.sh || curl -fsSL https://raw.githubusercontent.com/rbreaves/kinto/HEAD/install/linux.sh)"

@@ -133,6 +133,8 @@ return packer.startup(function(use)
   use "goolord/alpha-nvim"
   if not PACKER_BOOTSTRAP then require "plugins.alpha" end
 
+  use "ur4ltz/surround.nvim"
+  if not PACKER_BOOTSTRAP then require "plugins.surround" end
 
   -- -- Language specific plugins
   -- Rust
