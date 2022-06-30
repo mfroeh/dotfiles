@@ -47,6 +47,7 @@ apps=(
     "bitwarden"
     "discord"
     "gimp"
+    "phonon-qt5-vlc"
 )
 
 vm=(
@@ -69,17 +70,15 @@ packages=(
     ${programming[@]}
 )
 
-pacman -Syyu ${packages[@]}
-
 aur_packages=(
     "nerd-fonts-source-code-pro"
     "github-cli"
     "antigen-git"
     "brave-bin"
-    "vlc-git"
     "pcloud-drive"
 )
 
+yay -S --noconfirm --needed --noprovides --cleanafter --nodiffmenu ${packages[@]}
 yay -S --noconfirm --needed --noprovides --cleanafter --nodiffmenu ${aur_packages[@]}
 
 # Enable services
@@ -89,10 +88,10 @@ sudo systemctl enable sddm
 chsh
 
 # Setup doom-emacs
-if [ ! -d "$HOME/.config/emacs" ]; then
-    git clone https://github.com/hlissner/doom-emacs ~/.config/emacs
-    ~/.config/emacs/bin/doom install
-fi
+# if [ ! -d "$HOME/.config/emacs" ]; then
+#     git clone https://github.com/hlissner/doom-emacs ~/.config/emacs
+#     ~/.config/emacs/bin/doom install
+# fi
 
 # Setup VirtualBox
 sudo modprobe vboxdrv
