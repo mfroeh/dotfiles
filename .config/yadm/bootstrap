@@ -20,32 +20,17 @@ if ! command_exists yay; then
 fi
 yay -Syu --noconfirm
 
-
-# Install packages
-terminal=(
+base=(
     "kitty"
     "zsh"
-    "antigen"
-)
-
-cli_tools=(
-    "ripgrep"
-    "fd"
-    "xclip"
-    "github-cli"
-)
-
-editor=(
     "neovim"
     "emacs"
-)
-
-fonts=(
-    "nerd-fonts-source-code-pro"
+    "xclip"
+    "ripgrep"
+    "fd"
 )
 
 window=(
-    "lib32-mesa" # This package is required by Steam if you play games using Vulkan Backend.
     "alsa-utils"
     "xorg"
     "nvidia"
@@ -59,12 +44,9 @@ window=(
 )
 
 apps=(
-    "phonon-qt5-vlc"
     "bitwarden"
-    "pcloud-drive"
     "discord"
     "gimp"
-    "brave-bin"
 )
 
 vm=(
@@ -75,21 +57,30 @@ vm=(
 
 programming=(
     "npm"
-    # "python-pip"
     "gcc"
+    # "python-pip"
 )
 
 packages=(
-    ${terminal[@]}
-    ${cli_tools[@]}
-    ${editor[@]}
-    ${fonts[@]}
-    ${window[@]}
+    ${base[@]}
     ${apps[@]}
+    ${window[@]}
     ${vm[@]}
     ${programming[@]}
 )
-yay -S --noconfirm --needed --noprovides --cleanafter --nodiffmenu ${packages[@]}
+
+pacman -Syyu ${packages[@]}
+
+aur_packages=(
+    "nerd-fonts-source-code-pro"
+    "github-cli"
+    "antigen-git"
+    "brave-bin"
+    "vlc-git"
+    "pcloud-drive"
+)
+
+yay -S --noconfirm --needed --noprovides --cleanafter --nodiffmenu ${aur_packages[@]}
 
 # Enable services
 sudo systemctl enable sddm
