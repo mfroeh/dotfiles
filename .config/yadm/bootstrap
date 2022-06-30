@@ -1,5 +1,5 @@
 #!/bin/sh
-# Requirements: yadm installed, user added to wheel group and networkmanager installed and enabled.
+# Requirements: yadm installed, user added to wheel group and NetworkManager installed and enabled.
 #
 # https:⁄⁄github.com⁄XxAcielxX⁄arch-plasma-install#login-as-user
 # http:⁄⁄tim.theenchanter.com⁄
@@ -31,8 +31,9 @@ base=(
 )
 
 window=(
-    "alsa-utils"
+    # "alsa-utils"
     "xorg"
+    "xorg-server"
     "nvidia"
     "nvidia-utils"
     "nvidia-settings"
@@ -59,7 +60,7 @@ vm=(
 programming=(
     "npm"
     "gcc"
-    # "python-pip"
+    "python-pip"
 )
 
 packages=(
@@ -72,6 +73,7 @@ packages=(
 
 aur_packages=(
     "nerd-fonts-source-code-pro"
+    "nerd-fonts-jetbrains-mono"
     "github-cli"
     "antigen-git"
     "brave-bin"
@@ -87,17 +89,12 @@ sudo systemctl enable sddm
 # Change shell
 chsh
 
-# Setup doom-emacs
-# if [ ! -d "$HOME/.config/emacs" ]; then
-#     git clone https://github.com/hlissner/doom-emacs ~/.config/emacs
-#     ~/.config/emacs/bin/doom install
-# fi
+Setup doom-emacs
+if [ ! -d "$HOME/.config/emacs" ]; then
+    git clone https://github.com/hlissner/doom-emacs ~/.config/emacs
+    ~/.config/emacs/bin/doom install
+fi
 
 # Setup VirtualBox
 sudo modprobe vboxdrv
 sudo usermod -aG vboxusers $USER
-
-# Kinto
-#
-# echo "Installing kinto"
-# # /bin/bash -c "$(wget -qO- https://raw.githubusercontent.com/rbreaves/kinto/HEAD/install/linux.sh || curl -fsSL https://raw.githubusercontent.com/rbreaves/kinto/HEAD/install/linux.sh)"
