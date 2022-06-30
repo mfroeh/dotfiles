@@ -33,15 +33,12 @@ base=(
 window=(
     # "alsa-utils"
     "xorg"
-    "xorg-server"
     "nvidia"
     "nvidia-utils"
     "nvidia-settings"
     "sddm"
     "plasma"
-    "dolphin"
-    "ark"
-    "partitionmanager"
+    "kde-applications"
 )
 
 apps=(
