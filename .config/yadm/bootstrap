@@ -1,6 +1,8 @@
 #!/bin/sh
-# Bootstrapping script for arch linux installed with the archinstall script using kde-plasma as DE and X11 windows.
-# Install kde and nvidia using archinstall.
+# Requirements: yadm installed, user added to wheel group and networkmanager installed and enabled.
+#
+# https:⁄⁄github.com⁄XxAcielxX⁄arch-plasma-install#login-as-user
+# http:⁄⁄tim.theenchanter.com⁄
 
 command_exists() {
     type "$1" &> /dev/null ;
@@ -43,7 +45,17 @@ fonts=(
 )
 
 window=(
+    "lib32-mesa" # This package is required by Steam if you play games using Vulkan Backend.
+    "alsa-utils"
     "xorg"
+    "nvidia"
+    "nvidia-utils"
+    "nvidia-settings"
+    "sddm"
+    "plasma"
+    "dolphin"
+    "ark"
+    "partitionmanager"
 )
 
 apps=(
@@ -52,6 +64,7 @@ apps=(
     "pcloud-drive"
     "discord"
     "gimp"
+    "brave-bin"
 )
 
 vm=(
@@ -62,7 +75,7 @@ vm=(
 
 programming=(
     "npm"
-    "python-pip"
+    # "python-pip"
     "gcc"
 )
 
@@ -77,6 +90,9 @@ packages=(
     ${programming[@]}
 )
 yay -S --noconfirm --needed --noprovides --cleanafter --nodiffmenu ${packages[@]}
+
+# Enable services
+sudo systemctl enable sddm
 
 # Change shell
 chsh
