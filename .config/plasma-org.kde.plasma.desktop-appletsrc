@@ -27,7 +27,7 @@ ToolBoxButtonY=30
 sortMode=-1
 
 [Containments][1][Wallpaper][org.kde.image][General]
-Image=/home/mo/pCloudDrive/Pictures/Wallpapers/Mirroring.png
+Image=/home/mo/Pictures/Wallpapers/Mirroring.png
 SlidePaths=/usr/share/wallpapers
 
 [Containments][2]
@@ -50,7 +50,7 @@ ToolBoxButtonState=topcenter
 ToolBoxButtonX=466
 
 [Containments][2][Wallpaper][org.kde.image][General]
-Image=file:///home/mo/pCloudDrive/Pictures/Wallpapers/Mirroring.png
+Image=/home/mo/Pictures/Wallpapers/Mirroring.png
 SlidePaths=/usr/share/wallpapers
 
 [Containments][3]
@@ -85,6 +85,7 @@ DialogHeight=540
 DialogWidth=720
 
 [Containments][3][Applets][30][Configuration][General]
+launchers=
 showOnlyCurrentScreen=true
 
 [Containments][3][Applets][5]
@@ -161,9 +162,6 @@ plugin=org.kde.plasma.keyboardlayout
 [Containments][9][Applets][17][Configuration][ConfigDialog]
 DialogHeight=540
 DialogWidth=720
-
-[Containments][9][Applets][17][Configuration][General]
-showFlag=true
 
 [Containments][9][Applets][18]
 immutability=1
