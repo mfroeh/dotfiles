@@ -77,7 +77,10 @@
  projectile-project-search-path '("~/dev/"))
 
 
-;; (setq doom-leader-key ",")
-;; (setq doom-localleader-key ",")
+(setq
+ doom-leader-key ","
+ doom-localleader-key ","
+)
+
 (modify-syntax-entry ?_ "w")
 (modify-syntax-entry ?- "w")
