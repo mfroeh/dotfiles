@@ -28,6 +28,7 @@ base=(
     "xclip"
     "ripgrep"
     "fd"
+    "neofetch"
 )
 
 window=(
@@ -39,6 +40,7 @@ window=(
     "sddm"
     "plasma"
     "kde-applications"
+    "onboard"
 )
 
 apps=(
@@ -95,3 +97,5 @@ fi
 # Setup VirtualBox
 sudo modprobe vboxdrv
 sudo usermod -aG vboxusers $USER
+
+cd $HOME && rm -rf .bash*
