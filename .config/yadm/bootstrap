@@ -23,8 +23,9 @@ yay -Syu --noconfirm
 base=(
     "kitty"
     "zsh"
+    "gitstatus"
     "neovim"
-    "emacs"
+    "emacs-nativecomp"
     "xclip"
     "ripgrep"
     "fd"
@@ -48,6 +49,7 @@ apps=(
     "discord"
     "gimp"
     "phonon-qt5-vlc"
+    "spotify-adblock"
 )
 
 vm=(
@@ -59,7 +61,23 @@ vm=(
 programming=(
     "npm"
     "gcc"
+    "cmake"
     "python-pip"
+    "shellcheck"
+    # csharp
+    "mono"
+    "omnisharp-roslyn-bin"
+)
+
+writing=(
+    "texlive-most"
+    "zathura"
+)
+
+banking=(
+    "gnucash"
+    "gnucash-docs"
+    "perl-finance-quote"
 )
 
 packages=(
@@ -68,6 +86,8 @@ packages=(
     ${window[@]}
     ${vm[@]}
     ${programming[@]}
+    ${writing[@]}
+    ${banking[@]}
 )
 
 aur_packages=(
