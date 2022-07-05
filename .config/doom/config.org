@@ -1,1 +1,101 @@
-#+title: Config
+#+title: My Doom Emacs config
+#+author: mfroeh
+* General settings
+This section contains package independant settings.
+Eventhought I'm using =,= as my leader key, I will use =SPC= to refer to the leader key in the documenting text of this configuration.
+Make sure to use =SPC h r r= or =M-x doom/reload= to apply changes made to any of the configuration files.
+Use =K= with the cursor on top of a symbol to open up documentation on it.
+If thats not enough and you want to jump directly to the source use =g d=.
+Use =SPC h v= to get information on any variable.
+
+** User information
+Might set username and email if I use mail clients in emacs in the future.
+
+** Font
+You can use =SPC h v doom-font= to find out more about how to set fonts.
+'M-x describe-font' to look up the correct font name and =M-x doom/reload-font= to reload dooms font.
+#+begin_src emacs-lisp
+(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 16)
+      doom-variable-pitch-font (font-spec :family "JetBrainsMono Nerd Font"))
+#+end_src
+
+** Doom theme
+Themes may also be loaded using =M-x load-theme=.
+#+begin_src emacs-lisp
+(setq doom-theme 'doom-spacegrey)
+#+end_src
+
+** Keymappings
+Use =command= as the =M= meta key and =option= or =alt= as the =s= super key on both linux and macos.
+#+begin_src emacs-lisp
+(cond (IS-LINUX
+       (setq x-meta-keysym 'super
+             x-super-keysym 'meta)))
+
+(cond (IS-MAC
+       (setq mac-command-key 'meta
+             mac-option-key 'super)))
+#+end_src
+
+** Keybindings
+Use =,= as the leader and the localleader key over =SPC=.
+#+begin_src emacs-lisp
+(setq doom-leader-key ","
+      doom-localleader-key ",")
+#+end_src
+
+** Misc
+Use relative line numbers.
+#+begin_src emacs-lisp
+(setq display-line-numbers-type 'relative)
+#+end_src
+
+Tabs will be converted to 2 by default spaces.
+#+begin_src emacs-lisp
+(setq-default indent-tabs-mode nil
+              tab-width 2)
+#+end_src
+
+Pick which file or buffer to open in a new split and focus the new window.
+#+begin_src emacs-lisp
+(setq evil-vsplit-window-right t
+      evil-split-window-below t)
+(defadvice! prompt-for-buffer (&rest _)
+  :after '(evil-window-split evil-window-vsplit)
+  (consult-buffer))
+#+end_src
+
+* Package settings
+This section contains settings specific to the various installed packages.
+To add a new package, first check if it is already in [[./init.el][init.el]].
+If it is, just uncomment it. Otherwise add it to [[./packages.el][packages.el]].
+
+** Org-mode
+Set directory to store org files.
+#+begin_src emacs-lisp
+(setq org-directory "~/org/")
+#+end_src
+
+** Aggresive-indent
+Enforces perfect indention on the first level.
+I have it globally enabled.
+#+begin_src emacs-lisp
+(global-aggressive-indent-mode t)
+#+end_src
+
+** Doom-modeline
+Use orange text instead of red text in the modeline when the buffer is modified.
+#+begin_src emacs-lisp
+(custom-set-faces!
+  '(doom-modeline-buffer-modified :foreground "orange"))
+#+end_src
+
+* Language settings
+Individual settings for specific language modes.
+
+** Emacs lisp
+#+begin_src emacs-lisp
+(add-hook 'emacs-lisp-mode-hook'
+          (lambda ()
+            (setq tab-width 2)))
+#+end_src
