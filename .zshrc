@@ -1,4 +1,4 @@
-export PATH="$HOME/.config/emacs/bin:$PATH"
+export PATH="$HOME/.emacs.d/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 
 alias vi=nvim
@@ -10,7 +10,7 @@ git_status() {
   echo '%F{blue}%F '$GITSTATUS_PROMPT''
 }
 
-PROMPT='%F{214}%B%n%b%F %F{white}in%F %F{blue}%B%~%b%F %F{white}%F%F{214}%Bﬦ%b%F ' #
+PROMPT='%F{214}%B%n%b%F%F{white}%F%F{214}%B%m%b%F %F{white}in%F %F{blue}%B%~%b%F %F{white}%F%F{214}%Bﬦ%b%F ' #::
 RPROMPT='$(git_status)'
 
 source /usr/share/zsh/share/antigen.zsh
