@@ -1,2 +1,4 @@
 .config/doom/config.el
 .config/doom/custom.el
+
+.config/nvim/plugin/

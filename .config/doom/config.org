@@ -1,5 +1,15 @@
 #+title: My Doom Emacs config
 #+author: mfroeh
+* Helper Functions
+This section defines some helper functions to be used for configuration.
+
+NOTE: This is not needed, as doom automatically sets =evil-shift-width= to =tab-width= on a major mode change.
+#+begin_src emacs-lisp
+(defun set-tab-width (width)
+  (setq tab-width width)
+  (setq evil-shift-width width))
+#+end_src
+
 * General settings
 This section contains package independant settings.
 Eventhought I'm using =,= as my leader key, I will use =SPC= to refer to the leader key in the documenting text of this configuration.
@@ -22,7 +32,7 @@ You can use =SPC h v doom-font= to find out more about how to set fonts.
 ** Doom theme
 Themes may also be loaded using =M-x load-theme=.
 #+begin_src emacs-lisp
-(setq doom-theme 'doom-spacegrey)
+(setq doom-theme 'doom-snazzy)
 #+end_src
 
 ** Keymappings
@@ -50,7 +60,13 @@ Use relative line numbers.
 (setq display-line-numbers-type 'relative)
 #+end_src
 
-Tabs will be converted to 2 by default spaces.
+Treat underscores as word delimiters to have this =be_one_word=.
+#+begin_src emacs-lisp
+(modify-syntax-entry ?_ "w")
+#+end_src
+
+Use two spaces for indention by default.
+This setting is overriden for languages later on in the config.
 #+begin_src emacs-lisp
 (setq-default indent-tabs-mode nil
               tab-width 2)
@@ -65,6 +81,11 @@ Pick which file or buffer to open in a new split and focus the new window.
   (consult-buffer))
 #+end_src
 
+Different splash screen.
+#+begin_src emacs-lisp
+(setq fancy-splash-image "~/.config/doom/misc/splash-images/blackhole-lines.png")
+#+end_src
+
 * Package settings
 This section contains settings specific to the various installed packages.
 To add a new package, first check if it is already in [[./init.el][init.el]].
@@ -76,11 +97,16 @@ Set directory to store org files.
 (setq org-directory "~/org/")
 #+end_src
 
+** Projectile
+#+begin_src emacs-lisp
+(setq projectile-project-search-path '("~/dev/"))
+#+end_src
+
 ** Aggresive-indent
 Enforces perfect indention on the first level.
 I have it globally enabled.
 #+begin_src emacs-lisp
-(global-aggressive-indent-mode t)
+;; (global-aggressive-indent-mode t)
 #+end_src
 
 ** Doom-modeline
@@ -90,12 +116,38 @@ Use orange text instead of red text in the modeline when the buffer is modified.
   '(doom-modeline-buffer-modified :foreground "orange"))
 #+end_src
 
+** Format
+Disable formatting with =textDocument/formatting= by default.
+Instead define formatting behaviour through hooks for specific languages for more control.
+#+begin_src emacs-lisp
+(setq +format-with-lsp nil)
+#+end_src
+
 * Language settings
 Individual settings for specific language modes.
 
 ** Emacs lisp
 #+begin_src emacs-lisp
-(add-hook 'emacs-lisp-mode-hook'
+(add-hook 'emacs-lisp-mode-hook
           (lambda ()
             (setq tab-width 2)))
+#+end_src
+
+** Rust
+Format rust buffers on save.
+#+begin_src emacs-lisp
+(add-hook 'rust-mode-hook
+          (lambda ()
+            (setq tab-width 4)
+            (add-hook 'before-save-hook 'format-all-buffer)))
+#+end_src
+
+** Python
+Format python buffers on save and run =py-isort-buffer= before.
+#+begin_src emacs-lisp
+(add-hook 'python-mode-hook
+          (lambda ()
+            (setq tab-width 4)
+            (add-hook 'before-save-hook 'py-isort-buffer)
+            (add-hook 'before-save-hook 'format-all-buffer)))
 #+end_src
