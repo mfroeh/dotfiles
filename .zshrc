@@ -1,7 +1,6 @@
 export PATH="$HOME/.emacs.d/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="$HOME/dev/sol/target/debug:$PATH"
 
 alias vi=nvim
 
