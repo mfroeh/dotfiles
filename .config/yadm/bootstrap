@@ -3,9 +3,6 @@
 
 cd $HOME
 
-# Remove bash dotfiles
-rm -rf .bash*
-
 # Install essential packages
 sudo pacman -S git neovim xclip kitty --noconfirm
 
@@ -38,6 +35,9 @@ yay -S brave-bin bitwarden --noconfirm
 sudo pacman -S emacs-nativecomp ripgrep fd
 git clone https://github.com/hlissner/doom-emacs ~/.emacs.d
 # doom install
+
+# Remove bash dotfiles
+rm -rf .bash*
 
 # Fun stuff
 sudo pacman -S neofetch
