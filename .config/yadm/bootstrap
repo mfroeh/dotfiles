@@ -7,18 +7,19 @@ cd $HOME
 rm -rf .bash*
 
 # Install essential packages
-sudo pacman -S base-devel git neovim --noconfirm
+sudo pacman -S git neovim xclip kitty --noconfirm
 
 # Install and enable SDDM
 sudo pacman -S sddm --noconfirm
 sudo systemctl enable sddm
 
 # Install plasma and applications
+sudo pacman -S nvidia nvidia-settings
 sudo pacman -S plasma-desktop --nonconfirm
 sudo pacman -S dolphin --nonconfirm
-sudo pacman -S kitty --noconfirm
 
-# Change shell to zsh
+# Use zsh over bash
+sudo pacman -S zsh --noconfirm
 sudo chsh --shell /bin/zsh $USER
 
 # Pull submodules
@@ -26,3 +27,17 @@ yadm submodule update --recursive --init
 
 # Install yay
 git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si --noconfirm && cd .. && rm -rf yay-bin
+
+# Useful stuff
+sudo pacman -S github-cli bitwarden --noconfirm
+
+# Browser
+yay -S brave-bin bitwarden --noconfirm
+
+# Doom Emacs
+sudo pacman -S emacs-nativecomp ripgrep fd
+git clone https://github.com/hlissner/doom-emacs ~/.emacs.d
+doom install
+
+# Fun stuff
+sudo pacman -S neofetch
