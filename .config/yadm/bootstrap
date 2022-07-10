@@ -1,3 +1,4 @@
+#!bin/sh
 # Requirements: $USER has sudo rights and NetworkManager service is enabled
 
 # Update submodules
@@ -10,21 +11,21 @@ if ! command_exists yay; then
 fi
 
 # Essentials
-sudo pacman -S base-devel git zsh xclip ripgrep fd man-db man-pages --no-confirm
-sudo pacman -S kitty neovim emacs-nativecomp --no-confirm
+sudo pacman -S base-devel git zsh xclip ripgrep fd man-db man-pages --noconfirm
+sudo pacman -S kitty neovim emacs-nativecomp --noconfirm
 
 # Graphical interface
-sudo pacman -S xorg xorg-xinit bspwm sxhkd nvidia --no-confirm
-sudo pacman -S rofi nitrogen picom --no-confirm
+sudo pacman -S xorg xorg-xinit bspwm sxhkd nvidia --noconfirm
+sudo pacman -S rofi nitrogen picom --noconfirm
 
 # Stuff
-yay -S neofetch antigen github-cli --no-confirm
+yay -S neofetch antigen github-cli --noconfirm
 
 # Graphical Applications
-yay -S brave-bin gimp gnucash --no-confirm
+yay -S brave-bin gimp gnucash --noconfirm
 
 # Fonts
-yay -S nerd-fonts-jetbrains-mono --no-confirm
+yay -S nerd-fonts-jetbrains-mono --noconfirm
 
 chsh --shell /bin/zsh $USER
 
