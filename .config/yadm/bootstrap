@@ -10,11 +10,11 @@ yadm submodule update --recursive --init
 sudo pacman -S base-devel git --noconfirm && git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si --noconfirm && cd .. && rm -rf yay-bin
 
 # Terminal emulator, shell and vim
-yay -S kitty neovim xclip zsh antigen
+yay -S kitty neovim xclip zsh antigen --noconfirm
 sudo chsh --shell /bin/zsh $USER
 
 # Texteditor
-sudo pacman -S emacs-nativecomp ripgrep fd
+sudo pacman -S emacs-nativecomp ripgrep fd --noconfirm
 git clone https://github.com/hlissner/doom-emacs ~/.emacs.d
 # doom install
 
@@ -23,12 +23,12 @@ sudo pacman -S sddm --noconfirm
 sudo systemctl enable sddm
 
 # Install plasma and applications
-sudo pacman -S nvidia nvidia-settings
+sudo pacman -S nvidia nvidia-settings --noconfirm
 sudo pacman -S plasma-desktop --nonconfirm
 yay -S dolphin brave-bin bitwarden --nonconfirm
 
 # Other
-yay -S neofetch github-cli
+yay -S neofetch github-cli --noconfirm
 
 # Remove bash dotfiles, the last .bash_history has to be removed manually
 rm -rf .bash*
