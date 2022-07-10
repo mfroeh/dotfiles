@@ -37,7 +37,7 @@ yay -S brave-bin bitwarden --noconfirm
 # Doom Emacs
 sudo pacman -S emacs-nativecomp ripgrep fd
 git clone https://github.com/hlissner/doom-emacs ~/.emacs.d
-doom install
+# doom install
 
 # Fun stuff
 sudo pacman -S neofetch
