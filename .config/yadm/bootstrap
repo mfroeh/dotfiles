@@ -3,8 +3,20 @@
 
 cd $HOME
 
-# Install essential packages
-sudo pacman -S git neovim xclip kitty --noconfirm
+# Pull submodules
+yadm submodule update --recursive --init
+
+# Install yay
+sudo pacman -S base-devel git --noconfirm && git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si --noconfirm && cd .. && rm -rf yay-bin
+
+# Terminal emulator, shell and vim
+yay -S kitty neovim xclip zsh antigen
+sudo chsh --shell /bin/zsh $USER
+
+# Texteditor
+sudo pacman -S emacs-nativecomp ripgrep fd
+git clone https://github.com/hlissner/doom-emacs ~/.emacs.d
+# doom install
 
 # Install and enable SDDM
 sudo pacman -S sddm --noconfirm
@@ -13,31 +25,10 @@ sudo systemctl enable sddm
 # Install plasma and applications
 sudo pacman -S nvidia nvidia-settings
 sudo pacman -S plasma-desktop --nonconfirm
-sudo pacman -S dolphin --nonconfirm
+yay -S dolphin brave-bin bitwarden --nonconfirm
 
-# Use zsh over bash
-sudo pacman -S zsh --noconfirm
-sudo chsh --shell /bin/zsh $USER
+# Other
+yay -S neofetch github-cli
 
-# Pull submodules
-yadm submodule update --recursive --init
-
-# Install yay
-git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si --noconfirm && cd .. && rm -rf yay-bin
-
-# Useful stuff
-sudo pacman -S github-cli bitwarden --noconfirm
-
-# Browser
-yay -S brave-bin bitwarden --noconfirm
-
-# Doom Emacs
-sudo pacman -S emacs-nativecomp ripgrep fd
-git clone https://github.com/hlissner/doom-emacs ~/.emacs.d
-# doom install
-
-# Remove bash dotfiles
+# Remove bash dotfiles, the last .bash_history has to be removed manually
 rm -rf .bash*
-
-# Fun stuff
-sudo pacman -S neofetch
