@@ -16,7 +16,7 @@ sudo pacman -S kitty neovim emacs-nativecomp --noconfirm
 
 # Graphical interface
 sudo pacman -S xorg xorg-xinit bspwm sxhkd nvidia --noconfirm
-sudo pacman -S rofi nitrogen picom --noconfirm
+sudo pacman -S rofi feh picom --noconfirm
 
 # Stuff
 yay -S neofetch antigen github-cli --noconfirm
