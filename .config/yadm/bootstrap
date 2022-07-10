@@ -1,17 +1,10 @@
 #!/bin/sh
-# Requirements: yadm installed, user added to wheel group and NetworkManager installed and enabled.
-#
-# https:⁄⁄github.com⁄XxAcielxX⁄arch-plasma-install#login-as-user
-# http:⁄⁄tim.theenchanter.com⁄
+# Requirements: $USER added to wheel group and NetworkManager.service enabled.
 
-command_exists() {
-    type "$1" &> /dev/null ;
-}
-
+# Pull submodules
 cd $HOME
 echo ">>> Updating submodules"
 yadm submodule update --recursive --init
-
 
 # Install yay
 if ! command_exists yay; then
@@ -23,7 +16,6 @@ yay -Syu --noconfirm
 base=(
     "kitty"
     "zsh"
-    "gitstatus"
     "neovim"
     "emacs-nativecomp"
     "xclip"
@@ -33,7 +25,6 @@ base=(
 )
 
 window=(
-    # "alsa-utils"
     "xorg"
     "nvidia"
     "nvidia-utils"
@@ -64,14 +55,13 @@ programming=(
     "cmake"
     "python-pip"
     "shellcheck"
-    # csharp
     "mono"
-    "omnisharp-roslyn-bin"
 )
 
 writing=(
     "texlive-most"
     "zathura"
+    "texlab"
 )
 
 banking=(
@@ -92,6 +82,7 @@ packages=(
 
 aur_packages=(
     "nerd-fonts-source-code-pro"
+    "nerd-fonts-overpass"
     "nerd-fonts-jetbrains-mono"
     "github-cli"
     "antigen-git"
@@ -99,6 +90,7 @@ aur_packages=(
     "pcloud-drive"
 )
 
+# Install packages
 yay -S --noconfirm --needed --noprovides --cleanafter --nodiffmenu ${packages[@]}
 yay -S --noconfirm --needed --noprovides --cleanafter --nodiffmenu ${aur_packages[@]}
 
@@ -108,14 +100,20 @@ sudo systemctl enable sddm
 # Change shell
 chsh
 
-Setup doom-emacs
-if [ ! -d "$HOME/.config/emacs" ]; then
-    git clone https://github.com/hlissner/doom-emacs ~/.config/emacs
-    ~/.config/emacs/bin/doom install
-fi
+# Setup Doom Emacs
+git clone https://github.com/hlissner/doom-emacs ~/.emacs.d
+emacs --batch --eval "(progn (require 'org) (setq org-confirm-babel-evaluate nil) (org-babel-tangle-file \"~/.config/doom/config.org\"))"
+doom install
 
 # Setup VirtualBox
 sudo modprobe vboxdrv
 sudo usermod -aG vboxusers $USER
 
+# Remove unnecessary dotfiles
 cd $HOME && rm -rf .bash*
+
+# Install npm modules
+sudo npm install -g n
+
+# Setup latex
+cd $HOME && mkdir texmf && cd texmf && git clone https://github.com/tecosaur/BMC.git && texhash && sudo updmap-sys --enable Map=fontawesome5.map && cd $HOME
