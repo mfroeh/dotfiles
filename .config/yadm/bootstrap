@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Requirements: $USER added to wheel group and NetworkManager.service enabled.
 
 cd $HOME
@@ -24,7 +24,7 @@ sudo systemctl enable sddm
 
 # Install plasma and applications
 sudo pacman -S nvidia nvidia-settings --noconfirm
-sudo pacman -S plasma-desktop --noconfirm
+sudo pacman -S plasma --noconfirm
 yay -S dolphin brave-bin bitwarden --noconfirm
 
 # Other
