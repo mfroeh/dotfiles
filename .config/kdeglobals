@@ -136,6 +136,7 @@ ForegroundPositive=39,174,96
 ForegroundVisited=155,89,182
 
 [General]
+BrowserApplication=brave-browser.desktop
 ColorSchemeHash=dd1942b5e93c3bbb5d5263740caa393b95b49d23
 
 [WM]
