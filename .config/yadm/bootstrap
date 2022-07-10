@@ -25,7 +25,10 @@ sudo systemctl enable sddm
 # Install plasma and applications
 sudo pacman -S nvidia nvidia-settings --noconfirm
 sudo pacman -S plasma --noconfirm
-yay -S dolphin brave-bin bitwarden --noconfirm
+yay -S dolphin brave-bin bitwarden ark --noconfirm
+
+# Test out 
+yay -S kvantum latte-dock-git papirus-icon-theme --noconfirm
 
 # Other
 yay -S neofetch github-cli --noconfirm

@@ -8,3 +8,7 @@ OpenGLIsUnsafe=false
 Id_1=6dc5fbf0-e8da-45d3-b90b-a1099114b48c
 Number=1
 Rows=1
+
+[org.kde.kdecoration2]
+ButtonsOnLeft=
+ButtonsOnRight=IAX
