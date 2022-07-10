@@ -24,8 +24,8 @@ sudo systemctl enable sddm
 
 # Install plasma and applications
 sudo pacman -S nvidia nvidia-settings --noconfirm
-sudo pacman -S plasma-desktop --nonconfirm
-yay -S dolphin brave-bin bitwarden --nonconfirm
+sudo pacman -S plasma-desktop --noconfirm
+yay -S dolphin brave-bin bitwarden --noconfirm
 
 # Other
 yay -S neofetch github-cli --noconfirm
