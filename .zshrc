@@ -1,9 +1,3 @@
-export PATH="$HOME/.emacs.d/bin:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/.cargo/bin:$PATH"
-
-alias vi=nvim
-
 # PROMPT='%F{214}%B%n%b%F%F{white}%F%F{214}%B%m%b%F %F{white}in%F %F{blue}%B%~%b%F %F{white}%F%F{214}%Bﬦ%b%F ' #::
 
 source /usr/share/zsh/share/antigen.zsh
@@ -79,5 +73,19 @@ export SPACESHIP_RPROMPT_ORDER=(
 )
 
 antigen theme denysdovhan/spaceship-prompt
-
 antigen apply
+
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_STATE_HOME="$HOME/.local/state"
+
+export PATH="$HOME/.emacs.d/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
+
+alias vi=nvim
+
+if [[ -z "$DISPLAY" ]] && [[ $(tty) = /dev/tty1 ]]; then
+startx
+fi
