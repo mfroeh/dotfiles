@@ -1,121 +1,31 @@
-#!/bin/sh
-# Requirements: yadm installed, user added to wheel group and NetworkManager installed and enabled.
-#
-# https:⁄⁄github.com⁄XxAcielxX⁄arch-plasma-install#login-as-user
-# http:⁄⁄tim.theenchanter.com⁄
+# Requirements: $USER has sudo rights and NetworkManager service is enabled
 
-command_exists() {
-    type "$1" &> /dev/null ;
-}
-
-cd $HOME
-echo ">>> Updating submodules"
+# Update submodules
 yadm submodule update --recursive --init
-
 
 # Install yay
 if ! command_exists yay; then
     echo ">>> Installing yay"
     sudo pacman -S --noconfirm --needed git base-devel && git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si --noconfirm && cd $HOME && rm -rf yay-bin
 fi
-yay -Syu --noconfirm
 
-base=(
-    "kitty"
-    "zsh"
-    "gitstatus"
-    "neovim"
-    "emacs-nativecomp"
-    "xclip"
-    "ripgrep"
-    "fd"
-    "neofetch"
-)
+# Essentials
+sudo pacman -S base-devel git zsh xclip ripgrep fd man-db man-pages --no-confirm
+sudo pacman -S kitty neovim emacs-nativecomp --no-confirm
 
-window=(
-    # "alsa-utils"
-    "xorg"
-    "nvidia"
-    "nvidia-utils"
-    "nvidia-settings"
-    "sddm"
-    "plasma"
-    "kde-applications"
-    "onboard"
-)
+# Graphical interface
+sudo pacman -S xorg xorg-xinit bspwm sxhkd nvidia --no-confirm
+sudo pacman -S rofi nitrogen picom --no-confirm
 
-apps=(
-    "bitwarden"
-    "discord"
-    "gimp"
-    "phonon-qt5-vlc"
-    "spotify-adblock"
-)
+# Stuff
+yay -S neofetch antigen github-cli --no-confirm
 
-vm=(
-    "virtualbox-host-modules-arch"
-    "virtualbox"
-    "virtualbox-guest-iso"
-)
+# Graphical Applications
+yay -S brave-bin gimp gnucash --no-confirm
 
-programming=(
-    "npm"
-    "gcc"
-    "cmake"
-    "python-pip"
-    "shellcheck"
-    # csharp
-    "mono"
-    "omnisharp-roslyn-bin"
-)
+# Fonts
+yay -S nerd-fonts-jetbrains-mono --no-confirm
 
-writing=(
-    "texlive-most"
-    "zathura"
-)
+chsh --shell /bin/zsh $USER
 
-banking=(
-    "gnucash"
-    "gnucash-docs"
-    "perl-finance-quote"
-)
-
-packages=(
-    ${base[@]}
-    ${apps[@]}
-    ${window[@]}
-    ${vm[@]}
-    ${programming[@]}
-    ${writing[@]}
-    ${banking[@]}
-)
-
-aur_packages=(
-    "nerd-fonts-source-code-pro"
-    "nerd-fonts-jetbrains-mono"
-    "github-cli"
-    "antigen-git"
-    "brave-bin"
-    "pcloud-drive"
-)
-
-yay -S --noconfirm --needed --noprovides --cleanafter --nodiffmenu ${packages[@]}
-yay -S --noconfirm --needed --noprovides --cleanafter --nodiffmenu ${aur_packages[@]}
-
-# Enable services
-sudo systemctl enable sddm
-
-# Change shell
-chsh
-
-Setup doom-emacs
-if [ ! -d "$HOME/.config/emacs" ]; then
-    git clone https://github.com/hlissner/doom-emacs ~/.config/emacs
-    ~/.config/emacs/bin/doom install
-fi
-
-# Setup VirtualBox
-sudo modprobe vboxdrv
-sudo usermod -aG vboxusers $USER
-
-cd $HOME && rm -rf .bash*
+rm -rf .bash*
