@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Requirements: $USER added to wheel group and NetworkManager.service enabled.
 
 cd $HOME
