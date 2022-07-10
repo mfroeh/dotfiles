@@ -1,31 +1,28 @@
 #!/bin/sh
-# Install yay
-if ! command_exists yay; then
-    echo ">>> Installing yay"
-    sudo pacman -S --noconfirm --needed git base-devel && git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si --noconfirm && cd $HOME && rm -rf yay-bin
-fi
+# Requirements: $USER added to wheel group and NetworkManager.service enabled.
 
-# Essentials
-sudo pacman -S base-devel git zsh xclip ripgrep fd man-db man-pages --noconfirm
-sudo pacman -S kitty neovim emacs-nativecomp --noconfirm
+cd $HOME
 
-# Graphical interface
-sudo pacman -S xorg xorg-xinit bspwm sxhkd nvidia --noconfirm
-sudo pacman -S rofi feh picom polybar --noconfirm
-# yay -S lxappearance nordic-darker-theme
-
-# Sound
-sudo pacman -S pulseaudio alsa-utils pulseaudio-alsa pavucontrol
-
-# Stuff
-yay -S neofetch antigen github-cli --noconfirm
-
-# Graphical Applications
-yay -S brave-bin gimp gnucash thunar --noconfirm
-
-# Fonts
-yay -S nerd-fonts-jetbrains-mono ttf-all-the-icons --noconfirm
-
-chsh --shell /bin/zsh $USER
-
+# Remove bash dotfiles
 rm -rf .bash*
+
+# Install essential packages
+sudo pacman -S base-devel git neovim --noconfirm
+
+# Install and enable SDDM
+sudo pacman -S sddm --noconfirm
+sudo systemctl enable sddm
+
+# Install plasma and applications
+sudo pacman -S plasma-desktop --nonconfirm
+sudo pacman -S dolphin --nonconfirm
+sudo pacman -S kitty --noconfirm
+
+# Change shell to zsh
+sudo chsh --shell /bin/zsh $USER
+
+# Pull submodules
+yadm submodule update --recursive --init
+
+# Install yay
+git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si --noconfirm && cd .. && rm -rf yay-bin
