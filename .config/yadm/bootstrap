@@ -1,4 +1,4 @@
-#!bin/sh
+#!/bin/sh
 # Requirements: $USER has sudo rights and NetworkManager service is enabled
 
 # Update submodules
