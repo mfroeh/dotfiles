@@ -17,8 +17,9 @@ sudo chsh --shell /bin/zsh $USER
 
 # Texteditor
 sudo pacman -S emacs-nativecomp ripgrep fd --noconfirm
-git clone https://github.com/hlissner/doom-emacs ~/.emacs.d
-# doom install
+
+# IDE
+sudo pacman -S cmake npm python python-pip rust rust-analyzer --noconfirm
 
 # Install and enable SDDM
 sudo pacman -S sddm --noconfirm
@@ -36,8 +37,17 @@ yay -S layan-kde-git layan-gtk-theme-git kvantum-theme-layan-git --noconfirm
 # Other
 yay -S neofetch github-cli --noconfirm
 
+# Fonts
+yay -S nerd-fonts-jetbrains-mono --noconfirm
+
 # Remove bash dotfiles, the last .bash_history has to be removed manually
 rm -rf .bash*
+
+# Doom Emacs
+git clone https://github.com/hlissner/doom-emacs ~/.emacs.d
+# doom install && doom sync
+pip install black isort pyflakes
+sudo pacman -S shellcheck --noconfirm
 
 echo "After logging in for the first time do: "
 echo "1. cd '$HOME' && rm -rf .bash*"
