@@ -141,13 +141,14 @@ History Items[$e]=file:$HOME/Downloads/Layan
 
 [General]
 BrowserApplication=brave-browser.desktop
-ColorSchemeHash=625c32ae46f33771aca7694ab0deae5a44bbf41c
+ColorSchemeHash=dd1942b5e93c3bbb5d5263740caa393b95b49d23
 
 [Icons]
 Theme=Papirus-Dark
 
 [KDE]
 LookAndFeelPackage=com.github.vinceliuice.Layan
+widgetStyle=kvantum-dark
 
 [WM]
 activeBackground=54,56,62
