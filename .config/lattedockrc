@@ -26,6 +26,7 @@ isAvailableGeometryBroadcastedToPlasma=true
 launchers=
 memoryUsage=0
 metaPressAndHoldEnabled=true
+mouseSensitivity=2
 parabolicSpread=3
 parabolicThicknessMarginInfluence=1
 screenTrackerInterval=2500

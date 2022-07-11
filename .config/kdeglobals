@@ -141,7 +141,7 @@ History Items[$e]=file:$HOME/Downloads/Layan
 
 [General]
 BrowserApplication=brave-browser.desktop
-ColorSchemeHash=dd1942b5e93c3bbb5d5263740caa393b95b49d23
+ColorSchemeHash=625c32ae46f33771aca7694ab0deae5a44bbf41c
 
 [Icons]
 Theme=Papirus-Dark
