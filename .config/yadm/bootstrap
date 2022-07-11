@@ -51,7 +51,7 @@ rm -rf .bash*
 
 # Doom Emacs
 git clone https://github.com/hlissner/doom-emacs ~/.emacs.d
-# doom install && doom sync
+doom install && doom sync
 pip install black isort pyflakes
 sudo pacman -S shellcheck --noconfirm
 
