@@ -28,7 +28,7 @@ sudo systemctl enable sddm
 # Install plasma and applications
 sudo pacman -S nvidia nvidia-settings --noconfirm
 sudo pacman -S plasma --noconfirm
-yay -S dolphin brave-bin bitwarden ark libreoffice-still gimp discord --noconfirm
+yay -S dolphin brave-bin bitwarden ark libreoffice-fresh gimp discord --noconfirm
 sudo pacman -S gnucash gnucash-docs perl-finance-quote --noconfirm
 
 # Themeing
@@ -51,7 +51,7 @@ rm -rf .bash*
 
 # Doom Emacs
 git clone https://github.com/hlissner/doom-emacs ~/.emacs.d
-doom install && doom sync
+~/.emacs.d/bin/doom install && ~/.emacs.d/bin/doom sync
 pip install black isort pyflakes
 sudo pacman -S shellcheck --noconfirm
 
