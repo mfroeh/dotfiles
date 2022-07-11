@@ -147,6 +147,7 @@ ColorSchemeHash=625c32ae46f33771aca7694ab0deae5a44bbf41c
 Theme=Papirus-Dark
 
 [KDE]
+AnimationDurationFactor=0
 LookAndFeelPackage=com.github.vinceliuice.Layan
 widgetStyle=kvantum-dark
 

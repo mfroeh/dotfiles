@@ -4,6 +4,12 @@ thickness=44
 [PlasmaViews][Panel 2][Horizontal1024]
 thickness=44
 
+[PlasmaViews][Panel 3][Defaults]
+thickness=41
+
+[PlasmaViews][Panel 3][Horizontal2560]
+thickness=41
+
 [ScreenConnectors]
 0=DP-2
 1=DVI-D-0

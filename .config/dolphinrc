@@ -13,3 +13,6 @@ Virtual-1 Width 1024x768=449
 [MainWindow]
 MenuBar=Disabled
 ToolBarsMovable=Disabled
+
+[Search]
+Location=Everywhere
