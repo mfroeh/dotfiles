@@ -28,7 +28,7 @@ sudo pacman -S plasma --noconfirm
 yay -S dolphin brave-bin bitwarden ark --noconfirm
 
 # Test out 
-yay -S kvantum latte-dock-git papirus-icon-theme --noconfirm
+yay -S kvantum latte-dock papirus-icon-theme --noconfirm
 yay -S layan-kde-git layan-gtk-theme-git kvantum-theme-layan-git --noconfirm
 
 # Other
