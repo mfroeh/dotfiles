@@ -27,9 +27,9 @@ sudo systemctl enable sddm
 # Install plasma and applications
 sudo pacman -S nvidia nvidia-settings --noconfirm
 sudo pacman -S plasma --noconfirm
-yay -S dolphin brave-bin bitwarden ark --noconfirm
+yay -S dolphin brave-bin bitwarden ark libreoffice-still gimp discord --noconfirm
 
-# Test out 
+# Themeing
 yay -S kvantum latte-dock papirus-icon-theme --noconfirm
 yay -S layan-kde-git layan-gtk-theme-git kvantum-theme-layan-git --noconfirm
 
