@@ -21,7 +21,7 @@ DialogHeight=540
 DialogWidth=720
 
 [Containments][1][Wallpaper][org.kde.image][General]
-Image=/usr/share/wallpapers/Canopee/
+Image=/home/d/.local/share/wallpapers/YZWSFu-Layan/Layan-light/
 SlidePaths=/home/d/.local/share/wallpapers,/usr/share/wallpapers
 
 [ScreenMapping]
