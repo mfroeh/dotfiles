@@ -17,7 +17,7 @@ thickness=41
 thickness=41
 
 [ScreenConnectors]
-0=
+0=DP-2
 1=DVI-D-0
 
 [Updates]

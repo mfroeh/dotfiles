@@ -155,6 +155,10 @@ LookAndFeelPackage=org.kde.breezedark.desktop
 ShowIconsOnPushButtons=false
 widgetStyle=kvantum-dark
 
+[Shortcuts]
+Close=Ctrl+Esc
+DeleteWordBack=Ctrl+Backspace; Ctrl+W
+
 [WM]
 activeBackground=49,54,59
 activeBlend=252,252,252

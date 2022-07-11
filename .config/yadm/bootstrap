@@ -28,7 +28,7 @@ sudo systemctl enable sddm
 # Install plasma and applications
 sudo pacman -S nvidia nvidia-settings --noconfirm
 sudo pacman -S plasma --noconfirm
-yay -S dolphin brave-bin bitwarden ark libreoffice-fresh gimp discord --noconfirm
+yay -S dolphin brave-bin bitwarden ark libreoffice-fresh gimp discord spotify-adblock-git --noconfirm
 sudo pacman -S gnucash gnucash-docs perl-finance-quote --noconfirm
 
 # Themeing
