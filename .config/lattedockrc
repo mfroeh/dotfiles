@@ -10,11 +10,10 @@ sortOrder=0
 [PlasmaThemeExtended]
 outlineWidth=1
 
-[PlasmaTransientsConfig]
-PreloadWeight=0
-
 [ScreenConnectors]
 10=Virtual-1:::0,0 1024x768
+11=DP-2:::0,0 2560x1440
+12=DVI-D-0:::2560,0 1920x1080
 
 [UniversalSettings]
 badges3DStyle=false
