@@ -34,7 +34,7 @@ SlidePaths=/home/d/.local/share/wallpapers,/usr/share/wallpapers
 activityId=
 formfactor=2
 immutability=1
-lastScreen=-1
+lastScreen=0
 location=3
 plugin=org.kde.plasma.private.systemtray
 wallpaperplugin=org.kde.image
@@ -52,7 +52,11 @@ immutability=1
 plugin=org.kde.plasma.volume
 
 [Containments][11][Applets][14][Configuration]
-PreloadWeight=60
+PreloadWeight=90
+
+[Containments][11][Applets][14][Configuration][ConfigDialog]
+DialogHeight=540
+DialogWidth=720
 
 [Containments][11][Applets][15]
 immutability=1
@@ -106,7 +110,7 @@ DialogHeight=540
 DialogWidth=720
 
 [Containments][2][Wallpaper][org.kde.image][General]
-Image=file:///usr/share/wallpapers/BytheWater/contents/images/1920x1080.jpg
+Image=file:///usr/share/wallpapers/BytheWater/contents/images/2560x1600.jpg
 SlidePaths=/usr/share/wallpapers
 
 [Containments][3]
@@ -123,16 +127,77 @@ immutability=1
 plugin=org.kde.plasma.systemtray
 
 [Containments][3][Applets][10][Configuration]
-PreloadWeight=90
+PreloadWeight=100
 SystrayContainmentId=11
 
-[Containments][3][Applets][4]
+[Containments][3][Applets][23]
 immutability=1
-plugin=org.kde.plasma.appmenu
+plugin=org.kde.plasma.systemmonitor.cpu
 
-[Containments][3][Applets][4][Configuration][ConfigDialog]
+[Containments][3][Applets][23][Configuration]
+PreloadWeight=60
+
+[Containments][3][Applets][23][Configuration][Appearance]
+chartFace=org.kde.ksysguard.piechart
+showTitle=true
+title=Total CPU Use
+updateRateLimit=1000
+
+[Containments][3][Applets][23][Configuration][ConfigDialog]
 DialogHeight=540
 DialogWidth=720
+
+[Containments][3][Applets][23][Configuration][SensorColors]
+cpu/all/usage=86,87,245
+
+[Containments][3][Applets][23][Configuration][Sensors]
+highPrioritySensorIds=["cpu/all/usage"]
+lowPrioritySensorIds=["cpu/all/cpuCount","cpu/all/coreCount"]
+totalSensors=["cpu/all/usage"]
+
+[Containments][3][Applets][25]
+immutability=1
+plugin=org.kde.plasma.systemmonitor.diskusage
+
+[Containments][3][Applets][25][Configuration]
+PreloadWeight=65
+
+[Containments][3][Applets][25][Configuration][Appearance]
+chartFace=org.kde.ksysguard.horizontalbars
+title=Disk Usage
+
+[Containments][3][Applets][25][Configuration][SensorColors]
+disk/99dc74f2-3291-4ca3-898b-2fc54d5b1da2/usedPercent=245,244,86
+disk/all/usedPercent=86,87,245
+
+[Containments][3][Applets][25][Configuration][Sensors]
+highPrioritySensorIds=["disk/.*/usedPercent"]
+lowPrioritySensorIds=["disk/all/total"]
+totalSensors=["disk/all/usedPercent"]
+
+[Containments][3][Applets][27]
+immutability=1
+plugin=org.kde.plasma.systemmonitor.memory
+
+[Containments][3][Applets][27][Configuration]
+PreloadWeight=65
+
+[Containments][3][Applets][27][Configuration][Appearance]
+chartFace=org.kde.ksysguard.piechart
+title=Memory Usage
+updateRateLimit=2000
+
+[Containments][3][Applets][27][Configuration][ConfigDialog]
+DialogHeight=540
+DialogWidth=720
+
+[Containments][3][Applets][27][Configuration][SensorColors]
+memory/physical/used=86,87,245
+
+[Containments][3][Applets][27][Configuration][Sensors]
+highPrioritySensorIds=["memory/physical/used"]
+lowPrioritySensorIds=["memory/physical/total"]
+totalSensors=["memory/physical/usedPercent"]
 
 [Containments][3][Applets][5]
 immutability=1
@@ -169,7 +234,7 @@ DialogHeight=84
 DialogWidth=2560
 
 [Containments][3][General]
-AppletOrder=9;8;5;6;10;7
+AppletOrder=9;8;5;6;25;27;23;10;7
 
 [ScreenMapping]
 itemsOnDisabledScreens=

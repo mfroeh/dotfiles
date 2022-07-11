@@ -141,14 +141,19 @@ History Items[$e]=file:$HOME/Downloads/Layan
 
 [General]
 BrowserApplication=brave-browser.desktop
+ColorScheme=Layan
 ColorSchemeHash=625c32ae46f33771aca7694ab0deae5a44bbf41c
+XftHintStyle=hintslight
+XftSubPixel=rgb
+accentColorFromWallpaper=false
 
 [Icons]
 Theme=Papirus-Dark
 
 [KDE]
-AnimationDurationFactor=0
-LookAndFeelPackage=com.github.vinceliuice.Layan
+AnimationDurationFactor=0.25
+LookAndFeelPackage=org.kde.breezedark.desktop
+ShowIconsOnPushButtons=false
 widgetStyle=kvantum-dark
 
 [WM]

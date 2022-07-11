@@ -2,9 +2,7 @@
 update_info=kwin.upd:replace-scalein-with-scale,kwin.upd:port-minimizeanimation-effect-to-js,kwin.upd:port-scale-effect-to-js,kwin.upd:port-dimscreen-effect-to-js,kwin.upd:auto-bordersize,kwin.upd:animation-speed,kwin.upd:desktop-grid-click-behavior,kwin.upd:no-swap-encourage,kwin.upd:make-translucency-effect-disabled-by-default,kwin.upd:remove-flip-switch-effect,kwin.upd:remove-cover-switch-effect,kwin.upd:remove-cubeslide-effect,kwin.upd:remove-xrender-backend,kwin.upd:enable-scale-effect-by-default,kwin.upd:overview-group-plugin-id
 
 [Compositing]
-Enabled=false
 OpenGLIsUnsafe=false
-WindowsBlockCompositing=false
 
 [Desktops]
 Id_1=6dc5fbf0-e8da-45d3-b90b-a1099114b48c
@@ -20,3 +18,5 @@ slidingpopupsEnabled=false
 [org.kde.kdecoration2]
 ButtonsOnLeft=
 ButtonsOnRight=IAX
+library=org.kde.breeze
+theme=Breeze

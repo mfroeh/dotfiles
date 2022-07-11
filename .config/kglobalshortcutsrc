@@ -6,7 +6,7 @@ switch-to-activity-b1f8151e-d67d-44af-abb7-c182d8de9f8b=none,none,Switch to acti
 [KDE Keyboard Layout Switcher]
 Switch keyboard layout to English (US)=none,none,Switch keyboard layout to English (US)
 Switch keyboard layout to English (US, intl., with dead keys)=none,none,Switch keyboard layout to English (US\\, intl.\\, with dead keys)
-Switch to Next Keyboard Layout=,none,Switch to Next Keyboard Layout
+Switch to Next Keyboard Layout=none,none,Switch to Next Keyboard Layout
 _k_friendly_name=Keyboard Layout Switcher
 
 [kaccess]
@@ -214,12 +214,11 @@ activate entry 6=none,Meta+6,Activate Entry 6
 activate entry 7=none,Meta+7,Activate Entry 7
 activate entry 8=none,Meta+8,Activate Entry 8
 activate entry 9=none,Meta+9,Activate Entry 9
-activate widget 49=,none,Activate Icons-only Task Manager Widget
-clear-history=none,,Clear Clipboard History
+clear-history=none,none,Clear Clipboard History
 clipboard_action=none,Meta+Ctrl+X,Automatic Action Popup Menu
-cycleNextAction=none,,Next History Item
-cyclePrevAction=none,,Previous History Item
-edit_clipboard=none,,Edit Contents…
+cycleNextAction=none,none,Next History Item
+cyclePrevAction=none,none,Previous History Item
+edit_clipboard=none,none,Edit Contents…
 new instance for entry 1=Meta+Ctrl+1,Meta+Ctrl+1,New Instance for Entry 1
 new instance for entry 10=Meta+Ctrl+0,Meta+Ctrl+0,New Instance for Entry 10
 new instance for entry 11=Meta+Ctrl+Z,Meta+Ctrl+Z,New Instance for Entry 11
@@ -243,7 +242,7 @@ repeat_action=none,Meta+Ctrl+R,Manually Invoke Action on Current Clipboard
 show latte global settings=none,Meta+W,Show Latte Global Settings
 show latte view=Meta+`,Meta+`,Show Latte Dock/Panel
 show view settings=Meta+A,Meta+A,Cycle Through Dock/Panel Settings Windows
-show-barcode=none,,Show Barcode…
+show-barcode=none,none,Show Barcode…
 show-on-mouse-pos=none,Meta+V,Open Klipper at Mouse Position
 
 [org.kde.dolphin.desktop]
@@ -284,6 +283,8 @@ activate task manager entry 6=Meta+6,Meta+6,Activate Task Manager Entry 6
 activate task manager entry 7=Meta+7,Meta+7,Activate Task Manager Entry 7
 activate task manager entry 8=Meta+8,Meta+8,Activate Task Manager Entry 8
 activate task manager entry 9=Meta+9,Meta+9,Activate Task Manager Entry 9
+activate widget 23=,none,Activate Total CPU Use Widget
+activate widget 27=,none,Activate Memory Usage Widget
 activate widget 3=Alt+F1,none,Activate Application Launcher Widget
 clear-history=none,,Clear Clipboard History
 clipboard_action=Meta+Ctrl+X,Meta+Ctrl+X,Automatic Action Popup Menu
