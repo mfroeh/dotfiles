@@ -4,6 +4,12 @@ thickness=44
 [PlasmaViews][Panel 2][Horizontal1024]
 thickness=44
 
+[PlasmaViews][Panel 3]
+alignment=132
+floating=0
+panelOpacity=0
+panelVisibility=0
+
 [PlasmaViews][Panel 3][Defaults]
 thickness=41
 
@@ -11,7 +17,7 @@ thickness=41
 thickness=41
 
 [ScreenConnectors]
-0=DP-2
+0=
 1=DVI-D-0
 
 [Updates]

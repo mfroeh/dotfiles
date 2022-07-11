@@ -109,6 +109,10 @@ wallpaperplugin=org.kde.image
 DialogHeight=540
 DialogWidth=720
 
+[Containments][2][General]
+ToolBoxButtonState=topcenter
+ToolBoxButtonX=466
+
 [Containments][2][Wallpaper][org.kde.image][General]
 Image=file:///usr/share/wallpapers/BytheWater/contents/images/2560x1600.jpg
 SlidePaths=/usr/share/wallpapers

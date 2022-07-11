@@ -32,8 +32,7 @@ yay -S dolphin brave-bin bitwarden ark libreoffice-fresh gimp discord --noconfir
 sudo pacman -S gnucash gnucash-docs perl-finance-quote --noconfirm
 
 # Themeing
-yay -S kvantum latte-dock papirus-icon-theme --noconfirm
-yay -S layan-kde-git layan-gtk-theme-git kvantum-theme-layan-git --noconfirm
+yay -S kvantum kvantum-theme-layan-git -papirus-icon-theme --noconfirm
 
 # Virtualbox
 sudo pacman -S virtualbox virtualbox-host-modules-arch virtualbox-guest-iso --noconfirm
