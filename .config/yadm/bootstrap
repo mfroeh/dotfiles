@@ -1,6 +1,8 @@
 #!/bin/sh
 # Requirements: $USER added to wheel group and NetworkManager.service enabled.
 
+sudo pacman -Syyu --noconfirm
+
 cd $HOME
 
 # Pull submodules
