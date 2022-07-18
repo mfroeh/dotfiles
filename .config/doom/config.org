@@ -26,13 +26,13 @@ You can use =SPC h v doom-font= to find out more about how to set fonts.
 'M-x describe-font' to look up the correct font name and =M-x doom/reload-font= to reload dooms font.
 #+begin_src emacs-lisp
 (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 16)
-      doom-variable-pitch-font (font-spec :family "JetBrainsMono Nerd Font"))
+      doom-unicode-font (font-spec :family "JetBrainsMono Nerd Font" :size 16))
 #+end_src
 
 ** Doom theme
 Themes may also be loaded using =M-x load-theme=.
 #+begin_src emacs-lisp
-(setq doom-theme 'doom-snazzy)
+(setq doom-theme 'doom-spacegrey)
 #+end_src
 
 ** Window title
@@ -173,4 +173,9 @@ Format python buffers on save and run =py-isort-buffer= before.
             (setq tab-width 4)
             (add-hook 'before-save-hook 'py-isort-buffer)
             (add-hook 'before-save-hook 'format-all-buffer)))
+#+end_src
+Use =debugpy= for debugging.
+#+begin_src emacs-lisp
+(after! dap-mode
+  (setq dap-python-debugger 'debugpy))
 #+end_src

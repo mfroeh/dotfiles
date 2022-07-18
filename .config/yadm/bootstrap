@@ -3,6 +3,7 @@
 
 sudo pacman -Syyu --noconfirm
 
+# Pull submodules
 cd $HOME
 
 # Pull submodules
