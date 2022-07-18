@@ -1,3 +1,12 @@
+[FileDialogSize]
+DP-2 DVI-D-0 Height 2560x1440=725
+DP-2 DVI-D-0 Width 2560x1440=1074
+
+[KFileDialog Settings]
+Recent Files[$e]=wallpaper/carina-nebula.jpg,file:$HOME/Pictures/wallpaper/carina-nebula.jpg
+Recent URLs[$e]=file:$HOME/Pictures/
+detailViewIconSize=16
+
 [PlasmaViews][Panel 2][Defaults]
 thickness=44
 
@@ -17,7 +26,7 @@ thickness=41
 thickness=41
 
 [ScreenConnectors]
-0=DP-2
+0=
 1=DVI-D-0
 
 [Updates]

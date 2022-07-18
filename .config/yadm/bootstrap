@@ -19,7 +19,7 @@ sudo chsh --shell /bin/zsh $USER
 sudo pacman -S emacs-nativecomp ripgrep fd --noconfirm
 
 # IDE
-sudo pacman -S cmake npm python python-pip rust rust-analyzer --noconfirm
+sudo pacman -S cmake npm python python-pip rust rust-analyzer clangd --noconfirm
 
 # Install and enable SDDM
 sudo pacman -S sddm --noconfirm
@@ -40,10 +40,16 @@ sudo modprobe vboxdrv
 sudo usermod -aG vboxusers $USER
 
 # Other
-yay -S neofetch github-cli --noconfirm
+yay -S neofetch github-cli nmap ntfs-3g --noconfirm
 
 # Fonts
 yay -S nerd-fonts-jetbrains-mono --noconfirm
+
+# Cloud associated
+yay -S openssh seafile-client --noconfirm
+
+# Not sure yet
+yay -S meson haruna gwenview --noconfirm
 
 # Remove bash dotfiles, the last .bash_history has to be removed manually
 rm -rf .bash*

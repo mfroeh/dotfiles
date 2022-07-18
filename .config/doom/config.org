@@ -35,6 +35,23 @@ Themes may also be loaded using =M-x load-theme=.
 (setq doom-theme 'doom-snazzy)
 #+end_src
 
+** Window title
+I’d like to have just the buffer name, then if applicable the project folder
+#+begin_src emacs-lisp
+(setq frame-title-format
+      '(""
+        (:eval
+         (if (s-contains-p org-roam-directory (or buffer-file-name ""))
+             (replace-regexp-in-string
+              ".*/[0-9]*-?" "☰ "
+              (subst-char-in-string ?_ ?  buffer-file-name))
+           "%b"))
+        (:eval
+         (let ((project-name (projectile-project-name)))
+           (unless (string= "-" project-name)
+             (format (if (buffer-modified-p)  " ◉ %s" "  ●  %s") project-name))))))
+#+end_src
+
 ** Keymappings
 Use =command= as the =M= meta key and =option= or =alt= as the =s= super key on both linux and macos.
 #+begin_src emacs-lisp
@@ -121,6 +138,12 @@ Disable formatting with =textDocument/formatting= by default.
 Instead define formatting behaviour through hooks for specific languages for more control.
 #+begin_src emacs-lisp
 (setq +format-with-lsp nil)
+#+end_src
+
+** Vterm
+I want to use zsh as default shell.
+#+begin_src emacs-lisp
+(setq vterm-shell "zsh")
 #+end_src
 
 * Language settings
