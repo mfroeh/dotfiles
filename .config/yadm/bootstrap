@@ -1,119 +1,68 @@
 #!/bin/sh
 # Requirements: $USER added to wheel group and NetworkManager.service enabled.
 
+sudo pacman -Syyu --noconfirm
+
 # Pull submodules
 cd $HOME
-echo ">>> Updating submodules"
+
+# Pull submodules
 yadm submodule update --recursive --init
 
 # Install yay
-if ! command_exists yay; then
-    echo ">>> Installing yay"
-    sudo pacman -S --noconfirm --needed git base-devel && git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si --noconfirm && cd $HOME && rm -rf yay-bin
-fi
-yay -Syu --noconfirm
+sudo pacman -S base-devel git --noconfirm && git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si --noconfirm && cd .. && rm -rf yay-bin
 
-base=(
-    "kitty"
-    "zsh"
-    "neovim"
-    "emacs-nativecomp"
-    "xclip"
-    "ripgrep"
-    "fd"
-    "neofetch"
-)
+# Terminal emulator, shell and vim
+yay -S kitty neovim xclip zsh antigen --noconfirm
+sudo chsh --shell /bin/zsh $USER
 
-window=(
-    "xorg"
-    "nvidia"
-    "nvidia-utils"
-    "nvidia-settings"
-    "sddm"
-    "plasma"
-    "kde-applications"
-    "onboard"
-)
+# Texteditor
+sudo pacman -S emacs-nativecomp ripgrep fd --noconfirm
 
-apps=(
-    "bitwarden"
-    "discord"
-    "gimp"
-    "phonon-qt5-vlc"
-    "spotify-adblock"
-)
+# IDE
+sudo pacman -S cmake npm python python-pip rust rust-analyzer clangd --noconfirm
 
-vm=(
-    "virtualbox-host-modules-arch"
-    "virtualbox"
-    "virtualbox-guest-iso"
-)
-
-programming=(
-    "npm"
-    "gcc"
-    "cmake"
-    "python-pip"
-    "shellcheck"
-    "mono"
-)
-
-writing=(
-    "texlive-most"
-    "zathura"
-    "texlab"
-)
-
-banking=(
-    "gnucash"
-    "gnucash-docs"
-    "perl-finance-quote"
-)
-
-packages=(
-    ${base[@]}
-    ${apps[@]}
-    ${window[@]}
-    ${vm[@]}
-    ${programming[@]}
-    ${writing[@]}
-    ${banking[@]}
-)
-
-aur_packages=(
-    "nerd-fonts-source-code-pro"
-    "nerd-fonts-overpass"
-    "nerd-fonts-jetbrains-mono"
-    "github-cli"
-    "antigen-git"
-    "brave-bin"
-    "pcloud-drive"
-)
-
-# Install packages
-yay -S --noconfirm --needed --noprovides --cleanafter --nodiffmenu ${packages[@]}
-yay -S --noconfirm --needed --noprovides --cleanafter --nodiffmenu ${aur_packages[@]}
-
-# Enable services
+# Install and enable SDDM
+sudo pacman -S sddm --noconfirm
 sudo systemctl enable sddm
 
-# Change shell
-chsh
+# Install plasma and applications
+sudo pacman -S nvidia nvidia-settings --noconfirm
+sudo pacman -S plasma --noconfirm
+yay -S dolphin brave-bin bitwarden ark libreoffice-fresh gimp discord spotify-adblock-git --noconfirm
+sudo pacman -S gnucash gnucash-docs perl-finance-quote --noconfirm
 
-# Setup Doom Emacs
-git clone https://github.com/hlissner/doom-emacs ~/.emacs.d
-emacs --batch --eval "(progn (require 'org) (setq org-confirm-babel-evaluate nil) (org-babel-tangle-file \"~/.config/doom/config.org\"))"
-doom install
+# Themeing
+yay -S kvantum kvantum-theme-layan-git -papirus-icon-theme --noconfirm
 
-# Setup VirtualBox
+# Virtualbox
+sudo pacman -S virtualbox virtualbox-host-modules-arch virtualbox-guest-iso --noconfirm
 sudo modprobe vboxdrv
 sudo usermod -aG vboxusers $USER
 
-# Remove unnecessary dotfiles
-cd $HOME && rm -rf .bash*
+# Other
+yay -S neofetch github-cli nmap ntfs-3g --noconfirm
 
-# Install npm modules
-sudo npm install -g n
+# Fonts
+yay -S nerd-fonts-jetbrains-mono --noconfirm
 
-# Setup latex
-cd $HOME && mkdir texmf && cd texmf && git clone https://github.com/tecosaur/BMC.git && texhash && sudo updmap-sys --enable Map=fontawesome5.map && cd $HOME
+# Cloud associated
+yay -S openssh seafile-client --noconfirm
+
+# Not sure yet
+yay -S meson haruna gwenview --noconfirm
+
+# Remove bash dotfiles, the last .bash_history has to be removed manually
+rm -rf .bash*
+
+# Doom Emacs
+git clone https://github.com/hlissner/doom-emacs ~/.emacs.d
+~/.emacs.d/bin/doom install && ~/.emacs.d/bin/doom sync
+pip install black isort pyflakes
+sudo pacman -S shellcheck --noconfirm
+
+echo "After logging in for the first time do: "
+echo "1. cd '$HOME' && rm -rf .bash*"
+echo "2. yadm restore ."
+echo "3. Manually fix the Appereance settings"
+echo "4. Logout and log back in"
