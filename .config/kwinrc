@@ -7,11 +7,22 @@ OpenGLIsUnsafe=false
 
 [Desktops]
 Id_1=6dc5fbf0-e8da-45d3-b90b-a1099114b48c
-Number=1
+Id_2=d0962a81-b159-41a9-8377-1608975bf981
+Id_3=aed7a507-23ca-4086-bee8-5267357d3988
+Number=3
 Rows=1
 
 [Plugins]
+desktopchangeosdEnabled=false
 kwin4_effect_translucencyEnabled=true
+slideEnabled=false
+
+[Script-desktopchangeosd]
+PopupHideDelay=300
+
+[TabBox]
+ActivitiesMode=0
+LayoutName=com.github.vinceliuice.WhiteSur-dark
 
 [org.kde.kdecoration2]
 ButtonsOnLeft=

@@ -25,6 +25,12 @@ thickness=35
 [PlasmaViews][Panel 3][Horizontal2560]
 thickness=35
 
+[PlasmaViews][Panel 42][Defaults]
+thickness=35
+
+[PlasmaViews][Panel 42][Horizontal1920]
+thickness=35
+
 [ScreenConnectors]
 0=DP-2
 1=DVI-D-0

@@ -119,9 +119,9 @@ DialogWidth=720
 
 [Containments][28][General]
 ToolBoxButtonState=topcenter
-ToolBoxButtonX=722
-ToolBoxButtonY=41
-positions={"2560x1440":["1"\\,"23"\\,"desktop:/Impfung.txt"\\,"0"\\,"1"\\,"desktop:/movies"\\,"0"\\,"0"]\\,"1920x1080":[""]}
+ToolBoxButtonX=786
+ToolBoxButtonY=35
+positions={"2560x1440":["1"\\,"23"\\,"desktop:/movies"\\,"0"\\,"0"\\,"desktop:/Impfung.txt"\\,"0"\\,"1"]\\,"1920x1080":[""]}
 sortMode=-1
 
 [Containments][28][Wallpaper][org.kde.image][General]
@@ -264,27 +264,44 @@ visibilityUnit=2007
 DialogHeight=660
 DialogWidth=880
 
-[Containments][3][Applets][5]
+[Containments][3][Applets][32]
 immutability=1
-plugin=org.kde.plasma.icontasks
+plugin=org.kde.plasma.pager
 
-[Containments][3][Applets][5][Configuration][ConfigDialog]
-DialogHeight=660
-DialogWidth=880
+[Containments][3][Applets][32][Configuration][ConfigDialog]
+DialogHeight=540
+DialogWidth=720
 
-[Containments][3][Applets][5][Configuration][General]
-launchers=
+[Containments][3][Applets][32][Configuration][General]
+displayedText=Number
+showOnlyCurrentScreen=true
+showWindowIcons=true
 
-[Containments][3][Applets][6]
+[Containments][3][Applets][38]
 immutability=1
 plugin=org.kde.plasma.panelspacer
+
+[Containments][3][Applets][39]
+immutability=1
+plugin=org.kde.plasma.panelspacer
+
+[Containments][3][Applets][40]
+immutability=1
+plugin=org.kde.plasma.appmenu
+
+[Containments][3][Applets][41]
+immutability=1
+plugin=org.kde.plasma.kickerdash
+
+[Containments][3][Applets][41][Configuration][General]
+favoritesPortedToKAstats=true
 
 [Containments][3][Applets][7]
 immutability=1
 plugin=org.kde.plasma.digitalclock
 
 [Containments][3][Applets][7][Configuration]
-PreloadWeight=90
+PreloadWeight=95
 
 [Containments][3][Applets][7][Configuration][Appearance]
 dateFormat=isoDate
@@ -294,25 +311,50 @@ use24hFormat=2
 DialogHeight=540
 DialogWidth=720
 
-[Containments][3][Applets][8]
-immutability=1
-plugin=org.kde.plasma.panelspacer
-
-[Containments][3][Applets][9]
-immutability=1
-plugin=org.kde.plasma.appmenu
-
-[Containments][3][Applets][9][Configuration][ConfigDialog]
-DialogHeight=540
-DialogWidth=720
-
 [Containments][3][ConfigDialog]
-DialogHeight=83
+DialogHeight=74
 DialogWidth=2560
 
 [Containments][3][General]
-AppletOrder=31;9;8;5;6;25;27;23;10;7
+AppletOrder=41;40;38;32;39;25;27;23;10;31;7
+
+[Containments][42]
+activityId=
+formfactor=2
+immutability=1
+lastScreen=1
+location=3
+plugin=org.kde.panel
+wallpaperplugin=org.kde.image
+
+[Containments][42][Applets][44]
+immutability=1
+plugin=org.kde.plasma.pager
+
+[Containments][42][Applets][44][Configuration][ConfigDialog]
+DialogHeight=540
+DialogWidth=720
+
+[Containments][42][Applets][44][Configuration][General]
+displayedText=Number
+showOnlyCurrentScreen=true
+showWindowIcons=true
+
+[Containments][42][Applets][45]
+immutability=1
+plugin=org.kde.plasma.panelspacer
+
+[Containments][42][Applets][46]
+immutability=1
+plugin=org.kde.plasma.panelspacer
+
+[Containments][42][ConfigDialog]
+DialogHeight=74
+DialogWidth=1920
+
+[Containments][42][General]
+AppletOrder=46;44;45
 
 [ScreenMapping]
 itemsOnDisabledScreens=
-screenMapping=desktop:/l,1,1f618a2a-30a0-4ad0-812f-d16f18087741,desktop:/movies,0,1f618a2a-30a0-4ad0-812f-d16f18087741,desktop:/Impfung.txt,0,1f618a2a-30a0-4ad0-812f-d16f18087741
+screenMapping=desktop:/movies,0,1f618a2a-30a0-4ad0-812f-d16f18087741,desktop:/Impfung.txt,0,1f618a2a-30a0-4ad0-812f-d16f18087741,desktop:/l,1,1f618a2a-30a0-4ad0-812f-d16f18087741
