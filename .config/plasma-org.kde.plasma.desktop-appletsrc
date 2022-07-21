@@ -8,31 +8,6 @@ RightButton;NoModifier=org.kde.contextmenu
 [AppletGlobals][org.kde.plasma.comic]
 lastUpdate=2022,7,15,15,45,39.955
 
-[Containments][1]
-ItemGeometries-1024x768=
-ItemGeometries-2560x1440=
-ItemGeometriesHorizontal=
-activityId=b1f8151e-d67d-44af-abb7-c182d8de9f8b
-formfactor=0
-immutability=1
-lastScreen=0
-location=0
-plugin=org.kde.plasma.folder
-wallpaperplugin=org.kde.image
-
-[Containments][1][ConfigDialog]
-DialogHeight=540
-DialogWidth=720
-
-[Containments][1][General]
-ToolBoxButtonState=topcenter
-ToolBoxButtonX=786
-ToolBoxButtonY=41
-
-[Containments][1][Wallpaper][org.kde.image][General]
-Image=file:///home/mo/Pictures/wallpaper/carina-nebula.jpg
-SlidePaths=/home/d/.local/share/wallpapers,/usr/share/wallpapers
-
 [Containments][11]
 activityId=
 formfactor=2
@@ -78,7 +53,7 @@ immutability=1
 plugin=org.kde.plasma.notifications
 
 [Containments][11][Applets][17][Configuration]
-PreloadWeight=70
+PreloadWeight=85
 
 [Containments][11][Applets][18]
 immutability=1
@@ -117,16 +92,46 @@ immutability=1
 plugin=org.kde.plasma.mediacontroller
 
 [Containments][11][Applets][28][Configuration]
-PreloadWeight=5
+PreloadWeight=0
+
+[Containments][11][ConfigDialog]
+DialogHeight=540
+DialogWidth=720
 
 [Containments][11][General]
 extraItems=org.kde.plasma.keyboardindicator,org.kde.plasma.mediacontroller,org.kde.plasma.nightcolorcontrol,org.kde.plasma.volume,org.kde.plasma.keyboardlayout,org.kde.plasma.bluetooth,org.kde.plasma.battery,org.kde.plasma.vault,org.kde.plasma.notifications,org.kde.plasma.devicenotifier,org.kde.plasma.manage-inputmethod,org.kde.plasma.clipboard,org.kde.plasma.networkmanagement
 knownItems=org.kde.plasma.keyboardindicator,org.kde.plasma.mediacontroller,org.kde.plasma.nightcolorcontrol,org.kde.plasma.volume,org.kde.plasma.keyboardlayout,org.kde.plasma.bluetooth,org.kde.plasma.battery,org.kde.plasma.vault,org.kde.plasma.notifications,org.kde.plasma.devicenotifier,org.kde.plasma.manage-inputmethod,org.kde.plasma.clipboard,org.kde.plasma.networkmanagement
 
-[Containments][2]
+[Containments][28]
+ItemGeometries-2560x1440=
+ItemGeometriesHorizontal=
+activityId=1f618a2a-30a0-4ad0-812f-d16f18087741
+formfactor=0
+immutability=1
+lastScreen=0
+location=0
+plugin=org.kde.plasma.folder
+wallpaperplugin=org.kde.image
+
+[Containments][28][ConfigDialog]
+DialogHeight=540
+DialogWidth=720
+
+[Containments][28][General]
+ToolBoxButtonState=topcenter
+ToolBoxButtonX=722
+ToolBoxButtonY=41
+positions={"2560x1440":["1"\\,"21"\\,"desktop:/movies"\\,"0"\\,"0"\\,"desktop:/Impfung.txt"\\,"0"\\,"1"]}
+sortMode=-1
+
+[Containments][28][Wallpaper][org.kde.image][General]
+Image=file:///home/mo/Pictures/wallpaper/carina-nebula.jpg
+SlidePaths=/usr/share/wallpapers
+
+[Containments][29]
 ItemGeometries-1920x1080=
 ItemGeometriesHorizontal=
-activityId=b1f8151e-d67d-44af-abb7-c182d8de9f8b
+activityId=1f618a2a-30a0-4ad0-812f-d16f18087741
 formfactor=0
 immutability=1
 lastScreen=1
@@ -134,15 +139,15 @@ location=0
 plugin=org.kde.plasma.folder
 wallpaperplugin=org.kde.image
 
-[Containments][2][ConfigDialog]
+[Containments][29][ConfigDialog]
 DialogHeight=540
 DialogWidth=720
 
-[Containments][2][General]
-ToolBoxButtonState=topcenter
-ToolBoxButtonX=466
+[Containments][29][General]
+positions={"1920x1080":[]\\,"2560x1440":[""]}
+sortMode=-1
 
-[Containments][2][Wallpaper][org.kde.image][General]
+[Containments][29][Wallpaper][org.kde.image][General]
 Image=file:///home/mo/Pictures/wallpaper/carina-nebula.jpg
 SlidePaths=/usr/share/wallpapers
 
@@ -193,7 +198,7 @@ immutability=1
 plugin=org.kde.plasma.systemmonitor.diskusage
 
 [Containments][3][Applets][25][Configuration]
-PreloadWeight=75
+PreloadWeight=100
 
 [Containments][3][Applets][25][Configuration][Appearance]
 chartFace=org.kde.ksysguard.horizontalbars
@@ -218,7 +223,7 @@ immutability=1
 plugin=org.kde.plasma.systemmonitor.memory
 
 [Containments][3][Applets][27][Configuration]
-PreloadWeight=90
+PreloadWeight=100
 
 [Containments][3][Applets][27][Configuration][Appearance]
 chartFace=org.kde.ksysguard.piechart
@@ -236,6 +241,28 @@ memory/physical/used=85,0,127
 highPrioritySensorIds=["memory/physical/used"]
 lowPrioritySensorIds=["memory/physical/total"]
 totalSensors=["memory/physical/usedPercent"]
+
+[Containments][3][Applets][31]
+immutability=1
+plugin=org.kde.plasma.weather
+
+[Containments][3][Applets][31][Configuration]
+PreloadWeight=80
+pressureUnit=5008
+showHumidityInTooltip=false
+showPressureInTooltip=false
+showTemperatureInCompactMode=false
+showTemperatureInTooltip=true
+showWindInTooltip=false
+source=wettercom|weather|Hannover, Niedersachsen, DE|DE0004160;Hannover
+speedUnit=9001
+temperatureUnit=6001
+updateInterval=30
+visibilityUnit=2007
+
+[Containments][3][Applets][31][Configuration][ConfigDialog]
+DialogHeight=660
+DialogWidth=880
 
 [Containments][3][Applets][5]
 immutability=1
@@ -257,7 +284,7 @@ immutability=1
 plugin=org.kde.plasma.digitalclock
 
 [Containments][3][Applets][7][Configuration]
-PreloadWeight=85
+PreloadWeight=90
 
 [Containments][3][Applets][7][Configuration][Appearance]
 dateFormat=isoDate
@@ -284,8 +311,8 @@ DialogHeight=93
 DialogWidth=2560
 
 [Containments][3][General]
-AppletOrder=9;8;5;6;25;27;23;10;7
+AppletOrder=31;9;8;5;6;25;27;23;10;7
 
 [ScreenMapping]
 itemsOnDisabledScreens=
-screenMapping=
+screenMapping=desktop:/movies,0,1f618a2a-30a0-4ad0-812f-d16f18087741,desktop:/l,1,1f618a2a-30a0-4ad0-812f-d16f18087741,desktop:/Impfung.txt,0,1f618a2a-30a0-4ad0-812f-d16f18087741

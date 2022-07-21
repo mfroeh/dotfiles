@@ -1,6 +1,7 @@
 [ActivityManager]
 _k_friendly_name=Activity Manager
 switch-to-activity-1bc69246-34aa-4e2d-bee8-10fdf1e1c1e3=none,none,Switch to activity "Default"
+switch-to-activity-1f618a2a-30a0-4ad0-812f-d16f18087741=none,none,Switch to activity "Default"
 switch-to-activity-b1f8151e-d67d-44af-abb7-c182d8de9f8b=none,none,Switch to activity "Default"
 
 [KDE Keyboard Layout Switcher]
@@ -247,11 +248,11 @@ show-on-mouse-pos=none,Meta+V,Open Klipper at Mouse Position
 
 [mediacontrol]
 _k_friendly_name=Media Controller
-mediavolumedown=none,,Media volume down
-mediavolumeup=none,,Media volume up
+mediavolumedown=none,none,Media volume down
+mediavolumeup=none,none,Media volume up
 nextmedia=Media Next,Media Next,Media playback next
 pausemedia=Media Pause,Media Pause,Pause media playback
-playmedia=none,,Play media playback
+playmedia=none,none,Play media playback
 playpausemedia=Media Play,Media Play,Play/Pause media playback
 previousmedia=Media Previous,Media Previous,Media playback previous
 stopmedia=Media Stop,Media Stop,Stop media playback

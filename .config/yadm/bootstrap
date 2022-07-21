@@ -49,6 +49,9 @@ yay -S nerd-fonts-jetbrains-mono --noconfirm
 # Cloud associated
 yay -S openssh seafile-client --noconfirm
 
+# LaTeX
+sudo pacman -S texlive-core texlive-bin texlive-science --noconfirm
+
 # Not sure yet
 yay -S meson haruna gwenview --noconfirm
 
@@ -60,6 +63,7 @@ git clone https://github.com/hlissner/doom-emacs ~/.emacs.d
 ~/.emacs.d/bin/doom install && ~/.emacs.d/bin/doom sync
 pip install black isort pyflakes
 sudo pacman -S shellcheck --noconfirm
+
 
 echo "After logging in for the first time do: "
 echo "1. cd '$HOME' && rm -rf .bash*"

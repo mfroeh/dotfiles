@@ -7,6 +7,9 @@ Recent Files[$e]=wallpaper/carina-nebula.jpg,file:$HOME/Pictures/wallpaper/carin
 Recent URLs[$e]=file:$HOME/Pictures/
 detailViewIconSize=16
 
+[PlasmaTransientsConfig]
+PreloadWeight=34
+
 [PlasmaViews][Panel 2][Defaults]
 thickness=44
 
