@@ -34,6 +34,7 @@ sudo pacman -S gnucash gnucash-docs perl-finance-quote --noconfirm
 
 # Themeing
 yay -S kvantum kvantum-theme-layan-git -papirus-icon-theme --noconfirm
+yay -S whitesur-kvantum-theme-git whitesur-icon-theme-git whitesur-cursor-theme-git whitesur-gtk-theme-git --noconfirm
 
 # Virtualbox
 sudo pacman -S virtualbox virtualbox-host-modules-arch virtualbox-guest-iso --noconfirm
@@ -67,6 +68,6 @@ sudo pacman -S shellcheck --noconfirm
 
 echo "After logging in for the first time do: "
 echo "1. cd '$HOME' && rm -rf .bash*"
-echo "2. yadm restore ."
-echo "3. Manually fix the Appereance settings"
-echo "4. Logout and log back in"
+echo "2. Install and activate whitesur global theme"
+echo "3. Configure appearance and sddm to whitesur"
+echo "4. Relog"

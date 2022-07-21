@@ -11,13 +11,9 @@ Number=1
 Rows=1
 
 [Plugins]
-kwin4_effect_fullscreenEnabled=false
-kwin4_effect_maximizeEnabled=false
-kwin4_effect_morphingpopupsEnabled=false
-slidingpopupsEnabled=false
+kwin4_effect_translucencyEnabled=true
 
 [org.kde.kdecoration2]
 ButtonsOnLeft=
 ButtonsOnRight=IAX
-library=org.kde.breeze
-theme=Breeze
+theme=__aurorae__svg__WhiteSur-dark

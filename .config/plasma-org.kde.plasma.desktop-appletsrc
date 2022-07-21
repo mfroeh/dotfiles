@@ -71,7 +71,7 @@ immutability=1
 plugin=org.kde.plasma.clipboard
 
 [Containments][11][Applets][20][Configuration]
-PreloadWeight=85
+PreloadWeight=90
 
 [Containments][11][Applets][21]
 immutability=1
@@ -85,7 +85,7 @@ immutability=1
 plugin=org.kde.plasma.networkmanagement
 
 [Containments][11][Applets][22][Configuration]
-PreloadWeight=75
+PreloadWeight=80
 
 [Containments][11][Applets][28]
 immutability=1
@@ -121,7 +121,7 @@ DialogWidth=720
 ToolBoxButtonState=topcenter
 ToolBoxButtonX=722
 ToolBoxButtonY=41
-positions={"2560x1440":["1"\\,"21"\\,"desktop:/movies"\\,"0"\\,"0"\\,"desktop:/Impfung.txt"\\,"0"\\,"1"]}
+positions={"2560x1440":["1"\\,"21"\\,"desktop:/Impfung.txt"\\,"0"\\,"1"\\,"desktop:/movies"\\,"0"\\,"0"]\\,"1920x1080":[""]}
 sortMode=-1
 
 [Containments][28][Wallpaper][org.kde.image][General]
@@ -307,7 +307,7 @@ DialogHeight=540
 DialogWidth=720
 
 [Containments][3][ConfigDialog]
-DialogHeight=93
+DialogHeight=83
 DialogWidth=2560
 
 [Containments][3][General]
@@ -315,4 +315,4 @@ AppletOrder=31;9;8;5;6;25;27;23;10;7
 
 [ScreenMapping]
 itemsOnDisabledScreens=
-screenMapping=desktop:/movies,0,1f618a2a-30a0-4ad0-812f-d16f18087741,desktop:/l,1,1f618a2a-30a0-4ad0-812f-d16f18087741,desktop:/Impfung.txt,0,1f618a2a-30a0-4ad0-812f-d16f18087741
+screenMapping=desktop:/l,1,1f618a2a-30a0-4ad0-812f-d16f18087741,desktop:/movies,0,1f618a2a-30a0-4ad0-812f-d16f18087741,desktop:/Impfung.txt,0,1f618a2a-30a0-4ad0-812f-d16f18087741
