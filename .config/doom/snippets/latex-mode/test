@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: test
+# key: <t
+# --
+
+\documentclass{${1:title}}
+\begin{${2:env}}
+\end{${2:env}}
+
+$0

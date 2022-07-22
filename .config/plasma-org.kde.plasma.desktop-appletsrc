@@ -71,7 +71,7 @@ immutability=1
 plugin=org.kde.plasma.clipboard
 
 [Containments][11][Applets][20][Configuration]
-PreloadWeight=90
+PreloadWeight=95
 
 [Containments][11][Applets][21]
 immutability=1
@@ -92,7 +92,7 @@ immutability=1
 plugin=org.kde.plasma.mediacontroller
 
 [Containments][11][Applets][28][Configuration]
-PreloadWeight=0
+PreloadWeight=10
 
 [Containments][11][ConfigDialog]
 DialogHeight=540
@@ -121,7 +121,7 @@ DialogWidth=720
 ToolBoxButtonState=topcenter
 ToolBoxButtonX=786
 ToolBoxButtonY=35
-positions={"2560x1440":["1"\\,"23"\\,"desktop:/movies"\\,"0"\\,"0"\\,"desktop:/Impfung.txt"\\,"0"\\,"1"]\\,"1920x1080":[""]}
+positions={"2560x1440":["1"\\,"21"\\,"desktop:/Impfung.txt"\\,"0"\\,"1"\\,"desktop:/movies"\\,"0"\\,"0"]\\,"1920x1080":[""]}
 sortMode=-1
 
 [Containments][28][Wallpaper][org.kde.image][General]
@@ -144,7 +144,7 @@ DialogHeight=540
 DialogWidth=720
 
 [Containments][29][General]
-positions={"1920x1080":[]\\,"2560x1440":[""]}
+positions={"1920x1080":[]\\,"2560x1440":[""]\\,"4480x1440":[""]}
 sortMode=-1
 
 [Containments][29][Wallpaper][org.kde.image][General]
@@ -247,7 +247,7 @@ immutability=1
 plugin=org.kde.plasma.weather
 
 [Containments][3][Applets][31][Configuration]
-PreloadWeight=80
+PreloadWeight=90
 pressureUnit=5008
 showHumidityInTooltip=false
 showPressureInTooltip=false
@@ -301,7 +301,7 @@ immutability=1
 plugin=org.kde.plasma.digitalclock
 
 [Containments][3][Applets][7][Configuration]
-PreloadWeight=95
+PreloadWeight=100
 
 [Containments][3][Applets][7][Configuration][Appearance]
 dateFormat=isoDate
@@ -357,4 +357,4 @@ AppletOrder=46;44;45
 
 [ScreenMapping]
 itemsOnDisabledScreens=
-screenMapping=desktop:/movies,0,1f618a2a-30a0-4ad0-812f-d16f18087741,desktop:/Impfung.txt,0,1f618a2a-30a0-4ad0-812f-d16f18087741,desktop:/l,1,1f618a2a-30a0-4ad0-812f-d16f18087741
+screenMapping=desktop:/l,1,1f618a2a-30a0-4ad0-812f-d16f18087741,desktop:/movies,0,1f618a2a-30a0-4ad0-812f-d16f18087741,desktop:/Impfung.txt,0,1f618a2a-30a0-4ad0-812f-d16f18087741

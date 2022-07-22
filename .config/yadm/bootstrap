@@ -21,14 +21,13 @@ sudo pacman -S emacs-nativecomp ripgrep fd --noconfirm
 
 # IDE
 sudo pacman -S cmake npm python python-pip rust rust-analyzer clangd --noconfirm
-
 # Install and enable SDDM
 sudo pacman -S sddm --noconfirm
 sudo systemctl enable sddm
 
 # Install plasma and applications
 sudo pacman -S nvidia nvidia-settings --noconfirm
-sudo pacman -S plasma --noconfirm
+sudo pacman -S plasma appmenu-gtk-module --noconfirm
 yay -S dolphin brave-bin bitwarden ark libreoffice-fresh gimp discord spotify-adblock-git --noconfirm
 sudo pacman -S gnucash gnucash-docs perl-finance-quote --noconfirm
 
@@ -51,7 +50,7 @@ yay -S nerd-fonts-jetbrains-mono --noconfirm
 yay -S openssh seafile-client --noconfirm
 
 # LaTeX
-sudo pacman -S texlive-core texlive-bin texlive-science --noconfirm
+sudo pacman -S texlive-core texlive-bin texlive-science texlab zathura zathura-pdf-poppler --noconfirm
 
 # Not sure yet
 yay -S meson haruna gwenview --noconfirm

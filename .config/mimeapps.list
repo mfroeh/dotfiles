@@ -1,7 +1,9 @@
 [Added Associations]
+application/pdf=org.pwmt.zathura.desktop;
 text/plain=emacs.desktop;
 
 [Default Applications]
+application/pdf=org.pwmt.zathura.desktop;
 text/html=brave-browser.desktop
 text/plain=emacs.desktop;
 x-scheme-handler/bitwarden=Electron.desktop

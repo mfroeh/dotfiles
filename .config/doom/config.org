@@ -114,49 +114,6 @@ Set directory to store org files.
 (setq org-directory "~/org/")
 #+end_src
 
-# Set the directory where contacts are stored.
-# #+begin_src emacs-lisp
-# (use-package org-contacts
-#   :after org
-#   :ensure nil
-#   :custom (org-contacts-files '("~/org/people.org")))
-# #+end_src
-
-# Export contacts.
-# #+begin_src emacs-lisp
-# (defun isamert/build-contact-item (template-string contact-property)
-#   (if-let ((stuff (org-entry-get nil contact-property)))
-#       (concat (format template-string stuff) "\n")
-#     ""))
-
-# (defun isamert/vcard ()
-#   "Create a .vcf file containing all contact information."
-#   (interactive)
-#   (write-region
-#    (string-join
-#     (org-map-entries
-#      (lambda ()
-#        (string-join
-#         `("BEGIN:VCARD\nVERSION:2.1\n"
-#           ,(format "UID:urn:uuid:%s\n" (org-id-get nil t))
-#           ,(isamert/build-contact-item "FN:%s" "ITEM")
-#           ,(isamert/build-contact-item "TEL;CELL:%s" "PHONE")
-#           ,(isamert/build-contact-item "EMAIL:%s" "EMAIL")
-#           ,(isamert/build-contact-item "ORG:%s" "GROUP")
-#           ,(isamert/build-contact-item "ADR;HOME:;;%s" "ADDRESS_HOME")
-#           ,(isamert/build-contact-item "ADR;WORK:;;%s" "ADDRESS_WORK")
-#           ,(format "REV:%s\n" (format-time-string "%Y-%m-%dT%T"))
-#           "END:VCARD")
-#         ""))
-#      "LEVEL=1")
-#     "\n")
-#    nil
-#    (read-file-name
-#     "Where to save the .vcf file?"
-#     "~/Documents/sync/"
-#     "contacts.vcf")))
-#+end_src
-
 ** Projectile
 #+begin_src emacs-lisp
 (setq projectile-project-search-path '("~/dev/"))
@@ -187,6 +144,11 @@ Instead define formatting behaviour through hooks for specific languages for mor
 I want to use zsh as default shell.
 #+begin_src emacs-lisp
 (setq vterm-shell "zsh")
+#+end_src
+** YASnippet
+Enable nested snippets.
+#+begin_src emacs-lisp
+(setq yas-triggers-in-field t)
 #+end_src
 
 * Language settings
@@ -226,4 +188,18 @@ Use =debugpy= for debugging.
 Use c++20 as the default language standard.
 #+begin_src emacs-lisp
 ;; (setq flycheck-gcc-language-standard "c++20")
+#+end_src
+** LaTeX
+#+begin_src emacs-lisp
+(add-hook 'latex-mode-hook
+          lambda ()
+          (setq tab-width 2))
+#+end_src
+Compilation
+#+begin_src emacs-lisp
+(setq TeX-save-query nil
+      TeX-show-compilation t
+      TeX-command-extra-options "-shell-escape")
+(after! latex
+  (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t" TeX-run-TeX nil t)))
 #+end_src
