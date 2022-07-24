@@ -1,5 +1,6 @@
 #+title: My Doom Emacs config
 #+author: mfroeh
+
 * Helper Functions
 This section defines some helper functions to be used for configuration.
 
@@ -32,7 +33,7 @@ You can use =SPC h v doom-font= to find out more about how to set fonts.
 ** Doom theme
 Themes may also be loaded using =M-x load-theme=.
 #+begin_src emacs-lisp
-(setq doom-theme 'doom-spacegrey)
+(setq doom-theme 'doom-ayu-mirage)
 #+end_src
 
 ** Window title
@@ -77,9 +78,20 @@ Use relative line numbers.
 (setq display-line-numbers-type 'relative)
 #+end_src
 
-Treat underscores as word delimiters to have this =be_one_word=.
+Introduce =Q= as the text object of the entire buffer.
+May be used when indenting (=Q >=), yanking (=y Q=), changing (=c Q=) or deleting (=d Q=).
 #+begin_src emacs-lisp
-(modify-syntax-entry ?_ "w")
+(define-key evil-normal-state-map "Q" #'mark-whole-buffer)
+#+end_src
+
+Treat Emacs symbols as a word inside evil.
+This has the advantage that it changes depending on the language.
+E.g. =foo-bar= is a symbol (thus a word) in =lisp-mode= but two symbols (seperated by =-=) in =c++-mode=.
+#+begin_src emacs-lisp
+(with-eval-after-load 'evil
+  (defalias #'forward-evil-word #'forward-evil-symbol)
+  ;; make evil-search-word look for symbol rather than word boundaries
+  (setq-default evil-symbol-word-search t))
 #+end_src
 
 Use two spaces for indention by default.
@@ -100,7 +112,7 @@ Pick which file or buffer to open in a new split and focus the new window.
 
 Different splash screen.
 #+begin_src emacs-lisp
-(setq fancy-splash-image "~/.config/doom/misc/splash-images/blackhole-lines.png")
+(setq fancy-splash-image "~/.config/doom/misc/splash-images/emacs-e.png")
 #+end_src
 
 * Package settings
@@ -151,6 +163,32 @@ Enable nested snippets.
 (setq yas-triggers-in-field t)
 #+end_src
 
+** LSP
+LSP mode provides a set of configurable UI stuff, Doom Emacs disables some of the UI components.
+However, I like to enable some less intrusive, more useful UI stuff.
+Enable breadcrumbs for headerline and the sideline for diagnostics and code actions.
+#+begin_src emacs-lisp
+(after! lsp-ui
+  (setq lsp-headerline-breadcrumb-enable t
+        lsp-headerline-breadcrumb-enable-diagnostics nil
+        lsp-headerline-breadcrumb-icons-enable t
+        lsp-headerline-breadcrumb-segements '(project file symbols))
+  (setq lsp-ui-sideline-enable t
+        lsp-ui-sideline-show-code-actions t
+        lsp-ui-sideline-show-diagnostics t
+        lsp-ui-sideline-show-symbol t
+        lsp-ui-sideline-show-hover nil))
+#+end_src
+
+** Treemacs
+Use icons inside the treemacs project drawer and make items expand with one click instead of two clicks.
+#+begin_src emacs-lisp
+(after! treemacs
+  (setq doom-themes-treemacs-theme "doom-colors"
+        treemacs-is-never-other-window t)
+  (define-key treemacs-mode-map [mouse-1] #'treemacs-single-click-expand-action))
+#+end_src
+
 * Language settings
 Individual settings for specific language modes.
 
@@ -184,22 +222,30 @@ Use =debugpy= for debugging.
 (after! dap-mode
   (setq dap-python-debugger 'debugpy))
 #+end_src
-** C++
-Use c++20 as the default language standard.
+** C/C++
+Enable the google c++ coding style.
 #+begin_src emacs-lisp
-;; (setq flycheck-gcc-language-standard "c++20")
+(add-hook 'c++-mode-hook
+          (lambda ()
+            (setq tab-width 4)
+            (google-set-c-style)
+            (google-make-newline-indent)))
 #+end_src
+
+Use clangd as lsp server.
+#+begin_src emacs-lisp
+(setq lsp-clients-clangd-args '("-j=4"
+                                "--background-index"
+                                "--clang-tidy"
+                                "--completion-style=detailed"
+                                "--header-insertion=never"
+                                "--header-insertion-decorators=0"))
+(after! lsp-clangd (set-lsp-priority! 'clangd 2))
+#+end_src
+
 ** LaTeX
 #+begin_src emacs-lisp
 (add-hook 'latex-mode-hook
-          lambda ()
-          (setq tab-width 2))
-#+end_src
-Compilation
-#+begin_src emacs-lisp
-(setq TeX-save-query nil
-      TeX-show-compilation t
-      TeX-command-extra-options "-shell-escape")
-(after! latex
-  (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t" TeX-run-TeX nil t)))
+          (lambda ()
+            (setq tab-width 2)))
 #+end_src

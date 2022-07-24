@@ -52,6 +52,9 @@ yay -S openssh seafile-client --noconfirm
 # LaTeX
 sudo pacman -S texlive-core texlive-bin texlive-science texlab zathura zathura-pdf-poppler --noconfirm
 
+# C/C++
+yay -S clangd cmake cmake-langauge-server bear --noconfirm
+
 # Not sure yet
 yay -S meson haruna gwenview --noconfirm
 
