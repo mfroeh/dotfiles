@@ -151,7 +151,8 @@
        ;;purescript        ; javascript, but functional
        (python
         +lsp
-        +pyright)            ; beautiful is better than ugly
+        +pyright
+        +tree-sitter)            ; beautiful is better than ugly
        ;;qt                ; the 'cutest' gui framework ever
        ;;racket            ; a DSL for DSLs
        ;;raku              ; the artist formerly known as perl6
