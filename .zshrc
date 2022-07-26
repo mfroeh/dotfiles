@@ -1,6 +1,10 @@
 # PROMPT='%F{214}%B%n%b%F%F{white}%F%F{214}%B%m%b%F %F{white}in%F %F{blue}%B%~%b%F %F{white}%F%F{214}%Bﬦ%b%F ' #::
 
-source /usr/share/zsh/share/antigen.zsh
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+	source /usr/share/zsh/share/antigen.zsh
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+	source /opt/homebrew/share/antigen/antigen.zsh
+fi
 antigen use oh-my-zsh
 
 # Bundles from the default repo (robbyrussell's oh-my-zsh)
