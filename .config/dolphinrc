@@ -1,3 +1,8 @@
+[ExtractDialog]
+DP-2 DVI-D-0 Height 2560x1440=668
+DP-2 DVI-D-0 Width 2560x1440=1386
+DirHistory[$e]=$HOME/Documents/Abitur/Zeugnis/
+
 [General]
 Version=201
 ViewPropsTimestamp=2022,7,11,1,9,58.254
@@ -8,6 +13,9 @@ PreviewSize=112
 [KFileDialog Settings]
 Places Icons Auto-resize=false
 Places Icons Static Size=22
+Recent Files[$e]=file:$HOME,file:$HOME
+Recent URLs[$e]=file:$HOME/Documents/Abitur/Zeugnis/
+detailViewIconSize=16
 
 [KPropertiesDialog]
 DP-2 DVI-D-0 Height 1920x1080=534
@@ -21,9 +29,9 @@ Virtual-1 Width 1024x768=449
 MenuBar=Disabled
 ToolBarsMovable=Disabled
 
+[Notification Messages]
+ConfirmDelete=true
+
 [Open-with settings]
 CompletionMode=1
 History=zathu,emacs
-
-[Search]
-Location=Everywhere

@@ -50,3 +50,4 @@
 ;(unpin! t)
 (package! aggressive-indent)
 (package! google-c-style)
+(package! speed-type)

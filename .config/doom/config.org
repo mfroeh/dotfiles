@@ -24,16 +24,15 @@ Might set username and email if I use mail clients in emacs in the future.
 
 ** Font
 You can use =SPC h v doom-font= to find out more about how to set fonts.
-'M-x describe-font' to look up the correct font name and =M-x doom/reload-font= to reload dooms font.
+=M-x describe-font= to look up the correct font name and =M-x doom/reload-font= to reload dooms font.
 #+begin_src emacs-lisp
-(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 16)
-      doom-unicode-font (font-spec :family "JetBrainsMono Nerd Font" :size 16))
+(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 16))
 #+end_src
 
 ** Doom theme
 Themes may also be loaded using =M-x load-theme=.
 #+begin_src emacs-lisp
-(setq doom-theme 'doom-ayu-mirage)
+(setq doom-theme 'doom-oceanic-next)
 #+end_src
 
 ** Window title
