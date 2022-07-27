@@ -4,6 +4,7 @@ update_info=kxkb.upd:remove-empty-lists,kxkb.upd:add-back-resetoptions,kxkb_vari
 [Layout]
 DisplayNames=,int
 LayoutList=us,us
+Model=hhk
 Options=terminate:ctrl_alt_bksp,grp:alts_toggle
 ResetOldOptions=true
 Use=true
