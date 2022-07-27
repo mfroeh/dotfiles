@@ -1,0 +1,7 @@
+[Desktop Entry]
+Exec=/home/mo/.xcape
+Icon=dialog-scripts
+Name=.xcape
+Path=
+Type=Application
+X-KDE-AutostartScript=true
