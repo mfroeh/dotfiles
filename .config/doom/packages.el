@@ -51,3 +51,4 @@
 (package! aggressive-indent)
 (package! google-c-style)
 (package! speed-type)
+(package! page-break-lines)
