@@ -19,9 +19,9 @@ detailViewIconSize=16
 
 [KPropertiesDialog]
 DP-2 DVI-D-0 Height 1920x1080=534
-DP-2 DVI-D-0 Height 2560x1440=673
+DP-2 DVI-D-0 Height 2560x1440=394
 DP-2 DVI-D-0 Width 1920x1080=499
-DP-2 DVI-D-0 Width 2560x1440=499
+DP-2 DVI-D-0 Width 2560x1440=376
 Virtual-1 Height 1024x768=645
 Virtual-1 Width 1024x768=449
 

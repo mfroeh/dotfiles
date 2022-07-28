@@ -121,7 +121,7 @@ DialogWidth=720
 ToolBoxButtonState=topcenter
 ToolBoxButtonX=786
 ToolBoxButtonY=35
-positions={"2560x1440":["1"\\,"21"\\,"desktop:/movies"\\,"0"\\,"0"]\\,"1920x1080":[""]}
+positions={"2560x1440":["1"\\,"23"\\,"desktop:/movies"\\,"0"\\,"0"]\\,"1920x1080":[""]}
 sortMode=-1
 
 [Containments][28][Wallpaper][org.kde.image][General]
@@ -357,4 +357,4 @@ AppletOrder=46;44;45
 
 [ScreenMapping]
 itemsOnDisabledScreens=
-screenMapping=desktop:/l,1,1f618a2a-30a0-4ad0-812f-d16f18087741,desktop:/movies,0,1f618a2a-30a0-4ad0-812f-d16f18087741
+screenMapping=desktop:/movies,0,1f618a2a-30a0-4ad0-812f-d16f18087741,desktop:/l,1,1f618a2a-30a0-4ad0-812f-d16f18087741

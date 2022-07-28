@@ -16,3 +16,6 @@ helper = !/usr/bin/gh auth git-credential
 [alias]
 s = status
 co = checkout
+
+[diff "org"]
+xfuncname = "^(\\*+ +.*)$"

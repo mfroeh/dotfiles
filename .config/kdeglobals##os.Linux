@@ -142,6 +142,8 @@ History Items[$e]=file:$HOME/Pictures,file:$HOME/gnucash,file:$HOME/Documents,fi
 [General]
 BrowserApplication=brave-browser.desktop
 ColorSchemeHash=79296561e8832ef612d7c1138272b1e03e6ba66d
+TerminalApplication=kitty
+TerminalService=kitty.desktop
 XftHintStyle=hintslight
 XftSubPixel=rgb
 accentColorFromWallpaper=false

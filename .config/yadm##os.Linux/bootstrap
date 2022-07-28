@@ -27,7 +27,7 @@ sudo systemctl enable sddm
 
 # Install plasma and applications
 sudo pacman -S nvidia nvidia-settings --noconfirm
-sudo pacman -S plasma appmenu-gtk-module --noconfirm
+sudo pacman -S plasma appmenu-gtk-module xcape --noconfirm
 yay -S dolphin brave-bin bitwarden ark libreoffice-fresh gimp discord spotify-adblock-git --noconfirm
 sudo pacman -S gnucash gnucash-docs perl-finance-quote --noconfirm
 
@@ -44,7 +44,7 @@ sudo usermod -aG vboxusers $USER
 yay -S neofetch github-cli nmap ntfs-3g --noconfirm
 
 # Fonts
-yay -S nerd-fonts-jetbrains-mono ttf-jetbrains-mono --noconfirm
+yay -S nerd-fonts-jetbrains-mono ttf-jetbrains-mono ttf-andika ttf-juliamono nerd-fonts-fantasque-sans-mono otf-vollkorn ttf-alegreya --noconfirm
 
 # Cloud associated
 yay -S openssh seafile-client --noconfirm
@@ -64,8 +64,9 @@ rm -rf .bash*
 # Doom Emacs
 git clone https://github.com/hlissner/doom-emacs ~/.emacs.d
 ~/.emacs.d/bin/doom install && ~/.emacs.d/bin/doom sync
-pip install black isort pyflakes
-sudo pacman -S shellcheck --noconfirm
+pip install black isort pyflakes # lang python
+sudo pacman -S shellcheck --noconfirm # lang sh
+sudo pacman -S languagetool aspell # checkers spell + grammar
 sudo pacman -S poppler ffmpegthumbnailer mediainfo imagemagick tar unzip --noconfirm
 
 
