@@ -67,9 +67,12 @@
 (package! org-ol-tree :recipe (:host github :repo "Townk/org-ol-tree"))
 (package! org-transclusion :recipe (:host github :repo "nobiot/org-transclusion"))
 (package! org-graph-view :recipe (:host github :repo "alphapapa/org-graph-view"))
+(package! org-super-agenda)
+(package! doct :recipe (:host github :repo "progfolio/doct"))
 
+(package! org-roam-ui :recipe (:host github :repo "org-roam/org-roam-ui" :files ("*.el" "out")))
+(package! websocket) ; dependency of `org-roam-ui'
 
-
-  (package! aggressive-indent)
-  (package! google-c-style)
-  (package! speed-type)
+(package! aggressive-indent)
+(package! google-c-style)
+(package! speed-type)
