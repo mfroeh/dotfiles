@@ -50,7 +50,7 @@ yay -S nerd-fonts-jetbrains-mono ttf-jetbrains-mono ttf-andika ttf-juliamono ner
 yay -S openssh seafile-client --noconfirm
 
 # LaTeX
-sudo pacman -S texlive-core texlive-bin texlive-science texlab zathura zathura-pdf-poppler --noconfirm
+sudo pacman -S texlive-most texlive-core texlive-bin texlive-science texlab zathura zathura-pdf-poppler --noconfirm
 
 # C/C++
 yay -S clangd cmake cmake-langauge-server bear --noconfirm
@@ -64,7 +64,7 @@ rm -rf .bash*
 # Doom Emacs
 git clone https://github.com/hlissner/doom-emacs ~/.emacs.d
 ~/.emacs.d/bin/doom install && ~/.emacs.d/bin/doom sync
-pip install black isort pyflakes # lang python
+pip install black isort pyflakes debugpy # lang python
 sudo pacman -S shellcheck --noconfirm # lang sh
 sudo pacman -S languagetool aspell # checkers spell + grammar
 sudo pacman -S poppler ffmpegthumbnailer mediainfo imagemagick tar unzip --noconfirm

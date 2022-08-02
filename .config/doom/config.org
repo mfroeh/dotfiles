@@ -529,7 +529,7 @@ runs after UI initialisation and both
 + conditionally enables =mixed-pitch-mode=
 + sets up the mixed pitch hooks
 #+begin_src emacs-lisp
-(defvar mixed-pitch-modes '(org-mode LaTeX-mode markdown-mode gfm-mode Info-mode)
+(defvar mixed-pitch-modes '(org-mode markdown-mode gfm-mode Info-mode)
   "Modes that `mixed-pitch-mode' should be enabled in, but only after UI initialisation.")
 (defun init-mixed-pitch-h ()
   "Hook `mixed-pitch-mode' into each mode in `mixed-pitch-modes'.
@@ -1102,6 +1102,35 @@ Enable breadcrumbs for headerline and the sideline for diagnostics and code acti
         lsp-ui-sideline-show-diagnostics t
         lsp-ui-sideline-show-symbol t
         lsp-ui-sideline-show-hover nil))
+#+end_src
+
+*** DAP
+I like to use [[https://github.com/Microsoft/vscode-cpptools][=cpptools=]] over [[https://github.com/WebFreak001/code-debug][=webfreak.debug=]]. So I enable it after loading
+=dap-mode=. I like also to have a mode minimal UI. And I like to trigger =dap-hydra=
+when the program hits a break point, and automatically delete the session and
+close Hydra when DAP is terminated.
+#+begin_src emacs-lisp
+(after! dap-mode
+  (require 'dap-cpptools)
+
+  ;; More minimal UI
+  (setq dap-auto-configure-features '(locals tooltip)
+        dap-auto-show-output nil ;; Hide the annoying server output
+        lsp-enable-dap-auto-configure t)
+
+  ;; Automatically trigger dap-hydra when a program hits a breakpoint.
+  (add-hook 'dap-stopped-hook (lambda (arg) (call-interactively #'dap-hydra)))
+
+  ;; Automatically delete session and close dap-hydra when DAP is terminated.
+  (add-hook 'dap-terminated-hook
+            (lambda (arg)
+              (call-interactively #'dap-delete-session)
+              (dap-hydra/nil)))
+
+  ;; A workaround to correctly show breakpoints
+  ;; from: https://github.com/emacs-lsp/dap-mode/issues/374#issuecomment-1140399819
+  (add-hook! +dap-running-session-mode
+      (set-window-buffer nil (current-buffer))))
 #+end_src
 
 *** Format
@@ -2174,124 +2203,27 @@ with it.
 [[xkcd:1301]]
 
 *** Compilation
+Execute =Tex-command-run-all= on save of LaTeX buffers.
+#+begin_src emacs-lisp
+;; (after! latex
+;;   (add-hook 'LaTeX-mode-hook (lambda ()
+;;                                (add-hook 'after-save-hook (call-interactively 'TeX-command-run-all)))))
+#+end_src
+
 #+begin_src emacs-lisp
 (setq TeX-save-query nil
       TeX-show-compilation t
       TeX-command-extra-options "-shell-escape")
 (after! latex
-  (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t" TeX-run-TeX nil t)))
+  (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t" TeX-run-TeX nil t))
+  (setq TeX-command-default "LatexMk"))
 #+end_src
 
 For viewing the PDF, I rather like the pdf-tools viewer. While auctex is trying
 to be nice in recognising that I have some PDF viewing apps installed, I'd
 rather not have it default to using them, so let's re-order the preferences.
 #+begin_src emacs-lisp
-(setq +latex-viewers '(pdf-tools evince zathura okular skim sumatrapdf))
-#+end_src
-
-*** Snippet helpers
-**** Template
-For use in the new-file template, let's set out a nice preamble we may want to use.
-#+name: latex-nice-preamble
-#+begin_src latex :tangle no
-\\usepackage[pdfa,unicode=true,hidelinks]{hyperref}
-
-\\usepackage[dvipsnames,svgnames,table,hyperref]{xcolor}
-\\renewcommand{\\UrlFont}{\\ttfamily\\small}
-
-\\usepackage[a-2b]{pdfx} % why not be archival
-
-\\usepackage[T1]{fontenc}
-\\usepackage[osf]{newpxtext}  % Palatino
-\\usepackage{gillius}
-\\usepackage[scale=0.9]{sourcecodepro}
-
-\\usepackage[varbb]{newpxmath}
-\\usepackage{mathtools}
-\\usepackage{amssymb}
-
-\\usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=2000]{microtype}
-% microtype makes text look nicer
-
-\\usepackage{graphicx} % include graphics
-
-\\usepackage{booktabs} % nice table rules
-#+end_src
-Then let's bind the content to a function, and define some nice helpers.
-#+begin_src emacs-lisp :noweb no-export
-(setq tec/yas-latex-template-preamble "
-<<latex-nice-preamble>>
-")
-
-(defun tec/yas-latex-get-class-choice ()
-  "Prompt user for LaTeX class choice"
-  (setq tec/yas-latex-class-choice (completing-read "Select document class: " '("article" "scrartcl" "bmc"))))
-
-(defun tec/yas-latex-preamble-if ()
-  "Based on class choice prompt for insertion of default preamble"
-  (if (equal tec/yas-latex-class-choice "bmc") 'nil
-    (eq (read-char-choice "Include default preamble? [Type y/n]" '(?y ?n)) ?y)))
-#+end_src
-
-**** Deliminators
-#+begin_src emacs-lisp
-(after! tex
-  (defvar tec/tex-last-delim-char nil
-    "Last open delim expanded in a tex document")
-  (defvar tec/tex-delim-dot-second t
-    "When the `tec/tex-last-delim-char' is . a second character (this) is prompted for")
-  (defun tec/get-open-delim-char ()
-    "Exclusivly read next char to tec/tex-last-delim-char"
-    (setq tec/tex-delim-dot-second nil)
-    (setq tec/tex-last-delim-char (read-char-exclusive "Opening deliminator, recognises: 9 ( [ { < | ."))
-    (when (eql ?. tec/tex-last-delim-char)
-      (setq tec/tex-delim-dot-second (read-char-exclusive "Other deliminator, recognises: 0 9 (  ) [ ] { } < > |"))))
-  (defun tec/tex-open-delim-from-char (&optional open-char)
-    "Find the associated opening delim as string"
-    (unless open-char (setq open-char (if (eql ?. tec/tex-last-delim-char)
-                                          tec/tex-delim-dot-second
-                                        tec/tex-last-delim-char)))
-    (pcase open-char
-      (?\( "(")
-      (?9  "(")
-      (?\[ "[")
-      (?\{ "\\{")
-      (?<  "<")
-      (?|  (if tec/tex-delim-dot-second "." "|"))
-      (_   ".")))
-  (defun tec/tex-close-delim-from-char (&optional open-char)
-    "Find the associated closing delim as string"
-    (if tec/tex-delim-dot-second
-        (pcase tec/tex-delim-dot-second
-          (?\) ")")
-          (?0  ")")
-          (?\] "]")
-          (?\} "\\}")
-          (?\> ">")
-          (?|  "|")
-          (_   "."))
-      (pcase (or open-char tec/tex-last-delim-char)
-        (?\( ")")
-        (?9  ")")
-        (?\[ "]")
-        (?\{ "\\}")
-        (?<  ">")
-        (?\) ")")
-        (?0  ")")
-        (?\] "]")
-        (?\} "\\}")
-        (?\> ">")
-        (?|  "|")
-        (_   "."))))
-  (defun tec/tex-next-char-smart-close-delim (&optional open-char)
-    (and (bound-and-true-p smartparens-mode)
-         (eql (char-after) (pcase (or open-char tec/tex-last-delim-char)
-                             (?\( ?\))
-                             (?\[ ?\])
-                             (?{ ?})
-                             (?< ?>)))))
-  (defun tec/tex-delim-yas-expand (&optional open-char)
-    (yas-expand-snippet (yas-lookup-snippet "_deliminators" 'latex-mode) (point) (+ (point) (if (tec/tex-next-char-smart-close-delim open-char) 2 1)))))
+(setq +latex-viewers '(pdf-tools zathura evince okular skim sumatrapdf))
 #+end_src
 
 *** Editor visuals
@@ -2453,10 +2385,10 @@ Maths deliminators can be de-emphasised a bit
  `(("\\\\[]()[]" 0 'unimportant-latex-face prepend))
  'end)
 
-;; (font-lock-add-keywords
-;;  'latex-mode
-;;  '(("\\\\[[:word:]]+" 0 'font-lock-keyword-face prepend))
-;;  'end)
+(font-lock-add-keywords
+ 'latex-mode
+ '(("\\\\[[:word:]]+" 0 'font-lock-keyword-face prepend))
+ 'end)
 #+end_src
 
 And enable shell escape for the preview
@@ -2465,59 +2397,6 @@ And enable shell escape for the preview
 \\PassOptionsToPackage{" ("," . preview-required-option-list) "}{preview}\
 \\AtBeginDocument{\\ifx\\ifPreview\\undefined"
 preview-default-preamble "\\fi}\"%' \"\\detokenize{\" %t \"}\""))
-#+end_src
-
-*** Math input
-**** CDLaTeX
-The symbols and modifies are very nice by default, but could do with a bit of
-fleshing out. Let's change the prefix to a key which is similarly rarely used,
-but more convenient, like =;=.
-#+begin_src emacs-lisp
-(after! cdlatex
-  (setq cdlatex-env-alist
-        '(("bmatrix" "\\begin{bmatrix}\n?\n\\end{bmatrix}" nil)
-          ("equation*" "\\begin{equation*}\n?\n\\end{equation*}" nil)))
-  (setq ;; cdlatex-math-symbol-prefix ?\; ;; doesn't work at the moment :(
-   cdlatex-math-symbol-alist
-   '( ;; adding missing functions to 3rd level symbols
-     (?_    ("\\downarrow"  ""           "\\inf"))
-     (?2    ("^2"           "\\sqrt{?}"     ""     ))
-     (?3    ("^3"           "\\sqrt[3]{?}"  ""     ))
-     (?^    ("\\uparrow"    ""           "\\sup"))
-     (?k    ("\\kappa"      ""           "\\ker"))
-     (?m    ("\\mu"         ""           "\\lim"))
-     (?c    (""             "\\circ"     "\\cos"))
-     (?d    ("\\delta"      "\\partial"  "\\dim"))
-     (?D    ("\\Delta"      "\\nabla"    "\\deg"))
-     ;; no idea why \Phi isnt on 'F' in first place, \phi is on 'f'.
-     (?F    ("\\Phi"))
-     ;; now just convenience
-     (?.    ("\\cdot" "\\dots"))
-     (?:    ("\\vdots" "\\ddots"))
-     (?*    ("\\times" "\\star" "\\ast")))
-   cdlatex-math-modify-alist
-   '( ;; my own stuff
-     (?B    "\\mathbb"        nil          t    nil  nil)
-     (?a    "\\abs"           nil          t    nil  nil))))
-#+end_src
-
-**** LAAS
-This makes use of =aas= (/Auto Activating Snippets/) for CDLaTeX-like symbol input.
-#+begin_src emacs-lisp
-(use-package! laas
-  :hook (LaTeX-mode . laas-mode)
-  :config
-  (defun laas-tex-fold-maybe ()
-    (unless (equal "/" aas-transient-snippet-key)
-      (+latex-fold-last-macro-a)))
-  (add-hook 'aas-post-snippet-expand-hook #'laas-tex-fold-maybe))
-#+end_src
-
-*** SyncTeX
-#+begin_src emacs-lisp
-(after! tex
-  (add-to-list 'TeX-view-program-list '("Evince" "evince %o"))
-  (add-to-list 'TeX-view-program-selection '(output-pdf "Evince")))
 #+end_src
 
 *** Fixes
