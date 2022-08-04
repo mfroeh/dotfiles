@@ -5,17 +5,6 @@ email = mfroeh0@protonmail.com
 [init]
 defaultBranch = main
 
-[credential "https://github.com"]
-helper =
-helper = !/usr/bin/gh auth git-credential
-
-[credential "https://gist.github.com"]
-helper =
-helper = !/usr/bin/gh auth git-credential
-
 [alias]
 s = status
 co = checkout
-
-[diff "org"]
-xfuncname = "^(\\*+ +.*)$"
