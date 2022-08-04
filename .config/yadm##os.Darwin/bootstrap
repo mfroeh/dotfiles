@@ -1,0 +1,47 @@
+#!/bin/zsh
+
+# Do before
+# /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# /opt/homebrew/bin/brew install yadm
+# Then execute 
+# /opt/homebrew/bin/yadm clone https://github.com/vocaltrance/dotfiles 
+# to bootstrap
+xcode-select --install
+
+echo "Installing fonts"
+brew tap homebrew/cask-fonts
+brew install font-jetbrains-mono-nerd-font
+
+# Installing patched SFMono
+git clone git@github.com:shaunsingh/SFMono-Nerd-Font-Ligaturized.git /tmp/SFMono_Nerd_Font
+mv /tmp/SFMono_Nerd_Font/* $HOME/Library/Fonts
+rm -rf /tmp/SFMono_Nerd_Font/
+
+echo "Installing anything shell related"
+brew install antigen
+
+echo "Installing small cli programs"
+brew install ripgrep
+brew install fd
+
+echo "Installing cli programs"
+brew install neovim
+brew install gh
+
+echo "Installing gui applications"
+brew install --cask karabiner-elements
+brew install --cask brave-browser
+brew install --cask kitty
+brew install --cask seafile-client
+brew install --cask visual-studio-code
+
+echo "Installing sketchybar and dependencies"
+brew tap FelixKratz/formulae
+brew install sketchybar
+brew install --cask font-hack-nerd-font
+brew services start sketchybar
+
+# Additional dependencies for current setup
+brew install --cask sf-symbols
+brew install jq
+brew install ifstat

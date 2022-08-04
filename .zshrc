@@ -89,13 +89,8 @@ export PATH="$HOME/.emacs.d/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 
+export PATH="/opt/homebrew/bin:$PATH"
+
 export EDITOR="nvim"
 
-alias vi="nvim"
-alias vim="nvim"
-
 alias ssh="kitty +kitten ssh"
-
-if [[ -z "$DISPLAY" ]] && [[ $(tty) = /dev/tty1 ]]; then
-startx
-fi
