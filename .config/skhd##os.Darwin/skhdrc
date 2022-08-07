@@ -1,0 +1,63 @@
+## Navigation (alt - ...)
+# Space Navigation (on two displays): alt - {1, 2, 3, 4}
+alt - 1 : if [ "$(yabai -m query --displays --display | jq '.index')" -eq "1" ]; then yabai -m space --focus 1; else yabai -m space --focus 5; fi
+alt - 2 : if [ "$(yabai -m query --displays --display | jq '.index')" -eq "1" ]; then yabai -m space --focus 2; else yabai -m space --focus 6; fi
+alt - 3 : if [ "$(yabai -m query --displays --display | jq '.index')" -eq "1" ]; then yabai -m space --focus 3; else yabai -m space --focus 7; fi
+alt - 4 : if [ "$(yabai -m query --displays --display | jq '.index')" -eq "1" ]; then yabai -m space --focus 4; else yabai -m space --focus 8; fi
+
+# Window Navigation (through display borders): alt - {h, j, k, l}
+alt - h    : yabai -m window --focus west  || yabai -m display --focus west
+alt - j    : yabai -m window --focus south || yabai -m display --focus south
+alt - k    : yabai -m window --focus north || yabai -m display --focus north
+alt - l    : yabai -m window --focus east  || yabai -m display --focus east
+alt - tab    : yabai -m window --focus recent || yabai -m display --focus recent
+
+# Extended Window Navigation: alt - {h, ä}
+# alt -    h : yabai -m window --focus first
+# alt - 0x27 : yabai -m window --focus  last
+
+# Make window zoom to fullscreen: alt - f
+alt -  f : yabai -m window --toggle zoom-fullscreen; sketchybar --trigger window_focus
+
+## Window Movement (shift + alt - ...)
+# Moving windows in spaces: shift + alt - {h, j, k, l}
+shift + alt - h : yabai -m window --warp west || $(yabai -m window --display west; yabai -m display --focus west; yabai -m window --warp last) || yabai -m window --move rel:-10:0
+shift + alt - j : yabai -m window --warp south || $(yabai -m window --display south; yabai -m display --focus south) || yabai -m window --move rel:0:10
+shift + alt - k : yabai -m window --warp north || $(yabai -m window --display north; yabai -m display --focus north) || yabai -m window --move rel:0:-10
+shift + alt - l : yabai -m window --warp east || $(yabai -m window --display east; yabai -m display --focus east; yabai -m window --warp first) || yabai -m window --move rel:10:0
+
+# Moving windows between spaces: shift + alt - {1, 2, 3, 4, p, n } (Assumes 4 Spaces Max per Display)
+shift + alt - 1 : if [ "$(yabai -m query --displays --display | jq '.index')" -eq "1" ]; then yabai -m window --space 1; else yabai -m window --space 5; fi
+shift + alt - 2 : if [ "$(yabai -m query --displays --display | jq '.index')" -eq "1" ]; then yabai -m window --space 2; else yabai -m window --space 6; fi
+shift + alt - 3 : if [ "$(yabai -m query --displays --display | jq '.index')" -eq "1" ]; then yabai -m window --space 3; else yabai -m window --space 7; fi
+shift + alt - 4 : if [ "$(yabai -m query --displays --display | jq '.index')" -eq "1" ]; then yabai -m window --space 4; else yabai -m window --space 8; fi
+shift + alt - p : yabai -m window --space prev; yabai -m space --focus prev
+shift + alt - n : yabai -m window --space next; yabai -m space --focus next
+
+# Rotate tree
+shift + alt - r : yabai -m space --rotate 90
+
+# Mirror Space on X and Y Axis: shift + alt - {x, y}
+shift + alt - x : yabai -m space --mirror x-axis
+shift + alt - y : yabai -m space --mirror y-axis
+
+## Resize (ctrl + alt - ...)
+# Resize windows: ctrl + alt - {j, k, l, ö}
+ctrl + alt - h    : yabai -m window --resize left:-50:0;  yabai -m window --resize right:-50:0
+ctrl + alt - j    : yabai -m window --resize bottom:0:50; yabai -m window --resize top:0:50
+ctrl + alt - k    : yabai -m window --resize top:0:-50;   yabai -m window --resize bottom:0:-50
+ctrl + alt - l : yabai -m window --resize right:50:0;  yabai -m window --resize left:50:0
+
+# Equalize size of windows: ctrl + alt - e
+ctrl + alt - e : yabai -m space --balance
+
+# Enable / Disable gaps in current workspace: ctrl + alt - g
+ctrl + alt - g : yabai -m space --toggle padding; yabai -m space --toggle gap
+
+## Misc
+# Open terminal
+cmd - return : /Applications/Kitty.app/Contents/MacOS/kitty --single-instance -d ~ &> /dev/null
+
+# open mpv with url from clipboard
+cmd - m : open -na /Applications/mpv.app $(pbpaste)
+

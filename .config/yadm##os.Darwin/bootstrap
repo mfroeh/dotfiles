@@ -12,7 +12,7 @@ echo "Installing fonts"
 brew tap homebrew/cask-fonts
 brew install font-jetbrains-mono-nerd-font
 
-# Installing patched SFMono
+# Patched SFMono
 git clone git@github.com:shaunsingh/SFMono-Nerd-Font-Ligaturized.git /tmp/SFMono_Nerd_Font
 mv /tmp/SFMono_Nerd_Font/* $HOME/Library/Fonts
 rm -rf /tmp/SFMono_Nerd_Font/
@@ -23,11 +23,12 @@ brew install antigen
 echo "Installing small cli programs"
 brew install ripgrep
 brew install fd
+brew install bat
+brew install gh
 brew install neofetch
 
 echo "Installing cli programs"
 brew install neovim
-brew install gh
 
 echo "Installing gui applications"
 brew install --cask karabiner-elements
@@ -35,6 +36,20 @@ brew install --cask brave-browser
 brew install --cask kitty
 brew install --cask seafile-client
 brew install --cask visual-studio-code
+brew install --cask alfred
+
+echo "Installing yabai and skhd"
+brew tap koekeishiya/formulae
+brew install yabai
+brew install skhd
+
+# Scripting addition and SIP features
+sudo nvram boot-args=-arm64e_preview_abi
+sudo yabai --install-sa
+echo "${USER} ALL = (root) NOPASSWD: sha256:$(shasum -a 256 $(which yabai)) $(which yabai) --load-sa" | sudo tee /private/etc/sudoers.d/yabai
+
+brew services start yabai
+brew services start skhd
 
 echo "Installing sketchybar and dependencies"
 brew tap FelixKratz/formulae
@@ -70,8 +85,8 @@ defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 defaults write NSGlobalDomain _HIHideMenuBar -bool false
 # 
 defaults write NSGlobalDomain AppleHighlightColor -string "0.615686 0.823529 0.454902"
-# 
-defaults write NSGlobalDomain AppleAccentColor -int 1
+# Disable opening and closing window animations
+defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false
 
 ## Input
 # Map bottom right corner to right-click
@@ -88,6 +103,7 @@ defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 # 
 defaults write NSGlobalDomain KeyRepeat -int 1
 #
+#NSAutomaticWindowAnimationsEnabled
 
 ## Screen
 # Require password immediately after sleep or screen saver begins
@@ -163,5 +179,8 @@ defaults write com.apple.dock showhidden -bool true
 defaults write com.apple.dock mru-spaces -bool false
 # 
 defaults write com.apple.spaces spans-displays -bool false
+# Automatically hide and show menu bar
+defaults write NSGlobalDomain _HIHideMenuBar -bool true
 
-## Spotlight
+echo "Dont forget to"
+echo "* Enable Accessibility->Display->Reduce Motion"

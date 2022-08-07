@@ -1,9 +1,9 @@
 # PROMPT='%F{214}%B%n%b%F%F{white}%F%F{214}%B%m%b%F %F{white}in%F %F{blue}%B%~%b%F %F{white}%F%F{214}%Bﬦ%b%F ' #::
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-source /usr/share/zsh/share/antigen.zsh
+  source /usr/share/zsh/share/antigen.zsh
 elif [[ "$OSTYPE" == "darwin"* ]]; then
-source /opt/homebrew/share/antigen/antigen.zsh
+  source /opt/homebrew/share/antigen/antigen.zsh
 fi
 antigen use oh-my-zsh
 
@@ -88,7 +88,6 @@ export XDG_STATE_HOME="$HOME/.local/state"
 export PATH="$HOME/.emacs.d/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
-
 export PATH="/opt/homebrew/bin:$PATH"
 
 export EDITOR="nvim"
