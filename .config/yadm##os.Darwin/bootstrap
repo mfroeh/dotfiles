@@ -24,6 +24,7 @@ echo "Installing small cli programs"
 brew install ripgrep
 brew install fd
 brew install bat
+brew install lsd
 brew install gh
 brew install neofetch
 

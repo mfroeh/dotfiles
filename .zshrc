@@ -93,3 +93,5 @@ export PATH="/opt/homebrew/bin:$PATH"
 export EDITOR="nvim"
 
 alias ssh="kitty +kitten ssh"
+alias ls="lsd"
+alias cat="bat"
