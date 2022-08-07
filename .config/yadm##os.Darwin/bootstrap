@@ -37,6 +37,7 @@ brew install --cask kitty
 brew install --cask seafile-client
 brew install --cask visual-studio-code
 brew install --cask alfred
+brew install --cask spacelauncher
 
 echo "Installing yabai and skhd"
 brew tap koekeishiya/formulae
@@ -46,7 +47,7 @@ brew install skhd
 # Scripting addition and SIP features
 sudo nvram boot-args=-arm64e_preview_abi
 sudo yabai --install-sa
-echo "${USER} ALL = (root) NOPASSWD: sha256:$(shasum -a 256 $(which yabai)) $(which yabai) --load-sa" | sudo tee /private/etc/sudoers.d/yabai
+echo "${USER} ALL = (root) NOPASSWD: sha256:$(shasum -a 256 $(which yabai)) --load-sa" | sudo tee /private/etc/sudoers.d/yabai
 
 brew services start yabai
 brew services start skhd
