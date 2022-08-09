@@ -15,6 +15,8 @@ antigen bundle command-not-found
 # Syntax highlighting bundle
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-completions
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle jeffreytse/zsh-vi-mode
 
 # Config options: https://github.com/denysdovhan/spaceship-prompt/blob/master/docs/Options.md
 export SPACESHIP_PROMPT_ADD_NEWLINE="false"
@@ -95,3 +97,5 @@ export EDITOR="nvim"
 alias ssh="kitty +kitten ssh"
 alias ls="lsd"
 alias cat="bat"
+
+# bindkey '^y' autosuggest-accept
