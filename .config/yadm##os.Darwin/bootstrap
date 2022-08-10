@@ -39,6 +39,7 @@ brew install --cask seafile-client
 brew install --cask visual-studio-code
 brew install --cask alfred
 brew install --cask spacelauncher
+brew install --cask bitwarden
 
 echo "Installing yabai and skhd"
 brew tap koekeishiya/formulae
