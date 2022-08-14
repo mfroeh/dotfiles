@@ -1,68 +1,41 @@
-#!/usr/bin/env sh
+PLUGIN_DIR="$HOME/.config/sketchybar/plugins"
+ITEM_DIR="$HOME/.config/sketchybar/items"
 
-source "$HOME/.config/sketchybar/colors.sh" # Loads all defined colors
-source "$HOME/.config/sketchybar/icons.sh" # Loads all defined icons
+source $HOME/.config/sketchybar/colors.sh
+source $HOME/.config/sketchybar/icons.sh
 
-ITEM_DIR="$HOME/.config/sketchybar/items" # Directory where the items are configured
-PLUGIN_DIR="$HOME/.config/sketchybar/plugins" # Directory where all the plugin scripts are stored
+export FONT="SF Mono"
+export NERD_FONT="SFMono Nerd Font"
 
-FONT="SF Pro" # Needs to have Regular, Bold, Semibold, Heavy and Black variants
-SPACE_CLICK_SCRIPT="yabai -m space --focus \$SID 2>/dev/null" # The script that is run for clicking on space components
+sketchybar --bar height=30        \
+                 blur_radius=100  \
+                 position=top     \
+                 padding_left=10  \
+                 padding_right=10 \
+                 color=0x15ffffff \
+                 shadow=on
 
-PADDINGS=3 # All paddings use this value (icon, label, background and bar paddings)
+sketchybar --default updates=when_shown                       \
+                     drawing=on                               \
+                     icon.font="$NERD_FONT:Regular:14.0"      \
+                     icon.color=0xffffffff                    \
+                     label.font="$FONT:Light:14.0"            \
+                     label.color=0xffffffff                   \
+                     label.padding_left=4                     \
+                     label.padding_right=4                    \
+                     icon.padding_left=4                      \
+                     icon.padding_right=4
 
-POPUP_BORDER_WIDTH=2
-POPUP_CORNER_RADIUS=11
+source $ITEM_DIR/apple.sh
+source $ITEM_DIR/spaces.sh
+source $ITEM_DIR/window_title.sh
+source $ITEM_DIR/clock.sh
+source $ITEM_DIR/battery.sh
+source $ITEM_DIR/cpu.sh
+source $ITEM_DIR/wifi.sh
+source $ITEM_DIR/darkside.sh
 
-SHADOW=on
 
-# Setting up the general bar appearance and default values
-sketchybar --bar     height=32                                           \
-                     corner_radius=0                                     \
-                     border_width=0                                      \
-                     margin=0                                           \
-                     blur_radius=50                                      \
-                     position=top                                        \
-                     padding_left=5                                      \ 
-                     padding_right=5                                     \
-                     color=$BAR_COLOR                                    \
-                     topmost=off                                          \
-                     sticky=on                                           \
-                     font_smoothing=off                                  \
-                     y_offset=0                                         \
-                     shadow=$SHADOW                                      \
-                     notch_width=200                                     \
-                                                                         \
-           --default drawing=on                                          \
-                     updates=when_shown                                  \
-                     label.font="$FONT:Semibold:13.0"                    \
-                     icon.font="$FONT:Bold:14.0"                         \
-                     icon.color=$ICON_COLOR                              \
-                     label.color=$LABEL_COLOR                            \
-                     icon.padding_left=$PADDINGS                         \
-                     icon.padding_right=$PADDINGS                        \
-                     label.padding_left=$PADDINGS                        \
-                     label.padding_right=$PADDINGS                       \
-                     background.padding_right=$PADDINGS                  \
-                     background.padding_left=$PADDINGS                   \
-                     popup.background.border_width=$POPUP_BORDER_WIDTH   \
-                     popup.background.corner_radius=$POPUP_CORNER_RADIUS \
-                     popup.background.border_color=$POPUP_BORDER_COLOR   \
-                     popup.background.color=$POPUP_BACKGROUND_COLOR      \
-                     popup.background.shadow.drawing=$SHADOW
-
-# Left
-source "$ITEM_DIR/apple.sh"
-source "$ITEM_DIR/spaces.sh"
-source "$ITEM_DIR/front_app.sh"
-
-# Right
-source "$ITEM_DIR/github.sh"
-source "$ITEM_DIR/mail.sh"
-source "$ITEM_DIR/calendar.sh"
-source "$ITEM_DIR/cpu.sh"
-
-############## FINALIZING THE SETUP ##############
 sketchybar --update
 
-echo "sketchybar configuation loaded.."
+echo "sketchybar configuration loaded.."

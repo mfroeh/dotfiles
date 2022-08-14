@@ -136,7 +136,7 @@ brew tap homebrew/cask-fonts
 brew install font-jetbrains-mono-nerd-font
 
 # Patched SFMono
-git clone git@github.com:shaunsingh/SFMono-Nerd-Font-Ligaturized.git /tmp/SFMono_Nerd_Font
+git clone https://github.com/shaunsingh/SFMono-Nerd-Font-Ligaturized.git /tmp/SFMono_Nerd_Font
 mv /tmp/SFMono_Nerd_Font/* $HOME/Library/Fonts
 rm -rf /tmp/SFMono_Nerd_Font/
 
@@ -187,8 +187,6 @@ brew services start sketchybar
 
 # Additional dependencies for current setup
 brew install --cask sf-symbols
-brew install jq
-brew install ifstat
 
 echo "Installing emacs"
 git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.emacs.d
@@ -209,6 +207,7 @@ brew install --cask mactex
 echo "Dont forget to"
 echo "* Enable Accessibility->Display->Reduce motion"
 echo "* Disable Sound->Play sound on startup"
+echo "* Enable Trackpad->Tap to click"
 
 echo "Optional"
 echo "* Run doom install"
