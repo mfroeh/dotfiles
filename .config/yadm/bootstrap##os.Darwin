@@ -26,7 +26,7 @@ echo "Writing maocs defaults"
 defaults write com.apple.LaunchServices "LSQuarantine" -bool "false" 
 # 
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
-# 
+# Disable opening and closing window animations
 defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false
 # 
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
@@ -34,8 +34,6 @@ defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 defaults write NSGlobalDomain _HIHideMenuBar -bool false
 # 
 defaults write NSGlobalDomain AppleHighlightColor -string "0.615686 0.823529 0.454902"
-# Disable opening and closing window animations
-defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false
 
 ## Input
 # Map bottom right corner to right-click
@@ -165,6 +163,8 @@ brew install --cask spacelauncher
 brew install --cask bitwarden
 brew install --cask discord
 brew install --cask gnucash
+brew install --cask android-file-transfer
+brew install --cask vlc
 
 echo "Installing yabai and skhd"
 brew tap koekeishiya/formulae
@@ -204,7 +204,14 @@ echo "Installing rust dependencies"
 echo "Installing LaTeX dependencies"
 brew install --cask mactex
 
+echo "Installing other dependencies"
+brew install node
+
+echo "Installing other"
+brew install --cask scroll-reverser
+
 echo "Dont forget to"
+echo "* Reboot"
 echo "* Enable Accessibility->Display->Reduce motion"
 echo "* Disable Sound->Play sound on startup"
 echo "* Enable Trackpad->Tap to click"
