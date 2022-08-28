@@ -216,6 +216,7 @@ echo "* Enable Accessibility->Display->Reduce motion"
 echo "* Disable Sound->Play sound on startup"
 echo "* Enable Trackpad->Tap to click"
 echo "* Disable Keyboard->Text->Add full stop with double-space"
+echo "* Customize Finder sidebar"
 
 echo "Optional"
 echo "* Run doom install"
