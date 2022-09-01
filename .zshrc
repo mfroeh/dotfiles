@@ -11,6 +11,7 @@ antigen use oh-my-zsh
 antigen bundle git
 antigen bundle pip
 antigen bundle command-not-found
+antigen bundle colored-man-pages
 
 # Syntax highlighting bundle
 antigen bundle zsh-users/zsh-syntax-highlighting
@@ -97,5 +98,7 @@ export EDITOR="nvim"
 alias ssh="kitty +kitten ssh"
 alias ls="lsd"
 alias cat="bat"
+
+alias w++17='g++ -std=c++17 -Wall -Wextra -Wpedantic'
 
 # bindkey '^y' autosuggest-accept

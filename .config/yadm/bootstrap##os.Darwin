@@ -159,12 +159,16 @@ brew install --cask kitty
 brew install --cask seafile-client
 brew install --cask visual-studio-code
 brew install --cask alfred
-brew install --cask spacelauncher
+# brew install --cask spacelauncher
 brew install --cask bitwarden
 brew install --cask discord
 brew install --cask gnucash
 brew install --cask android-file-transfer
 brew install --cask vlc
+brew install --cask spotify
+
+brew tap zegervdv/zathura
+brew install zathura
 
 echo "Installing yabai and skhd"
 brew tap koekeishiya/formulae
@@ -175,7 +179,6 @@ brew install skhd
 sudo nvram boot-args=-arm64e_preview_abi
 sudo yabai --install-sa
 echo "${USER} ALL = (root) NOPASSWD: sha256:$(shasum -a 256 $(which yabai)) --load-sa" | sudo tee /private/etc/sudoers.d/yabai
-
 brew services start yabai
 brew services start skhd
 
@@ -183,10 +186,8 @@ echo "Installing sketchybar and dependencies"
 brew tap FelixKratz/formulae
 brew install sketchybar
 brew install --cask font-hack-nerd-font
-brew services start sketchybar
-
-# Additional dependencies for current setup
 brew install --cask sf-symbols
+brew services start sketchybar
 
 echo "Installing emacs"
 git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.emacs.d
