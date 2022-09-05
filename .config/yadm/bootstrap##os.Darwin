@@ -132,6 +132,8 @@ defaults write NSGlobalDomain _HIHideMenuBar -bool true
 echo "Installing fonts"
 brew tap homebrew/cask-fonts
 brew install font-jetbrains-mono-nerd-font
+brew install font-iosevka-nerd-font
+brew install font-sauce-code-pro-nerd-font
 
 # Patched SFMono
 git clone https://github.com/shaunsingh/SFMono-Nerd-Font-Ligaturized.git /tmp/SFMono_Nerd_Font
@@ -146,6 +148,7 @@ brew install ripgrep
 brew install fd
 brew install bat
 brew install lsd
+brew install fzf
 brew install gh
 brew install neofetch
 
@@ -167,8 +170,12 @@ brew install --cask android-file-transfer
 brew install --cask vlc
 brew install --cask spotify
 
+# zathura with poppler
 brew tap zegervdv/zathura
-brew install zathura
+brew install zathura --HEAD
+brew install zathura-pdf-poppler
+mkdir -p $(brew --prefix zathura)/lib/zathura
+ln -s $(brew --prefix zathura-pdf-poppler)/libpdf-poppler.dylib $(brew --prefix zathura)/lib/zathura/libpdf-poppler.dylib
 
 echo "Installing yabai and skhd"
 brew tap koekeishiya/formulae

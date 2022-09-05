@@ -99,6 +99,8 @@ alias ssh="kitty +kitten ssh"
 alias ls="lsd"
 alias cat="bat"
 
-alias w++17='g++ -std=c++17 -Wall -Wextra -Wpedantic'
+alias w++17="g++ -std=c++17 -Wall -Wextra -Wpedantic"
+
+alias lcl="python3 ~/.config/scripts/clean_latex.py"
 
 # bindkey '^y' autosuggest-accept
