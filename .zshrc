@@ -103,4 +103,8 @@ alias w++17="g++ -std=c++17 -Wall -Wextra -Wpedantic"
 
 alias lcl="python3 ~/.config/scripts/clean_latex.py"
 
+alias toswe="trans :swe"
+alias toen="trans :en"
+alias tode="trans :de"
+
 # bindkey '^y' autosuggest-accept

@@ -151,6 +151,8 @@ brew install lsd
 brew install fzf
 brew install gh
 brew install neofetch
+brew install translate-shell
+brew install telnet
 
 echo "Installing cli programs"
 brew install neovim

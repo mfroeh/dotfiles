@@ -56,6 +56,7 @@ alt - e : yabai -m space --balance
 alt - g : yabai -m space --toggle padding; yabai -m space --toggle gap
 
 # Make window zoom to fullscreen
+# TODO: Sent this to sketchybar
 alt - f : yabai -m window --toggle zoom-fullscreen; sketchybar --trigger window_focus
 
 # Make floating window fill screen

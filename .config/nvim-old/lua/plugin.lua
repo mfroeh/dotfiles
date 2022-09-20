@@ -94,14 +94,6 @@ return packer.startup(function(use)
   use "andymass/vim-matchup" 
   vim.g.loaded_matchit = 1
 
-  -- LSP
-  use "neovim/nvim-lspconfig" -- Enable LSP
-  use "williamboman/nvim-lsp-installer" -- Simple to use language server installer
-
-  use "ray-x/lsp_signature.nvim" -- LSP powered function signatures
-  use "folke/trouble.nvim"
-  if not PACKER_BOOTSTRAP then require "plugins.trouble" end
-
   -- Completion plugins
   use "hrsh7th/nvim-cmp" -- The completion plugin
   use "hrsh7th/cmp-nvim-lua" -- Completion for config file
@@ -132,6 +124,9 @@ return packer.startup(function(use)
 
   use "goolord/alpha-nvim"
   if not PACKER_BOOTSTRAP then require "plugins.alpha" end
+
+  -- Practise vim
+  use "ThePrimeagen/vim-be-good"
 
 
   -- -- Language specific plugins
