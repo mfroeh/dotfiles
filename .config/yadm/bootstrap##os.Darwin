@@ -200,8 +200,9 @@ brew services start sketchybar
 
 echo "Installing emacs"
 git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.emacs.d
-brew tap railwaycat/emacsmacport
-brew install emacs-mac --with-native-comp
+brew tap d12frosted/emacs-plus
+brew install emacs-plus --with-native-comp --with-modern-icon
+brew install ccls # lsp server for c++
 
 echo "Installing c/c++ dependencies"
 brew install cmake
@@ -213,6 +214,7 @@ echo "Installing rust dependencies"
 
 echo "Installing LaTeX dependencies"
 brew install --cask mactex
+brew install texlab # lsp server for latex
 
 echo "Installing other dependencies"
 brew install node
@@ -229,4 +231,5 @@ echo "* Disable Keyboard->Text->Add full stop with double-space"
 echo "* Customize Finder sidebar"
 
 echo "Optional"
+echo "* cp -r /opt/homebrew/Cellar/emacs-plus@28/28.2/Emacs.app /Applications"
 echo "* Run doom install"

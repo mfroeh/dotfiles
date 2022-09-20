@@ -24,7 +24,7 @@ cmd + ctrl - 9 : yabai -m window --space 9 && yabai -m space --focus 9
 
 # Open/focus applications
 cmd - return : open /Applications/kitty.app
-cmd - e      : open "/Applications/Visual Studio Code.app"
+cmd - e      : open /Applications/Emacs.app
 
 ## Anything concerning window movement uses the alt key
 # Window Navigation: alt - {h, j, k, l, tab}
