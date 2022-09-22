@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: ftt
+# uuid: 5dccf644-e4f0-3efc-180c-0dd2f05e6ae7
+# key: ftt
+# --
+\texttt{$1}$2

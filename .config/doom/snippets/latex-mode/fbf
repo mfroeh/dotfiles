@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: fbf
+# uuid: 3cb1792d-93eb-3511-488d-32747aefd153
+# key: fbf
+# --
+\textbf{$1}$2

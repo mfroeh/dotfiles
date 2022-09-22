@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: fit
+# uuid: 98d334a7-24e6-3566-8efa-c050eef19ebe
+# key: fit
+# --
+\textit{$1}$2
