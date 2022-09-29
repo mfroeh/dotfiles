@@ -99,7 +99,7 @@ alias ssh="kitty +kitten ssh"
 alias ls="lsd"
 alias cat="bat"
 
-alias w++17="g++ -std=c++17 -Wall -Wextra -Wpedantic -Weffc++ -World-style-cast"
+alias w++17="g++ -std=c++17 -Wall -Wextra -Wpedantic -Weffc++ -Wold-style-cast"
 
 alias lcl="python3 ~/.config/scripts/clean_latex.py"
 

@@ -21,8 +21,8 @@
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:
 ;;
-;; (setq doom-font (font-spec :family "Iosevka Nerd Font" :size 16))
-;; (setq doom-font (font-spec :family "Monospace" :size 14))
+(setq doom-font (font-spec :family "Menlo" :size 14))
+(setq doom-big-font (font-spec :family "Menlo" :size 20))
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
@@ -114,3 +114,12 @@
 
 (map! :leader :n "0" #'evil-switch-to-windows-last-buffer)
 (setq doom-localleader-key ",")
+(setq lsp-lens-enable nil)
+
+(setq mac-command-modifier 'meta)
+
+(map! :leader "ow" #'consult-buffer-other-window)
+(after! org
+  :map org-mode-map
+        :n "M-j" #'org-metadown
+        :n "M-k" #'org-metaup)

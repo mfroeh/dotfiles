@@ -203,6 +203,7 @@ git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.emacs.d
 brew tap d12frosted/emacs-plus
 brew install emacs-plus --with-native-comp --with-modern-icon
 brew install ccls # lsp server for c++
+brew install gnuplut # display plots in org-mode
 
 echo "Installing c/c++ dependencies"
 brew install cmake
