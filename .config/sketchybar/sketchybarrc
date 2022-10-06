@@ -9,7 +9,7 @@ PLUGIN_DIR="$HOME/.config/sketchybar/plugins" # Directory where all the plugin s
 FONT="SF Pro" # Needs to have Regular, Bold, Semibold, Heavy and Black variants
 SPACE_CLICK_SCRIPT="yabai -m space --focus \$SID 2>/dev/null" # The script that is run for clicking on space components
 
-PADDINGS=3 # All paddings use this value (icon, label, background)
+PADDINGS=2 # All paddings use this value (icon, label, background)
 
 POPUP_BORDER_WIDTH=2
 POPUP_CORNER_RADIUS=11
@@ -23,15 +23,15 @@ cd $HOME/.config/sketchybar/helper && make
 $HOME/.config/sketchybar/helper/helper $HELPER &
 
 # Setting up the general bar appearance and default values
-sketchybar --bar     height=30                                         \
+sketchybar --bar     height=32                                         \
                      color=$BAR_COLOR                                  \
                      shadow=$SHADOW                                    \
                      position=top                                      \
                      sticky=on                                         \
                      padding_right=$((10 - $PADDINGS))                 \
                      padding_left=18                                   \
-                     corner_radius=9                                   \
-                     blur_radius=100                                    \
+                     corner_radius=0                                   \
+                     blur_radius=0                                    \
                      notch_width=200                                     \
                                                                        \
            --default updates=when_shown                                \
@@ -58,7 +58,7 @@ source "$ITEM_DIR/front_app.sh"
 # source "$ITEM_DIR/window_title.sh"
 
 # Center
-source "$ITEM_DIR/spotify.sh"
+# source "$ITEM_DIR/spotify.sh"
 
 # source "$ITEM_DIR/mail.sh"
 source "$ITEM_DIR/calendar.sh"

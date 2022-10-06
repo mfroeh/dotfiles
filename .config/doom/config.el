@@ -32,7 +32,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-oceanic-next)
+(setq doom-theme 'doom-gruvbox)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -84,8 +84,8 @@
   :after '(evil-window-split evil-window-vsplit)
   (consult-buffer))
 
-(use-package! laas
-  :hook (LaTeX-mode . 'laas-mode))
+;; (use-package! laas
+;;   :hook (LaTeX-mode . 'laas-mode))
 
 (defun uuid-create ()
   "Return a newly generated UUID. This uses a simple hashing of variable data."
@@ -117,9 +117,69 @@
 (setq lsp-lens-enable nil)
 
 (setq mac-command-modifier 'meta)
+(setq mac-option-modifier nil)
 
-(map! :leader "ow" #'consult-buffer-other-window)
+(map! :leader "w o" #'consult-buffer-other-window)
+
 (after! org
   :map org-mode-map
         :n "M-j" #'org-metadown
         :n "M-k" #'org-metaup)
+
+(with-eval-after-load 'ox-latex
+(add-to-list 'org-latex-classes
+             '("org-plain-latex"
+               "\\documentclass[12pt]{article}
+           [NO-DEFAULT-PACKAGES]
+           [PACKAGES]
+           [EXTRA]"
+               ("\\section{%s}" . "\\section*{%s}")
+               ("\\subsection{%s}" . "\\subsection*{%s}")
+               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+               ("\\paragraph{%s}" . "\\paragraph*{%s}")
+               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+(add-to-list 'org-latex-classes
+             '("org-assignment"
+               "\\documentclass[12pt]{article}
+        [NO-DEFAULT-PACKAGES]
+        [PACKAGES]
+        [EXTRA]"
+               ("\\section{%s}" . "\\section*{%s}")
+               ("\\subsection{%s}" . "\\subsection*{%s}")
+               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+               ("\\paragraph{%s}" . "\\paragraph*{%s}")
+               ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
+))
+
+(setq org-blank-before-new-entry '(('heading . nil)
+                                   ('plain-list-item . nil)))
+
+;; (defun mine-format-org()
+;;   (interactive)
+;;   (save-excursion  ;; save our starting position
+;;     (goto-char (point-min))    ;; go to the beginning of the buffer
+;;     (insert ";;start")
+;;     (while (< (forward-line) 1)    ;; move forward one line
+;;       (beginning-of-line-text)
+;;       (if (= (following-char) ?*)
+;;           (message (following-char))
+;;         (forward-line -1)
+;;         ;; until forward line returns a non-zero value
+;;         (end-of-line)    ;; go to the end of the line
+;;         ))))
+;;
+(setq org-pretty-entities t)
+(setq deft-directory "~/org/notes")
+
+(after! lsp-clangd
+  (setq lsp-clients-clangd-args
+        '("-j=3"
+          "--background-index"
+          "--clang-tidy"
+          "--completion-style=detailed"
+          "--header-insertion=never"
+          "--header-insertion-decorators=0"))
+  (set-lsp-priority! 'clangd 2))
+
+;; (setq dap-auto-configure-mode t)
+;; (require 'dap-cpptools)

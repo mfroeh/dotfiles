@@ -12,8 +12,10 @@ MAGENTA=0xffc6a0f6
 GREY=0xff939ab7
 TRANSPARENT=0x00000000
 
+ORANGE=0xffffa801
+
 # General bar colors
-BAR_COLOR=0xcc24273a #$GREY # Grey bar
+BAR_COLOR=0xcc24275a #$GREY # Grey bar
 ICON_COLOR=$WHITE # Color of all icons
 LABEL_COLOR=$WHITE # Color of all labels
 

@@ -4,8 +4,7 @@
 # /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 # /opt/homebrew/bin/brew install yadm
 # Then execute 
-# /opt/homebrew/bin/yadm clone https://github.com/vocaltrance/dotfiles 
-# to bootstrap
+# /opt/homebrew/bin/yadm clone https://github.com/mfroeh/dotfiles to bootstrap
 xcode-select --install
 
 echo "Pulling submodules"
@@ -36,11 +35,6 @@ defaults write NSGlobalDomain _HIHideMenuBar -bool false
 defaults write NSGlobalDomain AppleHighlightColor -string "0.615686 0.823529 0.454902"
 
 ## Input
-# Map bottom right corner to right-click
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCornerSecondaryClick -int 2
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
-defaults -currentHost write NSGlobalDomain com.apple.trackpad.trackpadCornerClickBehavior -int 1
-defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryClick -bool true
 # Enable tap to click for this user and for the login screen
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
 defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
@@ -49,8 +43,6 @@ defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 # 
 defaults write NSGlobalDomain KeyRepeat -int 1
-#
-#NSAutomaticWindowAnimationsEnabled
 
 ## Screen
 # Require password immediately after sleep or screen saver begins
@@ -135,7 +127,7 @@ brew install font-jetbrains-mono-nerd-font
 brew install font-iosevka-nerd-font
 brew install font-sauce-code-pro-nerd-font
 
-# Patched SFMono
+# Patched SFMono font
 git clone https://github.com/shaunsingh/SFMono-Nerd-Font-Ligaturized.git /tmp/SFMono_Nerd_Font
 mv /tmp/SFMono_Nerd_Font/* $HOME/Library/Fonts
 rm -rf /tmp/SFMono_Nerd_Font/
@@ -162,15 +154,15 @@ brew install --cask karabiner-elements
 brew install --cask brave-browser
 brew install --cask kitty
 brew install --cask seafile-client
-brew install --cask visual-studio-code
 brew install --cask alfred
-# brew install --cask spacelauncher
 brew install --cask bitwarden
 brew install --cask discord
 brew install --cask gnucash
 brew install --cask android-file-transfer
 brew install --cask vlc
 brew install --cask spotify
+brew install --cask scroll-reverser
+brew install --cask zotero
 
 # zathura with poppler
 brew tap zegervdv/zathura
@@ -186,7 +178,7 @@ brew install skhd
 
 # Scripting addition and SIP features
 sudo nvram boot-args=-arm64e_preview_abi
-sudo yabai --install-sa
+sudo rm /private/etc/sudoers.d/yabai
 echo "${USER} ALL = (root) NOPASSWD: sha256:$(shasum -a 256 $(which yabai)) --load-sa" | sudo tee /private/etc/sudoers.d/yabai
 brew services start yabai
 brew services start skhd
@@ -202,16 +194,11 @@ echo "Installing emacs"
 git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.emacs.d
 brew tap d12frosted/emacs-plus
 brew install emacs-plus --with-native-comp --with-modern-icon
-brew install ccls # lsp server for c++
-brew install gnuplut # display plots in org-mode
+brew install llvm
+pip3 install cmake-language-server
 
 echo "Installing c/c++ dependencies"
 brew install cmake
-
-echo "Installing python dependencies"
-
-echo "Installing rust dependencies"
-# curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 echo "Installing LaTeX dependencies"
 brew install --cask mactex
@@ -220,10 +207,7 @@ brew install texlab # lsp server for latex
 echo "Installing other dependencies"
 brew install node
 
-echo "Installing other"
-brew install --cask scroll-reverser
-
-echo "Dont forget to"
+echo "DONE! Dont forget to"
 echo "* Reboot"
 echo "* Enable Accessibility->Display->Reduce motion"
 echo "* Disable Sound->Play sound on startup"
@@ -234,3 +218,4 @@ echo "* Customize Finder sidebar"
 echo "Optional"
 echo "* cp -r /opt/homebrew/Cellar/emacs-plus@28/28.2/Emacs.app /Applications"
 echo "* Run doom install"
+echo "* Install the Better BibTeX zotero extension"
