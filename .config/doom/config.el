@@ -1,91 +1,29 @@
-;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
-
-;; Place your private configuration here! Remember, you do not need to run 'doom
-;; sync' after modifying this file!
-
-
-;; Some functionality uses this to identify you, e.g. GPG configuration, email
-;; clients, file templates and snippets. It is optional.
-(setq user-full-name "mfroeh"
+(setq user-full-name "Moritz Fröhlich"
       user-mail-address "mfroeh0@pm.me")
 
-;; Doom exposes five (optional) variables for controlling fonts in Doom:
-;;
-;; - `doom-font' -- the primary font to use
-;; - `doom-variable-pitch-font' -- a non-monospace font (where applicable)
-;; - `doom-big-font' -- used for `doom-big-font-mode'; use this for
-;;   presentations or streaming.
-;; - `doom-unicode-font' -- for unicode glyphs
-;; - `doom-serif-font' -- for the `fixed-pitch-serif' face
-;;
-;; See 'C-h v doom-font' for documentation and more examples of what they
-;; accept. For example:
-;;
-(setq doom-font (font-spec :family "Menlo" :size 14))
-(setq doom-big-font (font-spec :family "Menlo" :size 20))
-;;
-;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
-;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
-;; refresh your font settings. If Emacs still can't find your font, it likely
-;; wasn't installed correctly. Font issues are rarely Doom issues!
+(setq doom-font (font-spec :family "Menlo" :size 14)
+      doom-big-font (font-spec :family "Menlo" :size 20))
 
-;; There are two ways to load a theme. Both assume the theme is installed and
-;; available. You can either set `doom-theme' or manually load a theme with the
-;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-gruvbox)
+(setq doom-theme 'doom-spacegrey
+      fancy-splash-image "~/.config/doom/misc/splash-images/emacs-e-orange.png")
 
-;; This determines the style of line numbers in effect. If set to `nil', line
-;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type 'relative)
+(defun mfroeh/switch-window ()
+  "Calls switch-window if there are more than 2 windows and evil-window-next otherwise"
+  (interactive)
+  (if (> (count-windows) 2)
+    (call-interactively #'switch-window)
+    (call-interactively #'evil-window-next)))
 
-;; If you use `org' and don't want your org files in the default location below,
-;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/org/")
+(map! :n "C-w C-w" #'mfroeh/switch-window
+      :leader :n "w o" #'consult-buffer-other-window
+      :leader :n "0" #'evil-switch-to-windows-last-buffer)
 
-
-;; Whenever you reconfigure a package, make sure to wrap your config in an
-;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
-;;
-;;   (after! PACKAGE
-;;     (setq x y))
-;;
-;; The exceptions to this rule:
-;;
-;;   - Setting file/directory variables (like `org-directory')
-;;   - Setting variables which explicitly tell you to set them before their
-;;     package is loaded (see 'C-h v VARIABLE' to look up their documentation).
-;;   - Setting doom variables (which start with 'doom-' or '+').
-;;
-;; Here are some additional functions/macros that will help you configure Doom.
-;;
-;; - `load!' for loading external *.el files relative to this one
-;; - `use-package!' for configuring packages
-;; - `after!' for running code after a package has loaded
-;; - `add-load-path!' for adding directories to the `load-path', relative to
-;;   this file. Emacs searches the `load-path' when you load packages with
-;;   `require' or `use-package'.
-;; - `map!' for binding new keys
-;;
-;; To get information about any of these functions/macros, move the cursor over
-;; the highlighted symbol at press 'K' (non-evil users must press 'C-c c k').
-;; This will open documentation for it, including demos of how they are used.
-;; Alternatively, use `C-h o' to look up a symbol (functions, variables, faces,
-;; etc).
-;;
-;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
-;; they are implemented.
-
-(setq projectile-project-search-path '("~/dev/" "~/uni/"))
-(map! :n "C-w C-w" #'evil-window-next)
-(setq which-key-idle-delay 0.1)
-(setq fancy-splash-image "~/.config/doom/misc/splash-images/emacs-e-orange.png")
+(setq evil-split-window-below t
+      evil-vsplit-window-right t)
 
 (defadvice! prompt-for-buffer (&rest _)
   :after '(evil-window-split evil-window-vsplit)
   (consult-buffer))
-
-;; (use-package! laas
-;;   :hook (LaTeX-mode . 'laas-mode))
 
 (defun uuid-create ()
   "Return a newly generated UUID. This uses a simple hashing of variable data."
@@ -112,64 +50,116 @@
   (interactive)
   (insert (uuid-create)))
 
-(map! :leader :n "0" #'evil-switch-to-windows-last-buffer)
-(setq doom-localleader-key ",")
-(setq lsp-lens-enable nil)
+(setq which-key-idle-delay 0.1
+      display-line-numbers-type 'relative
+      doom-localleader-key ",")
 
-(setq mac-command-modifier 'meta)
-(setq mac-option-modifier nil)
+;; Use command key as meta and unbind option
+(setq mac-command-modifier 'meta
+      mac-option-modifier nil)
 
-(map! :leader "w o" #'consult-buffer-other-window)
+;; (map! :leader :n "t v" #'visible-mode)
 
+;; Quitting emacs
+(setq confirm-kill-emacs nil
+      confirm-kill-processes nil)
+
+(setq projectile-project-search-path '("~/dev/" "~/uni/"))
+(map! :leader :n "f ." (cmd! (doom-project-find-file "~/.config/")))
+
+(setq org-directory "~/org/")
 (after! org
   :map org-mode-map
-        :n "M-j" #'org-metadown
-        :n "M-k" #'org-metaup)
+  :n "M-j" #'org-metadown
+  :n "M-k" #'org-metaup)
+
+(after! (org setq org-blank-before-new-entry '(('heading . t) ('plain-list-item . nil))))
+
+(after! org
+  (setq org-superstar-headline-bullets-list '("◉" "☯" "○" "☯" "✸" "☯" "✿" "☯" "✜" "☯" "◆" "☯" "▶")
+        org-superstar-item-bullet-alist '((?* . ?•) (?+ . ?➤) (?- . ?•))
+        org-list-demote-modify-bullet '(("+" . "-") ("-" . "+"))
+        org-pretty-entities t
+        org-hide-emphasis-markers t))
+
+(after! org
+  (setq org-capture-templates
+        '(("t" "TODO" entry (file+headline "~/org/todos.org" "Todos")
+           "** TODO %?\n")
+          ("p" "Project TODO" entry (file+headline "~/org/todos.org" "Project")
+           "** TODO %?\n %i\n %a")
+          ("i" "Idea" entry (file+headline "~/org/ideas.org" "Ideas")
+           "** IDEA %?\n%U\n"))))
+
+(after! org
+  (setq calendar-week-start-day 1
+        cfw:display-calendar-holidays nil)
+  (map! :leader :n "o a c" #'cfw:open-org-calendar))
 
 (with-eval-after-load 'ox-latex
-(add-to-list 'org-latex-classes
-             '("org-plain-latex"
-               "\\documentclass[12pt]{article}
+  (add-to-list 'org-latex-classes
+               '("org-plain-latex"
+                 "\\documentclass[12pt]{article}
            [NO-DEFAULT-PACKAGES]
            [PACKAGES]
            [EXTRA]"
-               ("\\section{%s}" . "\\section*{%s}")
-               ("\\subsection{%s}" . "\\subsection*{%s}")
-               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-               ("\\paragraph{%s}" . "\\paragraph*{%s}")
-               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-(add-to-list 'org-latex-classes
-             '("org-assignment"
-               "\\documentclass[12pt]{article}
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+  (add-to-list 'org-latex-classes
+               '("org-assignment"
+                 "\\documentclass[12pt]{article}
         [NO-DEFAULT-PACKAGES]
         [PACKAGES]
         [EXTRA]"
-               ("\\section{%s}" . "\\section*{%s}")
-               ("\\subsection{%s}" . "\\subsection*{%s}")
-               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-               ("\\paragraph{%s}" . "\\paragraph*{%s}")
-               ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
-))
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
+               ))
 
-(setq org-blank-before-new-entry '(('heading . nil)
-                                   ('plain-list-item . nil)))
+(defun mfroeh/kill-all-blank ()
+  "Kills all blank-lines starting a current point"
+  (while (and (not (eobp)) (looking-at-p "[[:blank:]]*$"))
+    (kill-line)))
 
-;; (defun mine-format-org()
-;;   (interactive)
-;;   (save-excursion  ;; save our starting position
-;;     (goto-char (point-min))    ;; go to the beginning of the buffer
-;;     (insert ";;start")
-;;     (while (< (forward-line) 1)    ;; move forward one line
-;;       (beginning-of-line-text)
-;;       (if (= (following-char) ?*)
-;;           (message (following-char))
-;;         (forward-line -1)
-;;         ;; until forward line returns a non-zero value
-;;         (end-of-line)    ;; go to the end of the line
-;;         ))))
-;;
-(setq org-pretty-entities t)
-(setq deft-directory "~/org/notes")
+(defun mfroeh/org-format ()
+  "Formats an org-mode file according to what I like"
+  (interactive)
+  (if (eq major-mode 'org-mode)
+      (progn
+        (setq last-end nil
+              last-* nil
+              last-blank nil)
+        (save-excursion
+          (goto-char (point-min))
+          (while (not (eobp))
+            (move-to-column 0)
+            (if last-*
+                (progn
+                  (mfroeh/kill-all-blank)
+                (save-excursion
+                  (forward-line -2)
+                  (if (and (not (looking-at-p "\*+")) (not (looking-at-p "[[:blank:]]*$")))
+                      (progn (forward-line) (+evil/insert-newline-above 1))))))
+            (if last-end
+                (if (not (looking-at-p "[[:blank:]]*$"))
+                    (+evil/insert-newline-above 1)))
+            (if (and last-blank (looking-at-p "[[:blank:]]*$"))
+                (mfroeh/kill-all-blank))
+            (setq last-* (looking-at-p "\*+")
+                  last-end (looking-at-p ":END:")
+                  last-blank (looking-at-p "[[:blank:]]*$"))
+            (forward-line))))
+    (message "Tried to run mfroeh/org-format outside an org-mode buffer!")))
+
+(add-hook 'org-mode-hook
+           (lambda () (add-hook 'before-save-hook #'mfroeh/org-format)))
+
+(setq lsp-lens-enable nil)
 
 (after! lsp-clangd
   (setq lsp-clients-clangd-args
@@ -181,5 +171,14 @@
           "--header-insertion-decorators=0"))
   (set-lsp-priority! 'clangd 2))
 
+
+
+;; (use-package! laas
+;;   :hook (LaTeX-mode . 'laas-mode))
+
 ;; (setq dap-auto-configure-mode t)
 ;; (require 'dap-cpptools)
+
+;; (defun my/new-cmake-lists ()
+;;   (interactive "PICK DIR")
+;;   (message "TODO"))

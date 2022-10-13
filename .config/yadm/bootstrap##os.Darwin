@@ -145,6 +145,8 @@ brew install gh
 brew install neofetch
 brew install translate-shell
 brew install telnet
+brew install syncthing
+brew services start syncthing
 
 echo "Installing cli programs"
 brew install neovim
@@ -153,7 +155,6 @@ echo "Installing gui applications"
 brew install --cask karabiner-elements
 brew install --cask brave-browser
 brew install --cask kitty
-brew install --cask seafile-client
 brew install --cask alfred
 brew install --cask bitwarden
 brew install --cask discord
@@ -170,6 +171,9 @@ brew install zathura --HEAD
 brew install zathura-pdf-poppler
 mkdir -p $(brew --prefix zathura)/lib/zathura
 ln -s $(brew --prefix zathura-pdf-poppler)/libpdf-poppler.dylib $(brew --prefix zathura)/lib/zathura/libpdf-poppler.dylib
+
+brew tap lyraphase/pcloud
+brew install --cask pcloud-drive
 
 echo "Installing yabai and skhd"
 brew tap koekeishiya/formulae
@@ -194,8 +198,12 @@ echo "Installing emacs"
 git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.emacs.d
 brew tap d12frosted/emacs-plus
 brew install emacs-plus --with-native-comp --with-modern-icon
+# c++
 brew install llvm
 pip3 install cmake-language-server
+# python
+pip3 install black
+pip3 install pyright
 
 echo "Installing c/c++ dependencies"
 brew install cmake

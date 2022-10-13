@@ -31,6 +31,3 @@ alias lcl="python3 ~/.config/scripts/clean_latex.py"
 alias toswe="trans :swe"
 alias toen="trans :en"
 alias tode="trans :de"
-
-
-bindkey '^j' _zsh_autosuggest_widget_accept

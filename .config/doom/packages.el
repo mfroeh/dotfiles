@@ -50,3 +50,5 @@
 ;(unpin! t)
 (package! aas)
 (package! laas)
+(package! pddl-mode)
+(package! centered-cursor-mode)
