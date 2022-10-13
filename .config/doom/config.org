@@ -1,0 +1,297 @@
+#+title: Literate config.el
+
+* General
+** Identity
+#+begin_src emacs-lisp
+(setq user-full-name "Moritz Fröhlich"
+      user-mail-address "mfroeh0@pm.me")
+#+end_src
+
+** Fonts
+#+begin_src emacs-lisp
+(setq doom-font (font-spec :family "Menlo" :size 14)
+      doom-big-font (font-spec :family "Menlo" :size 20))
+#+end_src
+
+** Theme and splashscreen
+#+begin_src emacs-lisp
+(setq doom-theme 'doom-spacegrey
+      fancy-splash-image "~/.config/doom/misc/splash-images/emacs-e-orange.png")
+#+end_src
+
+** Window switching
+#+begin_src emacs-lisp
+(defun mfroeh/switch-window ()
+  "Calls switch-window if there are more than 2 windows and evil-window-next otherwise"
+  (interactive)
+  (if (> (count-windows) 2)
+    (call-interactively #'switch-window)
+    (call-interactively #'evil-window-next)))
+
+(map! :n "C-w C-w" #'mfroeh/switch-window
+      :leader :n "w o" #'consult-buffer-other-window
+      :leader :n "0" #'evil-switch-to-windows-last-buffer)
+
+(setq evil-split-window-below t
+      evil-vsplit-window-right t)
+
+(defadvice! prompt-for-buffer (&rest _)
+  :after '(evil-window-split evil-window-vsplit)
+  (consult-buffer))
+#+end_src
+
+** UUID
+#+begin_src emacs-lisp
+(defun uuid-create ()
+  "Return a newly generated UUID. This uses a simple hashing of variable data."
+  (let ((s (md5 (format "%s%s%s%s%s%s%s%s%s%s"
+                        (user-uid)
+                        (emacs-pid)
+                        (system-name)
+                        (user-full-name)
+                        user-mail-address
+                        (current-time)
+                        (emacs-uptime)
+                        (garbage-collect)
+                        (random)
+                        (recent-keys)))))
+    (format "%s-%s-3%s-%s-%s"
+            (substring s 0 8)
+            (substring s 8 12)
+            (substring s 13 16)
+            (substring s 16 20)
+            (substring s 20 32))))
+
+(defun uuid-insert ()
+  "Inserts a new UUID at the point."
+  (interactive)
+  (insert (uuid-create)))
+#+end_src
+
+** Misc
+#+begin_src emacs-lisp
+(setq which-key-idle-delay 0.1
+      display-line-numbers-type 'relative
+      doom-localleader-key ",")
+
+;; Use command key as meta and unbind option
+(setq mac-command-modifier 'meta
+      mac-option-modifier nil)
+
+;; (map! :leader :n "t v" #'visible-mode)
+
+;; Quitting emacs
+(setq confirm-kill-emacs nil
+      confirm-kill-processes nil)
+#+end_src
+
+** Projectile
+#+begin_src emacs-lisp
+(setq projectile-project-search-path '("~/dev/" "~/uni/"))
+(map! :leader :n "f ." (cmd! (doom-project-find-file "~/.config/")))
+#+end_src
+
+* Org-mode
+** General
+#+begin_src emacs-lisp
+(setq org-directory "~/org/")
+(after! org
+  :map org-mode-map
+  :n "M-j" #'org-metadown
+  :n "M-k" #'org-metaup)
+
+(after! (org setq org-blank-before-new-entry '(('heading . t) ('plain-list-item . nil))))
+#+end_src
+
+** Org pretty
+#+begin_src emacs-lisp
+(after! org
+  (setq org-superstar-headline-bullets-list '("◉" "☯" "○" "☯" "✸" "☯" "✿" "☯" "✜" "☯" "◆" "☯" "▶")
+        org-superstar-item-bullet-alist '((?* . ?•) (?+ . ?➤) (?- . ?•))
+        org-list-demote-modify-bullet '(("+" . "-") ("-" . "+"))
+        org-pretty-entities t
+        org-hide-emphasis-markers t))
+#+end_src
+
+** Org-capture
+#+begin_src emacs-lisp
+(after! org
+  (setq org-capture-templates
+        '(("t" "TODO" entry (file+headline "~/org/todos.org" "Todos")
+           "** TODO %?\n")
+          ("p" "Project TODO" entry (file+headline "~/org/todos.org" "Project")
+           "** TODO %?\n %i\n %a")
+          ("i" "Idea" entry (file+headline "~/org/ideas.org" "Ideas")
+           "** IDEA %?\n%U\n"))))
+#+end_src
+
+** Org-agenda
+#+begin_src emacs-lisp
+(after! org
+  (setq calendar-week-start-day 1
+        cfw:display-calendar-holidays nil)
+  (map! :leader :n "o a c" #'cfw:open-org-calendar))
+#+end_src
+
+** Org-latex
+#+begin_src emacs-lisp
+(with-eval-after-load 'ox-latex
+  (add-to-list 'org-latex-classes
+               '("org-plain-latex"
+                 "\\documentclass[12pt]{article}
+           [NO-DEFAULT-PACKAGES]
+           [PACKAGES]
+           [EXTRA]"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+  (add-to-list 'org-latex-classes
+               '("org-assignment"
+                 "\\documentclass[12pt]{article}
+        [NO-DEFAULT-PACKAGES]
+        [PACKAGES]
+        [EXTRA]"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
+               ))
+#+end_src
+
+** Formatting
+#+begin_src emacs-lisp
+(defun mfroeh/kill-all-blank ()
+  "Kills all blank-lines starting a current point"
+  (while (and (not (eobp)) (looking-at-p "[[:blank:]]*$"))
+    (kill-line)))
+
+(defun mfroeh/org-format ()
+  "Formats an org-mode file according to what I like"
+  (interactive)
+  (if (eq major-mode 'org-mode)
+      (progn
+        (setq last-end nil
+              last-* nil
+              last-blank nil)
+        (save-excursion
+          (goto-char (point-min))
+          (while (not (eobp))
+            (move-to-column 0)
+            (if last-*
+                (progn
+                  (mfroeh/kill-all-blank)
+                (save-excursion
+                  (forward-line -2)
+                  (if (and (not (looking-at-p "\*+")) (not (looking-at-p "[[:blank:]]*$")))
+                      (progn (forward-line) (+evil/insert-newline-above 1))))))
+            (if last-end
+                (if (not (looking-at-p "[[:blank:]]*$"))
+                    (+evil/insert-newline-above 1)))
+            (if (and last-blank (looking-at-p "[[:blank:]]*$"))
+                (mfroeh/kill-all-blank))
+            (setq last-* (looking-at-p "\*+")
+                  last-end (looking-at-p ":END:")
+                  last-blank (looking-at-p "[[:blank:]]*$"))
+            (forward-line))))
+    (message "Tried to run mfroeh/org-format outside an org-mode buffer!")))
+
+(add-hook 'org-mode-hook
+           (lambda () (add-hook 'before-save-hook #'mfroeh/org-format)))
+#+end_src
+
+* LSP
+** General
+#+begin_src emacs-lisp
+(setq lsp-lens-enable nil)
+#+end_src
+
+** C++
+#+begin_src emacs-lisp
+(after! lsp-clangd
+  (setq lsp-clients-clangd-args
+        '("-j=3"
+          "--background-index"
+          "--clang-tidy"
+          "--completion-style=detailed"
+          "--header-insertion=never"
+          "--header-insertion-decorators=0"))
+  (set-lsp-priority! 'clangd 2))
+#+end_src
+
+* Test
+#+begin_src emacs-lisp
+#+end_src
+
+* Ideas
+#+begin_src emacs-lisp
+;; (use-package! laas
+;;   :hook (LaTeX-mode . 'laas-mode))
+#+end_src
+
+#+begin_src emacs-lisp
+;; (setq dap-auto-configure-mode t)
+;; (require 'dap-cpptools)
+#+end_src
+
+#+begin_src emacs-lisp
+;; (defun my/new-cmake-lists ()
+;;   (interactive "PICK DIR")
+;;   (message "TODO"))
+#+end_src
+
+* Doom info
+** Identify
+Some functionality uses this to identify you, e.g. GPG configuration, email
+clients, file templates and snippets. It is optional.
+
+** Font
+Doom exposes five (optional) variables for controlling fonts in Doom:
+- `doom-font' -- the primary font to use
+- `doom-variable-pitch-font' -- a non-monospace font (where applicable)
+- `doom-big-font' -- used for `doom-big-font-mode'; use this for
+  presentations or streaming.
+- `doom-unicode-font' -- for unicode glyphs
+- `doom-serif-font' -- for the `fixed-pitch-serif' face
+See 'C-h v doom-font' for documentation and more examples of what they
+accept.
+If look them up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to refresh your font settings. If Emacs still can't find your font, it likely wasn't installed correctly. Font issues are rarely Doom issues!
+
+** Org
+If you use `org' and don't want your org files in the default location below,
+change `org-directory'. It must be set before org loads!
+
+** Package configuration
+Whenever you reconfigure a package, make sure to wrap your config in an
+`after!' block, otherwise Doom's defaults may override your settings. E.g.
+
+  (after! PACKAGE
+    (setq x y))
+
+The exceptions to this rule:
+
+  - Setting file/directory variables (like `org-directory')
+  - Setting variables which explicitly tell you to set them before their
+    package is loaded (see 'C-h v VARIABLE' to look up their documentation).
+  - Setting doom variables (which start with 'doom-' or '+').
+
+Here are some additional functions/macros that will help you configure Doom.
+
+- `load!' for loading external *.el files relative to this one
+- `use-package!' for configuring packages
+- `after!' for running code after a package has loaded
+- `add-load-path!' for adding directories to the `load-path', relative to
+  this file. Emacs searches the `load-path' when you load packages with
+  `require' or `use-package'.
+- `map!' for binding new keys
+
+To get information about any of these functions/macros, move the cursor over
+the highlighted symbol at press 'K' (non-evil users must press 'C-c c k').
+This will open documentation for it, including demos of how they are used.
+Alternatively, use `C-h o' to look up a symbol (functions, variables, faces,
+etc).
+
+You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
+they are implemented.
