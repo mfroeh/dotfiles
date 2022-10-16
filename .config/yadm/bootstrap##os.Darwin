@@ -1,10 +1,11 @@
 #!/bin/zsh
 
-# Do before
-# /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-# /opt/homebrew/bin/brew install yadm
-# Then execute 
-# /opt/homebrew/bin/yadm clone https://github.com/mfroeh/dotfiles to bootstrap
+# To run this script successfully do
+# 1. Disable system integrity protection: https://github.com/koekeishiya/yabai/wiki/Disabling-System-Integrity-Protection
+# 2. Enable non apple signed arm64e binaries: sudo nvram boot-args=-arm64e_preview_abi
+# 3. /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# 4. /opt/homebrew/bin/brew install yadm
+# 5. /opt/homebrew/bin/yadm clone https://github.com/mfroeh/dotfiles to bootstrap
 xcode-select --install
 
 echo "Pulling submodules"
@@ -23,31 +24,18 @@ echo "Writing maocs defaults"
 ## Miscellaneous
 # Disable application quarantine message
 defaults write com.apple.LaunchServices "LSQuarantine" -bool "false" 
-# 
-defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 # Disable opening and closing window animations
-defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false
-# 
-defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
-# 
-defaults write NSGlobalDomain _HIHideMenuBar -bool false
-# 
-defaults write NSGlobalDomain AppleHighlightColor -string "0.615686 0.823529 0.454902"
+defaults write -g NSAutomaticWindowAnimationsEnabled -bool false
+# Hide the menu bar
+defaults write -g _HIHideMenuBar -bool true
 
 ## Input
-# Enable tap to click for this user and for the login screen
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
-defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
-defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 # Disable press-and-hold for keys in favor of key repeat
-defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
-# 
-defaults write NSGlobalDomain KeyRepeat -int 1
+defaults write -g ApplePressAndHoldEnabled -bool false
+# Fast key repeat
+defaults write -g KeyRepeat -int 1
 
-## Screen
-# Require password immediately after sleep or screen saver begins
-defaults write com.apple.screensaver askForPassword -int 1
-defaults write com.apple.screensaver askForPasswordDelay -int 0
+## Screenshots
 # Save screenshots to $HOME/Pictures/screenshots
 defaults write com.apple.screencapture "location" -string "~/Pictures/screenshots"
 # Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)
@@ -89,7 +77,7 @@ defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
 defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
 # Disable the warning before emptying the Trash
 defaults write com.apple.finder WarnOnEmptyTrash -bool false
-# Save to disk or iCloud by default
+# Save to disk by default
 defaults write NSGlobalDomain "NSDocumentSaveNewDocumentsToCloud" -bool "false" 
 
 ## Dock
@@ -116,12 +104,10 @@ defaults write com.apple.dock autohide -bool true
 defaults write com.apple.dock showhidden -bool true
 # Don’t automatically rearrange Spaces based on most recent use
 defaults write com.apple.dock mru-spaces -bool false
-# 
+# Displays have seperate spaces
 defaults write com.apple.spaces spans-displays -bool false
-# Automatically hide and show menu bar
-defaults write NSGlobalDomain _HIHideMenuBar -bool true
 
-echo "Installing fonts"
+echo "Installing some fonts"
 brew tap homebrew/cask-fonts
 brew install font-jetbrains-mono-nerd-font
 brew install font-iosevka-nerd-font
@@ -132,46 +118,37 @@ git clone https://github.com/shaunsingh/SFMono-Nerd-Font-Ligaturized.git /tmp/SF
 mv /tmp/SFMono_Nerd_Font/* $HOME/Library/Fonts
 rm -rf /tmp/SFMono_Nerd_Font/
 
-echo "Installing anything shell related"
-brew install antigen
-
-echo "Installing small cli programs"
-brew install ripgrep
-brew install fd
-brew install bat
-brew install lsd
-brew install fzf
-brew install gh
-brew install neofetch
-brew install translate-shell
-brew install telnet
-brew install syncthing
-brew services start syncthing
-
 echo "Installing cli programs"
-brew install neovim
+brew install ripgrep fd bat lsd # Better grep, find, cat, ls
+brew install antigen # Zsh plugin manager
+brew install fzf # Fuzzy finder
+brew install gh # GitHub cli
+brew install neofetch # Prints information on your system
+brew install translate-shell # =trans from:to text=
+brew install neovim # Better vim
 
 echo "Installing gui applications"
-brew install --cask karabiner-elements
-brew install --cask brave-browser
-brew install --cask kitty
-brew install --cask alfred
-brew install --cask bitwarden
-brew install --cask discord
-brew install --cask gnucash
-brew install --cask android-file-transfer
-brew install --cask vlc
-brew install --cask spotify
-brew install --cask scroll-reverser
-brew install --cask zotero
+brew install --cask karabiner-elements # Keyboard input modifications
+brew install --cask brave-browser # Browser
+brew install --cask kitty # Terminal emulator
+brew install --cask spotter # App launcher
+brew install --cask bitwarden # Password manager
+brew install --cask discord # Chat client
+brew install --cask spotify # Music
 
-# zathura with poppler
+brew install --cask scroll-reverser # Reverse scrolling for mice
+brew install --cask zotero # Reference manager
+brew install --cask android-file-transfer # Transfer files macos to android
+brew install --cask gnucash # Bookkeeping
+
+# Zathura with poppler
 brew tap zegervdv/zathura
 brew install zathura --HEAD
 brew install zathura-pdf-poppler
 mkdir -p $(brew --prefix zathura)/lib/zathura
 ln -s $(brew --prefix zathura-pdf-poppler)/libpdf-poppler.dylib $(brew --prefix zathura)/lib/zathura/libpdf-poppler.dylib
 
+# pCloud
 brew tap lyraphase/pcloud
 brew install --cask pcloud-drive
 
@@ -180,8 +157,7 @@ brew tap koekeishiya/formulae
 brew install yabai
 brew install skhd
 
-# Scripting addition and SIP features
-sudo nvram boot-args=-arm64e_preview_abi
+# Enable no-sudo for scripting addition
 sudo rm /private/etc/sudoers.d/yabai
 echo "${USER} ALL = (root) NOPASSWD: sha256:$(shasum -a 256 $(which yabai)) --load-sa" | sudo tee /private/etc/sudoers.d/yabai
 brew services start yabai
@@ -198,32 +174,28 @@ echo "Installing emacs"
 git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.emacs.d
 brew tap d12frosted/emacs-plus
 brew install emacs-plus --with-native-comp --with-modern-icon
+
 # c++
+brew install cmake
 brew install llvm
 pip3 install cmake-language-server
-# python
+# Python
 pip3 install black
 pip3 install pyright
-
-echo "Installing c/c++ dependencies"
-brew install cmake
-
-echo "Installing LaTeX dependencies"
+# LaTeX
 brew install --cask mactex
 brew install texlab # lsp server for latex
 
-echo "Installing other dependencies"
-brew install node
+echo "Installing doom emacs"
+~/.emacs.d/bin/doom install
 
 echo "DONE! Dont forget to"
-echo "* Reboot"
-echo "* Enable Accessibility->Display->Reduce motion"
-echo "* Disable Sound->Play sound on startup"
-echo "* Enable Trackpad->Tap to click"
-echo "* Disable Keyboard->Text->Add full stop with double-space"
-echo "* Customize Finder sidebar"
-
-echo "Optional"
-echo "* cp -r /opt/homebrew/Cellar/emacs-plus@28/28.2/Emacs.app /Applications"
-echo "* Run doom install"
-echo "* Install the Better BibTeX zotero extension"
+echo "1 Reboot"
+echo "2 Enable Accessibility->Display->Reduce motion"
+echo "3 Disable Sound->Play sound on startup"
+echo "4 Enable Trackpad->Tap to click"
+echo "5 Disable Keyboard->Text->Add full stop with double-space"
+echo "6 Customize Finder sidebar"
+echo "7 Setup login items"
+echo "8 cp -r /opt/homebrew/Cellar/emacs-plus@28/28.2/Emacs.app /Applications"
+echo "9 Install the Better BibTeX zotero extension"

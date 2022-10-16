@@ -48,7 +48,10 @@
 ;(unpin! pinned-package another-pinned-package)
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
+(package! pddl-mode)
+(package! srefactor)
+(package! evil-replace-with-register) ;; replace with vim-subversive
+
+;; not used
 (package! aas)
 (package! laas)
-(package! pddl-mode)
-(package! centered-cursor-mode)

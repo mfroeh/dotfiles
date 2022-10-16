@@ -64,8 +64,14 @@
 (setq confirm-kill-emacs nil
       confirm-kill-processes nil)
 
+(map! :n "M-q" #'kill-emacs)
+
 (setq projectile-project-search-path '("~/dev/" "~/uni/"))
 (map! :leader :n "f ." (cmd! (doom-project-find-file "~/.config/")))
+
+(use-package evil-replace-with-register
+  :config
+  (map! :n "gr" #'evil-replace-with-register))
 
 (setq org-directory "~/org/")
 (after! org
@@ -73,7 +79,7 @@
   :n "M-j" #'org-metadown
   :n "M-k" #'org-metaup)
 
-(after! (org setq org-blank-before-new-entry '(('heading . t) ('plain-list-item . nil))))
+(after! (org setq org-blank-before-new-entry '(('heading . nil) ('plain-list-item . nil))))
 
 (after! org
   (setq org-superstar-headline-bullets-list '("◉" "☯" "○" "☯" "✸" "☯" "✿" "☯" "✜" "☯" "◆" "☯" "▶")
@@ -83,18 +89,32 @@
         org-hide-emphasis-markers t))
 
 (after! org
+  (map! :leader :n "o c" #'org-capture)
   (setq org-capture-templates
-        '(("t" "TODO" entry (file+headline "~/org/todos.org" "Todos")
-           "** TODO %?\n")
-          ("p" "Project TODO" entry (file+headline "~/org/todos.org" "Project")
-           "** TODO %?\n %i\n %a")
+        '(("t" "Todo" entry (file+headline "~/org/todos.org" "Todos")
+           "** TODO %^{Todo}\n")
           ("i" "Idea" entry (file+headline "~/org/ideas.org" "Ideas")
-           "** IDEA %?\n%U\n"))))
+           "** IDEA %^{Idea}\n%U\n")
+          ("c" "Contact" entry (file "~/org/contacts.org")
+"* %(org-contacts-template-name)
+:PROPERTIES:
+:ADDRESS:  %^{City}, %^{Country}
+:BIRTHDAY: %^{yyyy-mm-dd}
+:EMAIL:    %(org-contacts-template-email)
+:PHONE:    %^{PHONE}
+:NOTE:     %^{NOTE}
+:END:"))))
 
 (after! org
   (setq calendar-week-start-day 1
         cfw:display-calendar-holidays nil)
   (map! :leader :n "o a c" #'cfw:open-org-calendar))
+
+(use-package org-contacts)
+(setq org-contacts-files '("~/org/contacts.org"))
+;; (use-package org-contacts
+;;   :after org
+;;   :custom (org-contacts-files '("~/org/contacts.org")))
 
 (with-eval-after-load 'ox-latex
   (add-to-list 'org-latex-classes
@@ -171,7 +191,8 @@
           "--header-insertion-decorators=0"))
   (set-lsp-priority! 'clangd 2))
 
-
+(add-hook 'c++-mode-hook 'semantic-mode)
+(map! :n :mode '(c++-mode-map c-mode-map) :leader "r" #'srefactor-refactor-at-point)
 
 ;; (use-package! laas
 ;;   :hook (LaTeX-mode . 'laas-mode))
