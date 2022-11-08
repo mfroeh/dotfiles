@@ -1,77 +1,28 @@
-#!/bin/sh
-# Requirements: $USER added to wheel group and NetworkManager.service enabled.
-
-sudo pacman -Syyu --noconfirm
-
-# Pull submodules
+#!/bin/bash
 cd $HOME
 
-# Pull submodules
-yadm submodule update --recursive --init
+# Update packages
+sudo pacman -Syyu
 
 # Install yay
-sudo pacman -S base-devel git --noconfirm && git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si --noconfirm && cd .. && rm -rf yay-bin
+git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si 
 
-# Terminal emulator, shell and vim
-yay -S kitty neovim xclip zsh antigen --noconfirm
-sudo chsh --shell /bin/zsh $USER
+# Installing zsh and making it the default shell
+sudo pacman -S zsh
+chsh -s /bin/zsh mo
 
-# Texteditor
-sudo pacman -S emacs-nativecomp ripgrep fd --noconfirm
+# Install window manager etc.
+sudo pacman -S xorg xorg-xinit bspwm sxhkd
+sudo pacman -S rofi
+yay -S lemonbar-git
 
-# IDE
-sudo pacman -S cmake npm python python-pip rust rust-analyzer clangd --noconfirm
-# Install and enable SDDM
-sudo pacman -S sddm --noconfirm
-sudo systemctl enable sddm
+# Optionally install nvidia drivers
+sudo pacman -S nvdia
 
-# Install plasma and applications
-sudo pacman -S nvidia nvidia-settings --noconfirm
-sudo pacman -S plasma appmenu-gtk-module xcape --noconfirm
-yay -S dolphin brave-bin bitwarden ark libreoffice-fresh gimp discord spotify-adblock-git --noconfirm
-sudo pacman -S gnucash gnucash-docs perl-finance-quote --noconfirm
+# Install cli programs 
+sudo pacman -S vim ripgrep fd bat lsd fzf neofetch translate-shell xcape
+yay -S antigen github-cli-git
 
-# Themeing
-yay -S kvantum kvantum-theme-layan-git -papirus-icon-theme --noconfirm
-yay -S whitesur-kvantum-theme-git whitesur-icon-theme-git whitesur-cursor-theme-git whitesur-gtk-theme-git --noconfirm
-
-# Virtualbox
-sudo pacman -S virtualbox virtualbox-host-modules-arch virtualbox-guest-iso --noconfirm
-sudo modprobe vboxdrv
-sudo usermod -aG vboxusers $USER
-
-# Other
-yay -S neofetch github-cli nmap ntfs-3g --noconfirm
-
-# Fonts
-yay -S nerd-fonts-jetbrains-mono ttf-jetbrains-mono ttf-andika ttf-juliamono nerd-fonts-fantasque-sans-mono otf-vollkorn ttf-alegreya --noconfirm
-
-# Cloud associated
-yay -S openssh seafile-client --noconfirm
-
-# LaTeX
-sudo pacman -S texlive-most texlive-core texlive-bin texlive-science texlab zathura zathura-pdf-poppler --noconfirm
-
-# C/C++
-yay -S clangd cmake cmake-langauge-server bear --noconfirm
-
-# Not sure yet
-yay -S meson haruna gwenview --noconfirm
-
-# Remove bash dotfiles, the last .bash_history has to be removed manually
-rm -rf .bash*
-
-# Doom Emacs
-git clone https://github.com/hlissner/doom-emacs ~/.emacs.d
-~/.emacs.d/bin/doom install && ~/.emacs.d/bin/doom sync
-pip install black isort pyflakes debugpy # lang python
-sudo pacman -S shellcheck --noconfirm # lang sh
-sudo pacman -S languagetool aspell # checkers spell + grammar
-sudo pacman -S poppler ffmpegthumbnailer mediainfo imagemagick tar unzip --noconfirm
-
-
-echo "After logging in for the first time do: "
-echo "1. cd '$HOME' && rm -rf .bash*"
-echo "2. Install and activate whitesur global theme"
-echo "3. Configure appearance and sddm to whitesur"
-echo "4. Relog"
+# Install gui programs
+sudo pacman -S kitty
+yay -S brave-bin
