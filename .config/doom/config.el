@@ -1,17 +1,28 @@
+(defmacro define-and-bind-text-object (key start-regex end-regex)
+  (let ((inner-name (make-symbol "inner-name"))
+        (outer-name (make-symbol "outer-name")))
+    `(progn
+       (evil-define-text-object ,inner-name (count &optional beg end type)
+         (evil-select-paren ,start-regex ,end-regex beg end type count nil))
+       (evil-define-text-object ,outer-name (count &optional beg end type)
+         (evil-select-paren ,start-regex ,end-regex beg end type count t))
+       (define-key evil-inner-text-objects-map ,key (quote ,inner-name))
+       (define-key evil-outer-text-objects-map ,key (quote ,outer-name)))))
+
 (setq user-full-name "Moritz Fröhlich"
       user-mail-address "mfroeh0@pm.me")
 
 (setq doom-font (font-spec :family "Menlo" :size 14)
       doom-big-font (font-spec :family "Menlo" :size 20))
 
-(setq doom-theme 'doom-spacegrey
+(setq doom-theme 'doom-gruvbox
       fancy-splash-image "~/.config/doom/misc/splash-images/emacs-e-orange.png")
 
 (defun mfroeh/switch-window ()
-  "Calls switch-window if there are more than 2 windows and evil-window-next otherwise"
+  "Calls ace-select-window if there are more than 2 windows and evil-window-next otherwise"
   (interactive)
   (if (> (count-windows) 2)
-    (call-interactively #'switch-window)
+    (call-interactively #'ace-select-window)
     (call-interactively #'evil-window-next)))
 
 (map! :n "C-w C-w" #'mfroeh/switch-window
@@ -73,22 +84,39 @@
   :config
   (map! :n "gr" #'evil-replace-with-register))
 
+(map! :leader :n "r ." #'ranger)
+
 (setq org-directory "~/org/")
 (after! org
   :map org-mode-map
   :n "M-j" #'org-metadown
   :n "M-k" #'org-metaup)
 
-(after! (org setq org-blank-before-new-entry '(('heading . nil) ('plain-list-item . nil))))
+(after! org (setq org-blank-before-new-entry '(('heading . nil) ('plain-list-item . nil))))
 
-(after! org
-  (setq org-superstar-headline-bullets-list '("◉" "☯" "○" "☯" "✸" "☯" "✿" "☯" "✜" "☯" "◆" "☯" "▶")
-        org-superstar-item-bullet-alist '((?* . ?•) (?+ . ?➤) (?- . ?•))
-        org-list-demote-modify-bullet '(("+" . "-") ("-" . "+"))
-        org-pretty-entities t
-        org-hide-emphasis-markers t))
+(define-and-bind-text-object "h" "\*+ \\|+ \\|- " "$")
 
-(after! org
+(use-package org-modern
+  :after org
+  :config
+  (global-org-modern-mode)
+  (setq  org-hide-emphasis-markers t
+         org-pretty-entities t
+         org-ellipsis "…"
+         org-list-demote-modify-bullet '(("+" . "-") ("-" . "+"))
+         org-modern-list '((?* . "◦") (?+ . "➤") (?- . "•"))))
+
+;; (use-package org-superstar
+;;   :config
+;;   (setq org-superstar-headline-bullets-list '("◉" "☯" "○" "☯" "✸" "☯" "✿" "☯" "✜" "☯" "◆" "☯" "▶")
+        ;; org-superstar-item-bullet-alist '((?* . ?•) (?+ . ?➤) (?- . ?•))
+        ;; org-list-demote-modify-bullet '(("+" . "-") ("-" . "+"))
+;;         org-pretty-entities t
+;;         org-hide-emphasis-markers t))
+
+(use-package org-capture
+  :after org
+  :config
   (map! :leader :n "o c" #'org-capture)
   (setq org-capture-templates
         '(("t" "Todo" entry (file+headline "~/org/todos.org" "Todos")
@@ -103,43 +131,40 @@
 :EMAIL:    %(org-contacts-template-email)
 :PHONE:    %^{PHONE}
 :NOTE:     %^{NOTE}
-:END:"))))
+:END:")
+
+          ("m" "Movie" entry (file+headline "~/org/ratings.org" "Movies")
+           "** %^{TITLE}
+:PROPERTIES:
+:RATING: %^{n out of 10}
+:END:
+
+%U
+%^{Comments}")
+          ("s" "Series " entry (file+headline "~/org/ratings.org" "Series")
+           "** %^{TITLE}
+:PROPERTIES:
+:RATING: %^{n out of 10}
+:END:
+
+%U
+%^{Comments}"))))
+
+(use-package org-journal
+  :config
+  (setq org-journal-date-format "%a, %Y-%m-%d"
+        org-journal-date-prefix "#+title: "
+        org-journal-time-prefix "\n* "
+        org-journal-file-format "%Y-%m-%d.org"))
 
 (after! org
   (setq calendar-week-start-day 1
         cfw:display-calendar-holidays nil)
   (map! :leader :n "o a c" #'cfw:open-org-calendar))
 
-(use-package org-contacts)
-(setq org-contacts-files '("~/org/contacts.org"))
-;; (use-package org-contacts
-;;   :after org
-;;   :custom (org-contacts-files '("~/org/contacts.org")))
-
-(with-eval-after-load 'ox-latex
-  (add-to-list 'org-latex-classes
-               '("org-plain-latex"
-                 "\\documentclass[12pt]{article}
-           [NO-DEFAULT-PACKAGES]
-           [PACKAGES]
-           [EXTRA]"
-                 ("\\section{%s}" . "\\section*{%s}")
-                 ("\\subsection{%s}" . "\\subsection*{%s}")
-                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-  (add-to-list 'org-latex-classes
-               '("org-assignment"
-                 "\\documentclass[12pt]{article}
-        [NO-DEFAULT-PACKAGES]
-        [PACKAGES]
-        [EXTRA]"
-                 ("\\section{%s}" . "\\section*{%s}")
-                 ("\\subsection{%s}" . "\\subsection*{%s}")
-                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
-               ))
+(use-package org-contacts
+  :after org
+  :config (setq org-contacts-files '("~/org/contacts.org")))
 
 (defun mfroeh/kill-all-blank ()
   "Kills all blank-lines starting a current point"
@@ -191,8 +216,8 @@
           "--header-insertion-decorators=0"))
   (set-lsp-priority! 'clangd 2))
 
-(add-hook 'c++-mode-hook 'semantic-mode)
-(map! :n :mode '(c++-mode-map c-mode-map) :leader "r" #'srefactor-refactor-at-point)
+;; (add-hook 'c++-mode-hook 'semantic-mode)
+;; (map! :n :mode '(c++-mode-map c-mode-map) :leader "r" #'srefactor-refactor-at-point)
 
 ;; (use-package! laas
 ;;   :hook (LaTeX-mode . 'laas-mode))
