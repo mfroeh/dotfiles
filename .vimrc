@@ -19,6 +19,7 @@ call plug#begin()
 Plug 'lervag/vimtex'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
+Plug 'svermeulen/vim-subversive'
 call plug#end()
 
 syntax enable
@@ -26,3 +27,8 @@ filetype plugin indent on
 
 " vimtex
 let g:vimtex_view_method = 'zathura'
+
+" vim-subversive
+nmap s <plug>(SubversiveSubstitute)
+nmap ss <plug>(SubversiveSubstituteLine)
+nmap S <plug>(SubversiveSubstituteToEndOfLine)
