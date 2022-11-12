@@ -1,8 +1,8 @@
-# make sxhkd reload its configuration files:
+# Make sxhkd reload its configuration files:
 super + Escape
 	pkill -USR1 -x sxhkd
 
-# quit/restart bspwm
+# Quit/restart bspwm
 super + alt + {q,r}
 	bspc {quit,wm -r}
 
@@ -35,6 +35,14 @@ alt + shift + {h, j, k, l}
 # Equalize node size 
 alt + b
 	bspc node -B 
+
+# Toggle fullscreen
+alt + f
+    bspc node -t \~fullscreen
+
+# Rotate desktop
+alt + r
+    bspc node @/ -R 90
 
 # Close a node
 super + w

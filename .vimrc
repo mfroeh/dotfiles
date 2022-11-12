@@ -4,6 +4,17 @@ set relativenumber
 set tabstop=4
 set shiftwidth=4
 set expandtab
+set smartindent
+
+set incsearch
+
+set noesckeys " Disable delay when using O
+
+set termguicolors
+
+set undodir=~/.vim/undo-dir
+set undofile
+
 
 let mapleader = ' '
 let maplocalleader = ','

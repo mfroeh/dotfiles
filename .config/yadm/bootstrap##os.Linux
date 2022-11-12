@@ -4,6 +4,9 @@ cd $HOME
 # Update packages
 sudo pacman -Syyu
 
+# Initializing submodules
+yadm submodule update --recursive --init
+
 # Install yay
 git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si 
 
@@ -12,7 +15,7 @@ sudo pacman -S zsh
 chsh -s /bin/zsh mo
 
 # Install window manager etc.
-sudo pacman -S xorg xorg-xinit bspwm sxhkd
+sudo pacman -S xorg xorg-xinit xclip bspwm sxhkd
 sudo pacman -S rofi
 yay -S lemonbar-git
 
@@ -20,9 +23,13 @@ yay -S lemonbar-git
 sudo pacman -S nvdia
 
 # Install cli programs 
-sudo pacman -S vim ripgrep fd bat lsd fzf neofetch translate-shell xcape
+# gvim > vim for clipboard access
+sudo pacman -S gvim ripgrep fd bat lsd fzf neofetch translate-shell openssh xcape
 yay -S antigen github-cli-git
 
+# Installing terminal font
+yay -S nerd-fonts-anonymous-pro
+
 # Install gui programs
-sudo pacman -S kitty
+sudo pacman -S kitty discord thunar
 yay -S brave-bin
