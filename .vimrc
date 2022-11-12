@@ -15,9 +15,13 @@ set termguicolors
 set undodir=~/.vim/undo-dir
 set undofile
 
+set bg=dark
 
 let mapleader = ' '
 let maplocalleader = ','
+
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 " bootstrap vim-plug
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
@@ -27,19 +31,24 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
 endif
 
 call plug#begin()
-Plug 'lervag/vimtex'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'svermeulen/vim-subversive'
+
+Plug 'morhetz/gruvbox'
+Plug 'lervag/vimtex'
 call plug#end()
 
 syntax enable
 filetype plugin indent on
 
-" vimtex
-let g:vimtex_view_method = 'zathura'
-
 " vim-subversive
 nmap s <plug>(SubversiveSubstitute)
 nmap ss <plug>(SubversiveSubstituteLine)
 nmap S <plug>(SubversiveSubstituteToEndOfLine)
+
+" gruvbox
+colorscheme gruvbox
+
+" vimtex
+let g:vimtex_view_method = 'zathura'
