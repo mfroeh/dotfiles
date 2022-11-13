@@ -20,6 +20,8 @@ export EDITOR="nvim"
 alias ssh="kitty +kitten ssh"
 alias ls="lsd"
 alias cat="bat"
+alias t="tree -L 3"
+alias td="tree -d -L 3"
 
 alias w++20="g++-11 -std=c++20 -pedantic -Wall -Wextra"
 

@@ -1,3 +1,4 @@
+## bspwm and sxhkd 
 # Make sxhkd reload its configuration files:
 super + Escape
 	pkill -USR1 -x sxhkd
@@ -6,15 +7,21 @@ super + Escape
 super + alt + {q,r}
 	bspc {quit,wm -r}
 
-
+## Anything desktops
 # Switch desktop
-super + {1, 2, 3, 4, 5, 6, 7, 8, 9, 0}
-	bspc desktop -f {1, 2, 3, 4, 5, 6, 7, 8, 9, last}
+super + {1, 2, 3, 4, 5, 6, 7, 8, 9}
+	bspc desktop -f {1, 2, 3, 4, 5, 6, 7, 8, 9}
+
+super + {o, i}
+    bspc wm -h off; \
+    bspc desktop -f {older, newer}; \
+    bspc wm -h on;
 
 # Move nodes between desktops 
 super + ctrl + {1, 2, 3, 4, 5, 6, 7, 8, 9}
 	bspc node -d {1, 2, 3, 4, 5, 6, 7, 8, 9}
 
+## Anything nodes
 # Switch nodes
 alt + {h, j, k, l, o, i}
 	bspc node -f {west, south, north, east}
@@ -40,14 +47,15 @@ alt + b
 alt + f
     bspc node -t \~fullscreen
 
-# Rotate desktop
+# Rotate all nodes by 90 degrees to the right
 alt + r
     bspc node @/ -R 90
 
+## Node lifetime
+# Start a program
+super + {Return, space, v}
+	{kitty, rofi -show run, ~/.vim-anywhere/bin/run}
+
 # Close a node
 super + w
-	bspc node -c 
-
-# Launch programs
-super + {Return, space}
-	{kitty, rofi -show run}
+	bspc node -k 
