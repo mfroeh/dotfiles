@@ -21,11 +21,9 @@ alias ssh="kitty +kitten ssh"
 alias ls="lsd"
 alias cat="bat"
 
-alias w++17="g++ -std=c++17 -Wall -Wextra -Wpedantic -Weffc++ -Wold-style-cast"
 alias w++20="g++-11 -std=c++20 -pedantic -Wall -Wextra"
-alias ccmake="cmake -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON && mv build/compile_commands.json . && make -C build"
 
-alias lcl="python3 ~/.config/scripts/clean_latex.py"
+alias ccmake="cmake -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON && mv build/compile_commands.json . && make -C build"
 
 alias toswe="trans :swe"
 alias toen="trans :en"

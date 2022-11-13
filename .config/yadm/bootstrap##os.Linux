@@ -25,11 +25,11 @@ sudo pacman -S nvdia
 # Install cli programs 
 # gvim > vim for clipboard access
 sudo pacman -S gvim ripgrep fd bat lsd fzf neofetch translate-shell openssh xcape
-yay -S antigen github-cli-git
+yay -S antigen github-cli-git grive 
 
 # Installing terminal font
 yay -S nerd-fonts-anonymous-pro
 
 # Install gui programs
-sudo pacman -S kitty discord thunar
-yay -S brave-bin
+sudo pacman -S kitty discord thunar pavucontrol
+yay -S google-chrome
