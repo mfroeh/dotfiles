@@ -1,9 +1,23 @@
-set number
-set relativenumber
+set number " Show numbers on the left
+set relativenumber " Make all numbers relative to the current line
 
-set tabstop=4
-set shiftwidth=4
-set expandtab
+set tabstop=4 " Show tabs as 4 spaces
+set shiftwidth=4 " Number of spaces to use when using >> or auto indenting
+set expandtab " Insert spaces when using tabs or indenting
+set smartindent " Smart autoindenting when starting a new line
+
+set incsearch " Highlight matches whilst searching
+set ignorecase " Ignore case of letters when searching
+set smartcase " Ignore ignorecase if pattern contains uppercase characters
+
+set noesckeys " Disable delay when using O
+
+set termguicolors " Use 24-bit colors
+
+set undofile " Undo persistent over sessions
+set undodir=~/.vim/undo-dir
+
+nmap Y y$ " Make Y consistent with C and D
 
 let mapleader = ' '
 let maplocalleader = ','
@@ -16,19 +30,29 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
 endif
 
 call plug#begin()
+Plug 'tpope/vim-surround' " you surround inner word
+Plug 'tpope/vim-commentary' " go comment 4j
+Plug 'svermeulen/vim-subversive' " substitute a paragraph
+Plug 'jiangmiao/auto-pairs' " (Let me out of the parentheses) thanks!
+
+Plug 'morhetz/gruvbox'
 Plug 'lervag/vimtex'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-commentary'
-Plug 'svermeulen/vim-subversive'
 call plug#end()
 
 syntax enable
 filetype plugin indent on
 
-" vimtex
-let g:vimtex_view_method = 'zathura'
-
 " vim-subversive
 nmap s <plug>(SubversiveSubstitute)
 nmap ss <plug>(SubversiveSubstituteLine)
 nmap S <plug>(SubversiveSubstituteToEndOfLine)
+
+" gruvbox
+colorscheme gruvbox
+set bg=dark
+
+" vimtex
+let g:vimtex_view_method = 'zathura'
+
+" auto-pairs
+let g:AutoPairsFlyMode = 1

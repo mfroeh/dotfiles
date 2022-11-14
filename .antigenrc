@@ -51,7 +51,6 @@ export SPACESHIP_PROMPT_ORDER=(
   host          # Hostname section
   dir           # Current directory section
   git           # Git section (git_branch + git_status)
-  aws           # Amazon Web Services section
   battery       # Battery level and status
   line_sep      # Line break
   char          # Prompt character

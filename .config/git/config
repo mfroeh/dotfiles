@@ -1,6 +1,6 @@
 [user]
 name = mfroeh
-email = mfroeh0@protonmail.com
+email = mfroeh0@pm.me
 
 [init]
 defaultBranch = main
@@ -8,3 +8,10 @@ defaultBranch = main
 [alias]
 s = status
 co = checkout
+
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
