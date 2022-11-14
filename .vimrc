@@ -17,6 +17,8 @@ set undofile
 
 set bg=dark
 
+nmap Y y$
+
 let mapleader = ' '
 let maplocalleader = ','
 
@@ -34,6 +36,7 @@ call plug#begin()
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'svermeulen/vim-subversive'
+Plug 'jiangmiao/auto-pairs'
 
 Plug 'morhetz/gruvbox'
 Plug 'lervag/vimtex'
@@ -52,3 +55,6 @@ colorscheme gruvbox
 
 " vimtex
 let g:vimtex_view_method = 'zathura'
+
+" auto-pairs
+let g:AutoPairsFlyMode = 1

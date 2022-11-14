@@ -54,8 +54,12 @@ alt + r
 ## Node lifetime
 # Start a program
 super + {Return, space, v}
-	{kitty, rofi -show run, ~/.vim-anywhere/bin/run}
+	{kitty -1, rofi -show run, ~/.vim-anywhere/bin/run}
 
-# Close a node
-super + w
+# Close all nodes belonging to a program
+super + q
 	bspc node -k 
+
+# Close a single node
+super + w
+	bspc node -c 
