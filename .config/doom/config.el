@@ -61,7 +61,7 @@
   (interactive)
   (insert (uuid-create)))
 
-(setq which-key-idle-delay 0.1
+(setq which-key-idle-delay 0.5
       display-line-numbers-type 'relative
       doom-localleader-key ",")
 
@@ -74,7 +74,6 @@
 ;; Quitting emacs
 (setq confirm-kill-emacs nil
       confirm-kill-processes nil)
-
 (map! :n "M-q" #'kill-emacs)
 
 (setq projectile-project-search-path '("~/dev/" "~/uni/"))
@@ -166,6 +165,9 @@
   :after org
   :config (setq org-contacts-files '("~/org/contacts.org")))
 
+;; (use-package citar
+;;   :config (setq org-cite-global-bibliography '("~/org/uni/TDDE32/tdde32.bib")))
+
 (defun mfroeh/kill-all-blank ()
   "Kills all blank-lines starting a current point"
   (while (and (not (eobp)) (looking-at-p "[[:blank:]]*$"))
@@ -204,7 +206,8 @@
 (add-hook 'org-mode-hook
            (lambda () (add-hook 'before-save-hook #'mfroeh/org-format)))
 
-(setq lsp-lens-enable nil)
+(setq lsp-lens-enable nil
+      lsp-enable-on-type-formatting nil)
 
 (after! lsp-clangd
   (setq lsp-clients-clangd-args

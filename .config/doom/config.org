@@ -85,7 +85,7 @@ Easily define new evil text-objects.
 
 ** Misc
 #+begin_src emacs-lisp
-(setq which-key-idle-delay 0.1
+(setq which-key-idle-delay 0.5
       display-line-numbers-type 'relative
       doom-localleader-key ",")
 
@@ -98,7 +98,6 @@ Easily define new evil text-objects.
 ;; Quitting emacs
 (setq confirm-kill-emacs nil
       confirm-kill-processes nil)
-
 (map! :n "M-q" #'kill-emacs)
 #+end_src
 
@@ -225,6 +224,12 @@ FIXME =ah= doesn't work properly for headlines below 1 level.
   :config (setq org-contacts-files '("~/org/contacts.org")))
 #+end_src
 
+** Org-citar
+#+begin_src emacs-lisp
+;; (use-package citar
+;;   :config (setq org-cite-global-bibliography '("~/org/uni/TDDE32/tdde32.bib")))
+#+end_src
+
 ** Formatting
 #+begin_src emacs-lisp
 (defun mfroeh/kill-all-blank ()
@@ -269,7 +274,8 @@ FIXME =ah= doesn't work properly for headlines below 1 level.
 * LSP
 ** General
 #+begin_src emacs-lisp
-(setq lsp-lens-enable nil)
+(setq lsp-lens-enable nil
+      lsp-enable-on-type-formatting nil)
 #+end_src
 
 ** C++

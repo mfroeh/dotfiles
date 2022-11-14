@@ -7,15 +7,13 @@ fi
 # Load Antigen configurations
 antigen init ~/.antigenrc
 
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_CACHE_HOME="$HOME/.cache"
-export XDG_DATA_HOME="$HOME/.local/share"
-export XDG_STATE_HOME="$HOME/.local/state"
-
 export PATH="$HOME/.emacs.d/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="/opt/homebrew/bin:$PATH"
+
+# For zathura with vimtex
+export DBUS_SESSION_BUS_ADDRESS="unix:path=$DBUS_LAUNCHD_SESSION_BUS_SOCKET"
 
 export EDITOR="nvim"
 
@@ -25,8 +23,6 @@ alias cat="bat"
 
 alias w++17="g++ -std=c++17 -Wall -Wextra -Wpedantic -Weffc++ -Wold-style-cast"
 alias ccmake="cmake -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON && mv build/compile_commands.json . && make -C build"
-
-alias lcl="python3 ~/.config/scripts/clean_latex.py"
 
 alias toswe="trans :swe"
 alias toen="trans :en"
