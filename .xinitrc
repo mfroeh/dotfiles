@@ -1,6 +1,5 @@
 #!/bin/bash
 if ! xinput list | grep -q HHKB; then
-    echo "HI"
     xmodmap -e "keycode 51 = BackSpace"
     xmodmap -e "keycode 22 = backslash bar"
 fi
