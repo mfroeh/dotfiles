@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sketchybar --add item volume left                                          \
+sketchybar --add item volume left                                         \
            --set volume script="sketchybar --set volume icon.width=\$INFO" \
                         icon.background.drawing=on                         \
                         icon.background.color=0xff8aadf4                   \

@@ -126,6 +126,7 @@ brew install gh # GitHub cli
 brew install neofetch # Prints information on your system
 brew install translate-shell # =trans from:to text=
 brew install neovim # Better vim
+brew install bitwarden-cli # CLI for bitwarden
 
 echo "Installing gui applications"
 brew install --cask karabiner-elements # Keyboard input modifications
@@ -139,11 +140,13 @@ brew install --cask spotify # Music
 brew install --cask scroll-reverser # Reverse scrolling for mice
 brew install --cask zotero # Reference manager
 brew install --cask android-file-transfer # Transfer files macos to android
-brew install --cask gnucash # Bookkeeping
 
-# Zathura with poppler
+# Zathura working with vimtex
+brew install dbus
+brew services start dbus
 brew tap zegervdv/zathura
-brew install zathura --HEAD
+brew install girara --HEAD
+brew install zathura --HEAD --with-synctex
 brew install zathura-pdf-poppler
 mkdir -p $(brew --prefix zathura)/lib/zathura
 ln -s $(brew --prefix zathura-pdf-poppler)/libpdf-poppler.dylib $(brew --prefix zathura)/lib/zathura/libpdf-poppler.dylib
@@ -175,10 +178,14 @@ git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.emacs.d
 brew tap d12frosted/emacs-plus
 brew install emacs-plus --with-native-comp --with-modern-icon
 
+# spelling and grammar
+brew install aspell languagetool
+
 # c++
 brew install cmake
 brew install llvm
 pip3 install cmake-language-server
+
 # Python
 pip3 install black
 pip3 install pyright
