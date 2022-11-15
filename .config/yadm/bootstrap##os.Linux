@@ -1,37 +1,71 @@
 #!/bin/bash
+base=(
+    "base base-devel git" # Minimal packages needed
+    "xorg xorg-xinit xclip bspwm sxhkd" # X11 and window manager
+    "rofi bspwmbar" # Application launcher and bar
+    "xcape" # Keyboard
+    "pipewire pavucontrol" # Audio
+)
+
+cli_core=(
+    "ripgrep fd bat lsd tree fzf thefuck" # Shell commands
+    "antigen" # zsh plugin manager
+    "openssh" 
+    "grive" # Google drive sync
+)
+
+cli_extra=(
+    "neofetch translate-shell"
+)
+
+fonts=(
+    "nerd-fonts-anonymous-pro"
+)
+
+gui_core=(
+    "kitty" # Terminal emulator
+    "gvim" # Text editor
+    "google-chrome chromium" # Browser
+    "thunar" # File manager
+    "zathura" "zathura-pdf-mupdf" # Pdf viewer
+)
+
+not_aarch64=(
+    "discord"
+)
+
+optional=(
+    "nvidia" # Propriatary nvidia drivers
+)
+
 cd $HOME
 
 # Update packages
-sudo pacman -Syyu
+# sudo pacman -Syyu
 
-# Initializing submodules
-yadm submodule update --recursive --init
+# # Initializing submodules
+# yadm submodule update --recursive --init
 
-# Install yay
-git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si 
+# # Installing zsh and making it the default shell
+# sudo pacman -S zsh
+# chsh -s /bin/zsh mo
 
-# Installing zsh and making it the default shell
-sudo pacman -S zsh
-chsh -s /bin/zsh mo
+# # Install vim-anywhere
+# curl -fsSL https://raw.github.com/cknadler/vim-anywhere/master/install | bash
 
-# Install window manager etc.
-sudo pacman -S xorg xorg-xinit xclip bspwm sxhkd
-sudo pacman -S rofi
-yay -S lemonbar-git
+# # Install yay
+# git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si 
 
-# Optionally install nvidia drivers
-sudo pacman -S nvdia
+yay -S ${base[@]} ${cli_core[@]} ${cli_extra[@]} ${fonts[@]} ${gui_core[@]} ${gui_extra[@]}
 
-# Install cli programs 
-sudo pacman -S gvim ripgrep fd bat lsd fzf tree neofetch translate-shell openssh xcape
-yay -S antigen github-cli-git grive 
+echo "Install optional packages?"
+read input
+if [[ $input == "y" ]]; then
+    yay -S ${optional[@]}
+fi
 
-# Install vim-anywhere
-curl -fsSL https://raw.github.com/cknadler/vim-anywhere/master/install | bash
-
-# Installing terminal font
-yay -S nerd-fonts-anonymous-pro
-
-# Install gui programs
-sudo pacman -S kitty discord thunar pavucontrol
-yay -S google-chrome
+echo "Install non AArch64 packages?"
+read input
+if [[ $input == "y" ]]; then
+    yay -S ${not_aarch64[@]}
+fi
