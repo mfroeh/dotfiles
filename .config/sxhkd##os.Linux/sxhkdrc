@@ -9,17 +9,17 @@ super + alt + {q,r}
 
 ## Anything desktops
 # Switch desktop
-super + {1, 2, 3, 4, 5, 6, 7, 8, 9}
-	bspc desktop -f {1, 2, 3, 4, 5, 6, 7, 8, 9}
+super + {1, 2, 3, 4, 5, 6, 7, 8, 9, 0}
+	bspc desktop -f {1, 2, 3, 4, 5, 6, 7, 8, 9, 0}
 
 super + {o, i}
-    bspc wm -h off; \
+    bspc wm -h off;                 \
     bspc desktop -f {older, newer}; \
     bspc wm -h on;
 
 # Move nodes between desktops 
-super + ctrl + {1, 2, 3, 4, 5, 6, 7, 8, 9}
-	bspc node -d {1, 2, 3, 4, 5, 6, 7, 8, 9}
+super + ctrl + {1, 2, 3, 4, 5, 6, 7, 8, 9, 0}
+	bspc node -d {1, 2, 3, 4, 5, 6, 7, 8, 9, 0}
 
 ## Anything nodes
 # Switch nodes
@@ -27,7 +27,7 @@ alt + {h, j, k, l, o, i}
 	bspc node -f {west, south, north, east}
 
 alt + {o, i}
-	bspc wm -h off; \
+	bspc wm -h off;              \
 	bspc node -f {older, newer}; \
 	bspc wm -h on;
 
@@ -37,7 +37,10 @@ alt + ctrl + {h, j, k, l}
 
 # Change node size
 alt + shift + {h, j, k, l}
-	bspc node -z {right -20 0, top 0 20, bottom 0 -20, left 20 0}
+  {bspc node -z right +20 0; bspc node -z left -20 0,   \
+  bspc node -z top 0 +20;    bspc node -z bottom 0 -20, \
+  bspc node -z top 0 -20;    bspc node -z bottom 0 +20, \
+  bspc node -z right -20 0;  bspc node -z left +20 0}
 
 # Equalize node size 
 alt + b
@@ -54,7 +57,10 @@ alt + r
 ## Node lifetime
 # Start a program
 super + {Return, space, v}
-	{kitty -1, rofi -show run, ~/.vim-anywhere/bin/run}
+	{kitty -1, rofi -show run, kitty --class vim vim "+:cd ~/dev"}
+
+super + shift + v
+  ~/.vim-anywhere/bin/run
 
 # Close all nodes belonging to a program
 super + q

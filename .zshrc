@@ -15,9 +15,9 @@ export PATH="/opt/homebrew/bin:$PATH"
 # Needed for valgrind on arch
 export DEBUGINFOD_URLS="https://debuginfod.archlinux.org"
 
-export EDITOR="nvim"
+export EDITOR="vim"
 
-alias ssh="kitty +kitten ssh"
+# alias ssh="kitty +kitten ssh"
 alias ls="lsd"
 alias cat="bat"
 alias t="tree -L 3"
@@ -30,3 +30,5 @@ alias ccmake="cmake -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON && mv build/comp
 alias toswe="trans :swe"
 alias toen="trans :en"
 alias tode="trans :de"
+
+eval $(thefuck --alias)

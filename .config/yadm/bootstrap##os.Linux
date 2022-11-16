@@ -40,25 +40,25 @@ optional=(
 
 cd $HOME
 
-# Update packages
-# sudo pacman -Syyu
+Update packages
+sudo pacman -Syyu
 
-# # Initializing submodules
-# yadm submodule update --recursive --init
+# Initializing submodules
+yadm submodule update --recursive --init
 
-# # Installing zsh and making it the default shell
-# sudo pacman -S zsh
-# chsh -s /bin/zsh mo
+# Installing zsh and making it the default shell
+sudo pacman -S zsh
+chsh -s /bin/zsh mo
 
-# # Install vim-anywhere
-# curl -fsSL https://raw.github.com/cknadler/vim-anywhere/master/install | bash
+# Install vim-anywhere
+curl -fsSL https://raw.github.com/cknadler/vim-anywhere/master/install | bash
 
-# # Install yay
-# git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si 
+# Install yay
+git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si 
 
 yay -S ${base[@]} ${cli_core[@]} ${cli_extra[@]} ${fonts[@]} ${gui_core[@]} ${gui_extra[@]}
 
-echo "Install optional packages?"
+echo "Install nvidia drivers?"
 read input
 if [[ $input == "y" ]]; then
     yay -S ${optional[@]}
