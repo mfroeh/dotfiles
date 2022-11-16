@@ -57,7 +57,7 @@ alt + r
 ## Node lifetime
 # Start a program
 super + {Return, space, v}
-	{kitty -1, rofi -show run, kitty --class vim vim "+:cd ~/dev"}
+	{kitty -1, rofi -show run, gvim}
 
 super + shift + v
   ~/.vim-anywhere/bin/run
