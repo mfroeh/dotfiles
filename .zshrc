@@ -17,7 +17,7 @@ export DEBUGINFOD_URLS="https://debuginfod.archlinux.org"
 
 export EDITOR="vim"
 
-# alias ssh="kitty +kitten ssh"
+alias ssh="kitty +kitten ssh"
 alias ls="lsd"
 alias cat="bat"
 alias t="tree -L 3"

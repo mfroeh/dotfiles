@@ -1,17 +1,17 @@
 #!/bin/bash
 base=(
-    "base base-devel git" # Minimal packages needed
+    "base base-devel git"               # Minimal packages needed
     "xorg xorg-xinit xclip bspwm sxhkd" # X11 and window manager
-    "rofi bspwmbar" # Application launcher and bar
-    "xcape" # Keyboard
-    "pipewire pavucontrol" # Audio
+    "rofi bspwmbar"                     # Application launcher and bar
+    "xcape"                             # Keyboard
+    "pipewire pavucontrol"              # Audio
 )
 
 cli_core=(
     "ripgrep fd bat lsd tree fzf thefuck" # Shell commands
-    "antigen" # zsh plugin manager
-    "openssh" 
-    "grive" # Google drive sync
+    "antigen"                             # zsh plugin manager
+    "openssh"                             # SSH client
+    "grive"                               # Google drive sync
 )
 
 cli_extra=(
@@ -19,28 +19,25 @@ cli_extra=(
 )
 
 fonts=(
-    "nerd-fonts-anonymous-pro"
+    "nerd-fonts-anonymous-pro" # A font
 )
 
 gui_core=(
-    "kitty" # Terminal emulator
-    "gvim" # Text editor
-    "google-chrome chromium" # Browser
-    "thunar" # File manager
+    "kitty"                       # Terminal emulator
+    "gvim"                        # Text editor
+    "google-chrome chromium"      # Browser
+    "thunar"                      # File manager
     "zathura" "zathura-pdf-mupdf" # Pdf viewer
 )
 
-not_aarch64=(
-    "discord"
-)
-
-optional=(
-    "nvidia" # Propriatary nvidia drivers
+desktop=(
+  "nvidia"  # Nvidia drivers
+  "discord" # Discord doesn't support AArch64
 )
 
 cd $HOME
 
-Update packages
+# Update packages
 sudo pacman -Syyu
 
 # Initializing submodules
@@ -58,14 +55,8 @@ git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
 
 yay -S ${base[@]} ${cli_core[@]} ${cli_extra[@]} ${fonts[@]} ${gui_core[@]} ${gui_extra[@]}
 
-echo "Install nvidia drivers?"
+echo "Are you on desktop?"
 read input
 if [[ $input == "y" ]]; then
-    yay -S ${optional[@]}
-fi
-
-echo "Install non AArch64 packages?"
-read input
-if [[ $input == "y" ]]; then
-    yay -S ${not_aarch64[@]}
+  yay -S ${desktop[@]}
 fi
