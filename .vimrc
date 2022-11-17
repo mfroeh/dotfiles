@@ -74,3 +74,4 @@ let g:vimtex_view_method = 'zathura'
 
 " fzf
 nmap <C-p> :Files<cr>
+let $FZF_DEFAULT_COMMAND="find . -type f -not -path '*/\.git/*'" " Make fzf blazingly fast

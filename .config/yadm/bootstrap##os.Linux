@@ -48,6 +48,9 @@ yadm submodule update --recursive --init
 sudo pacman -S zsh
 chsh -s /bin/zsh mo
 
+# Installing zimfw
+curl -fsSL https://raw.githubusercontent.com/zimfw/install/master/install.zsh | zsh
+
 # Install vim-anywhere
 curl -fsSL https://raw.github.com/cknadler/vim-anywhere/master/install | bash
 
