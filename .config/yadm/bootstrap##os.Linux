@@ -8,10 +8,10 @@ base=(
 )
 
 cli_core=(
-    "ripgrep fd bat lsd tree fzf thefuck" # Shell commands
-    "antigen"                             # zsh plugin manager
-    "openssh"                             # SSH client
-    "grive"                               # Google drive sync
+    "ripgrep fd bat lsd tree fzf" # Shell commands
+    "antigen"                     # zsh plugin manager
+    "openssh"                     # SSH client
+    "grive"                       # Google drive sync
 )
 
 cli_extra=(
@@ -19,7 +19,8 @@ cli_extra=(
 )
 
 fonts=(
-    "nerd-fonts-anonymous-pro" # A font
+    "nerd-fonts-anonymous-pro"  # A font
+    "nerd-fonts-jetbrains-mono" # Another font
 )
 
 gui_core=(

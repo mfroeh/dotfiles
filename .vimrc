@@ -18,6 +18,8 @@ set timeoutlen=600 " Wait this many ms for mappings to complete
 set ttimeoutlen=0
 set noesckeys      " Disable delay when using O
 
+set cursorline     " Highlight entire current line
+
 nmap Y y$ " Make Y consistent with C and D
 
 let mapleader = ' '
@@ -41,9 +43,12 @@ call plug#begin()
 Plug 'tpope/vim-surround'        " you surround inner word
 Plug 'tpope/vim-commentary'      " go comment 4j
 Plug 'svermeulen/vim-subversive' " substitute a paragraph
+Plug 'junegunn/vim-easy-align'   " go align innner paragraph
+Plug 'wellle/targets.vim'        " change inner argument
 Plug 'jiangmiao/auto-pairs'
-Plug 'junegunn/vim-easy-align'
 
+Plug 'junegunn/fzf'              " Fuzzy finder
+Plug 'junegunn/fzf.vim'          " Some vim commands for fzf
 Plug 'morhetz/gruvbox'
 Plug 'lervag/vimtex'
 call plug#end()
@@ -57,8 +62,8 @@ nmap ss <plug>(SubversiveSubstituteLine)
 nmap S <plug>(SubversiveSubstituteToEndOfLine)
 
 " vim-easy-align
-nmap ga <Plug>(EasyAlign)
-xmap ga <Plug>(EasyAlign)
+nmap ga <plug>(EasyAlign)
+xmap ga <plug>(EasyAlign)
 
 " gruvbox
 colorscheme gruvbox
@@ -66,3 +71,6 @@ set bg=dark
 
 " vimtex
 let g:vimtex_view_method = 'zathura'
+
+" fzf
+nmap <C-p> :Files<cr>

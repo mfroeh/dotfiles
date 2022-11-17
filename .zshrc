@@ -30,5 +30,3 @@ alias ccmake="cmake -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON && mv build/comp
 alias toswe="trans :swe"
 alias toen="trans :en"
 alias tode="trans :de"
-
-eval $(thefuck --alias)
