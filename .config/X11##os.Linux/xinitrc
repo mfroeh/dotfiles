@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 xset r rate 250 20 && setxkbmap -option ctrl:nocaps && xcape -e 'Control_L=Escape' -t 500
 
