@@ -8,14 +8,14 @@ base=(
 )
 
 cli_core=(
-    "ripgrep fd bat lsd tree fzf" # Shell commands
+    "ripgrep fd bat lsd tree fzf zoxide" # Shell commands
     "antigen"                     # zsh plugin manager
     "openssh"                     # SSH client
     "grive"                       # Google drive sync
 )
 
 cli_extra=(
-    "neofetch translate-shell"
+    "neofetch translate-shell" 
 )
 
 fonts=(
@@ -29,6 +29,10 @@ gui_core=(
     "google-chrome chromium"      # Browser
     "thunar"                      # File manager
     "zathura" "zathura-pdf-mupdf" # Pdf viewer
+)
+
+gui_extra=(
+  "zotero-bin" # Reference manager 
 )
 
 desktop=(
@@ -54,7 +58,7 @@ curl -fsSL https://raw.github.com/cknadler/vim-anywhere/master/install | bash
 # Install yay
 git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si 
 
-yay -S ${base[@]} ${cli_core[@]} ${cli_extra[@]} ${fonts[@]} ${gui_core[@]} ${gui_extra[@]}
+yay -S ${base[@]} ${cli_core[@]} ${cli_extra[@]} ${fonts[@]} ${gui_core[@]} ${gui_extra[@]} ${gui_extra[@]}
 
 echo "Are you on desktop?"
 read input
