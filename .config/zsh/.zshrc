@@ -31,4 +31,4 @@ alias toswe="trans :swe"
 alias toen="trans :en"
 alias tode="trans :de"
 
-eval "$(zoxide init zsh)"
+eval "$(zoxide init --cmd j zsh)"

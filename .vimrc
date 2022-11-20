@@ -26,6 +26,12 @@ set splitbelow     " Always put new window below current one
 
 set cursorline     " Highlight entire current line
 
+set wildmenu " Show completions options inside command mode  
+set completeopt=menuone,noinsert
+
+let mapleader = ' '
+let maplocalleader = ','
+
 " Make Y consistent with C and D
 nmap Y y$ 
 
@@ -33,8 +39,7 @@ nmap Y y$
 vnoremap < <gv
 vnoremap > >gv
 
-let mapleader = ' '
-let maplocalleader = ','
+nmap <leader>t :vert term<cr>
 
 " Set and boostrap persitent undo
 if has('persistent_undo')
@@ -42,8 +47,6 @@ if has('persistent_undo')
   set undodir=~/.vim/undo-dir
   silent call system('mkdir -p ' . &undodir)
 endif
-
-nmap <leader>t :vert term<cr>
 
 " bootstrap vim-plug
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
@@ -60,6 +63,9 @@ Plug 'junegunn/vim-easy-align'             " go align innner paragraph
 Plug 'wellle/targets.vim'                  " change inner argument
 Plug 'jiangmiao/auto-pairs'
 
+Plug 'kana/vim-textobj-user'               " Easily create new text objects
+Plug 'glts/vim-textobj-comment'            " change inner comment
+
 Plug 'junegunn/fzf'                        " Fuzzy finder
 Plug 'junegunn/fzf.vim'                    " Some vim commands for fzf
 Plug 'morhetz/gruvbox'
@@ -68,16 +74,16 @@ Plug 'lervag/vimtex'
 Plug 'prabirshrestha/vim-lsp'              " Enable language server protocol integration
 Plug 'prabirshrestha/asyncomplete.vim'     " Auto completion
 Plug 'prabirshrestha/asyncomplete-lsp.vim' " Auto completion integration with lsp
-Plug 'prabirshrestha/async.vim'            "Dependency of the above
+Plug 'prabirshrestha/async.vim'            " Dependency of the above
 call plug#end()
 
 syntax enable
 filetype plugin indent on
 
 " vim-subversive
-nmap s <plug>(SubversiveSubstitute)
+nmap s  <plug>(SubversiveSubstitute)
 nmap ss <plug>(SubversiveSubstituteLine)
-nmap S <plug>(SubversiveSubstituteToEndOfLine)
+nmap S  <plug>(SubversiveSubstituteToEndOfLine)
 
 " vim-easy-align
 nmap ga <plug>(EasyAlign)
@@ -95,10 +101,15 @@ nmap <C-p> :Files<cr>
 let $FZF_DEFAULT_COMMAND="find . -type f -not -path '*/\.git/*'" " Make fzf blazingly fast
 
 " asyncomplete
-imap <c-@> <plug>(asyncomplete_force_refresh)
-inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
-inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
-inoremap <expr> <cr> pumvisible() ? asyncomplete#close_popup(): "\<cr>"
+imap     <C-space> <plug>(asyncomplete_force_refresh)
+inoremap <expr>    <tab>   pumvisible() ? "\<C-n>" : "\<tab>"
+inoremap <expr>    <S-tab> pumvisible() ? "\<C-p>" : "\<S-tab>"
+inoremap <expr>    <C-j>   pumvisible() ? "\<C-n>" : "\<C-j>"
+inoremap <expr>    <C-k>   pumvisible() ? "\<C-p>" : "\<C-k>"
+inoremap <expr>    <cr>    pumvisible() ? asyncomplete#close_popup(): "\<cr>"
+" inoremap <expr>    <tab>   pumvisible() ? asyncomplete#close_popup(): "\<tab>"
+
+let g:asyncomplete_auto_completeopt=0 " Disallow asyncomplete from overwriting completeopt
 
 " vim-lsp
 if executable('clangd')
@@ -109,8 +120,6 @@ if executable('clangd')
           \ 'cmd': {server_info->['clangd']},
           \ 'allowlist': ['c', 'cpp', 'objc', 'objcpp'],
           \ })
-  " autocmd User asyncomplete_setup call asyncomplete#register_source(
-  "       \ asyncomplete#sources#clang#get_source_options())
   augroup end
 endif
 
@@ -140,3 +149,4 @@ augroup lsp_install
   " call s:on_lsp_buffer_enabled only for languages that has the server registered.
   autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
+
