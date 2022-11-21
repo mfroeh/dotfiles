@@ -7,21 +7,11 @@ fi
 # Load Antigen configurations
 antigen init ~/.antigenrc
 
-export PATH="$HOME/.emacs.d/bin:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="/opt/homebrew/bin:$PATH"
-
-# Needed for valgrind on arch
-export DEBUGINFOD_URLS="https://debuginfod.archlinux.org"
-
-export EDITOR="vim"
-
 alias ssh="kitty +kitten ssh"
 alias ls="lsd"
 alias cat="bat"
-alias t="tree -L 3"
-alias td="tree -d -L 3"
+alias t="tree"
+alias td="tree -d"
 
 alias w++20="g++-11 -std=c++20 -pedantic -Wall -Wextra"
 
