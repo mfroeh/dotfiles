@@ -47,9 +47,9 @@ alt + shift + {h, j, k, l}
 alt + b
 	bspc node -B 
 
-# Toggle fullscreen
-alt + f
-    bspc node -t \~fullscreen
+# Toggle fullscreen, floating
+alt + {f, t, m}
+  bspc node -t {\~fullscreen, \~floating}
 
 # Rotate all nodes by 90 degrees to the right
 alt + r

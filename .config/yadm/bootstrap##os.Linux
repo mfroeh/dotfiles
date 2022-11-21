@@ -9,9 +9,9 @@ base=(
 
 cli_core=(
     "ripgrep fd bat lsd tree fzf zoxide" # Shell commands
-    "antigen"                     # zsh plugin manager
-    "openssh"                     # SSH client
-    "grive"                       # Google drive sync
+    "antigen"                            # zsh plugin manager
+    "openssh"                            # SSH client
+    "grive"                              # Google drive sync
 )
 
 cli_extra=(

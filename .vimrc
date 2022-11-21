@@ -27,7 +27,7 @@ set splitbelow     " Always put new window below current one
 set cursorline     " Highlight entire current line
 
 set wildmenu " Show completions options inside command mode  
-set completeopt=menuone,noinsert
+set completeopt=menuone,noinsert,noselect
 
 let mapleader = ' '
 let maplocalleader = ','
@@ -106,7 +106,7 @@ inoremap <expr>    <tab>   pumvisible() ? "\<C-n>" : "\<tab>"
 inoremap <expr>    <S-tab> pumvisible() ? "\<C-p>" : "\<S-tab>"
 inoremap <expr>    <C-j>   pumvisible() ? "\<C-n>" : "\<C-j>"
 inoremap <expr>    <C-k>   pumvisible() ? "\<C-p>" : "\<C-k>"
-inoremap <expr>    <cr>    pumvisible() ? asyncomplete#close_popup(): "\<cr>"
+inoremap <expr>    <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
 " inoremap <expr>    <tab>   pumvisible() ? asyncomplete#close_popup(): "\<tab>"
 
 let g:asyncomplete_auto_completeopt=0 " Disallow asyncomplete from overwriting completeopt

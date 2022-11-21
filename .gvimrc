@@ -1,4 +1,4 @@
-set guifont=JetBrainsMono\ Nerd\ Font\ Mono\ 16
+set guifont=JetBrainsMono\ Nerd\ Font\ Mono\ 14
 set guioptions-=T
 set guioptions-=r " Disable scrollbars
 set guioptions-=R " Disable scrollbars
