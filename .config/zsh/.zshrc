@@ -21,6 +21,4 @@ alias toswe="trans :swe"
 alias toen="trans :en"
 alias tode="trans :de"
 
-alias cd="echo 'Use j instead!'"
-
-eval "$(zoxide init --cmd j zsh)"
+eval "$(zoxide init --cmd cd zsh)"
