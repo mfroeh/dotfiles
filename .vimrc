@@ -38,6 +38,10 @@ nmap Y y$
 vnoremap < <gv
 vnoremap > >gv
 
+" Center after <C-d> and <C-u>
+nnoremap <C-d> <C-d>zz
+nnoremap <C-u> <C-u>zz
+
 " Set and boostrap persitent undo
 if has('persistent_undo')
   set undofile " Undo persistent over sessions
