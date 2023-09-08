@@ -74,3 +74,19 @@
 ;;(use-package helm-lsp :commands helm-lsp-workspace-symbol)
 ;; if you are ivy user
 ;;(use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(lsp-ui which-key lsp-mode company yasnippet modus-themes evil-collection evil undo-fu)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+(load "~/.emacs.d/prolog.el")
+(add-to-list 'auto-mode-alist '("\\.pl$" . prolog-mode))
