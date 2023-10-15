@@ -1,0 +1,5 @@
+~/test/.config/git -> .config/git
+~/test/.config/kitty -> .config/kitty
+
+~/test/.config/karabiner -> .config/karabiner
+~/test/.vimmmrc -> .vimrc

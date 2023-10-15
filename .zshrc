@@ -11,3 +11,6 @@ RPROMPT=""
 
 # Initialize modules
 source ${ZIM_HOME}/init.zsh
+
+# Required for cuda on WSL
+export LD_LIBRARY_PATH=/usr/lib/wsl/lib:$LD_LIBRARY_PATH
