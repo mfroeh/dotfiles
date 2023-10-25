@@ -1,5 +1,9 @@
-~/test/.config/git -> .config/git
-~/test/.config/kitty -> .config/kitty
+~/.config/nvim -> nvim
+~/.config/git -> .config/git
 
-~/test/.config/karabiner -> .config/karabiner
-~/test/.vimmmrc -> .vimrc
+~/.vimrc -> .vimrc
+
+~/.zimrc -> .zimrc
+~/.zprofile -> .zprofile
+~/.zshenv -> .zshenv
+~/.zshrc -> .zshrc
