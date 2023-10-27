@@ -1,4 +1,4 @@
-~/.config/nvim -> nvim
+~/.config/nvim -> nvim-lazy
 ~/.config/git -> .config/git
 
 ~/.vimrc -> .vimrc
@@ -7,3 +7,5 @@
 ~/.zprofile -> .zprofile
 ~/.zshenv -> .zshenv
 ~/.zshrc -> .zshrc
+
+~/.tmux.conf -> tmux/tmux.conf
