@@ -35,6 +35,8 @@ bindsym $mod+Shift+0 move container to workspace 10
 bindsym $mod+Return exec kitty
 bindsym Mod4+space exec rofi -show run
 
+bindsym $mod+f fullscreen toggle
+
 bindsym $mod+q kill
 
 bindsym $mod+r mode "resize"

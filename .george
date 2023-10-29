@@ -3,7 +3,8 @@
 
 ~/.vimrc -> .vimrc
 
-~/.zimrc -> .zimrc
+~/.config/sheldon/plugins.toml -> sheldon/plugins.toml
+
 ~/.zprofile -> .zprofile
 ~/.zshenv -> .zshenv
 ~/.zshrc -> .zshrc
@@ -13,3 +14,4 @@
 ~/.xinitrc -> .xinitrc
 ~/.config/i3/config -> i3/config
 ~/.config/polybar/config.ini -> polybar/config.ini
+

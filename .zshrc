@@ -1,16 +1,15 @@
-# Setup zim
-ZIM_HOME=~/.zim
-# Download zimfw plugin manager if missing
-[[ ! -e ${ZIM_HOME}/zimfw.zsh ]] && curl -fsSL --create-dirs -o ${ZIM_HOME}/zimfw.zsh https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
-# Install missing modules, and update ${ZIM_HOME}/init.zsh if missing or outdated
-[[ ! ${ZIM_HOME}/init.zsh -nt ${ZDOTDIR:-${HOME}}/.zimrc ]] && source ${ZIM_HOME}/zimfw.zsh init -q
+# Bootstrap sheldon
+if [[ ! -f "$HOME/.local/bin/sheldon" ]]; then 
+	curl --proto '=https' -fLsS https://rossmacarthur.github.io/install/crate.sh | bash -s -- --repo rossmacarthur/sheldon --to ~/.local/bin
+fi
 
 PROMPT="%F{white}%n@%m%f in %F{cyan}%~%f
 %F{blue}η%f "
 RPROMPT=""
 
-# Initialize modules
-source ${ZIM_HOME}/init.zsh
+alias vim=nvim
 
 # Required for cuda on WSL
 export LD_LIBRARY_PATH=/usr/lib/wsl/lib:$LD_LIBRARY_PATH
+
+eval "$(sheldon source)"
