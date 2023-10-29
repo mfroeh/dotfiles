@@ -1,0 +1,6 @@
+[bar/mybar]
+override-redirect = true
+wm-restack = i3
+
+[bar]
+bottom = true

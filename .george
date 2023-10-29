@@ -9,3 +9,7 @@
 ~/.zshrc -> .zshrc
 
 ~/.tmux.conf -> tmux/tmux.conf
+
+~/.xinitrc -> .xinitrc
+~/.config/i3/config -> i3/config
+~/.config/polybar/config.ini -> polybar/config.ini

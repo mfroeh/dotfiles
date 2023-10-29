@@ -1,12 +1,52 @@
-#!/bin/zsh
+#!/bin/sh
 
-# TODO: Replace with xremap
-if ! xinput list | grep -q HHKB; then
-    setxkbmap -option ctrl:nocaps && xmodmap -e "keycode 51 = BackSpace" && xmodmap -e "keycode 22 = backslash bar"
+userresources=$HOME/.Xresources
+usermodmap=$HOME/.Xmodmap
+sysresources=/etc/X11/xinit/.Xresources
+sysmodmap=/etc/X11/xinit/.Xmodmap
+
+# merge in defaults and keymaps
+
+if [ -f $sysresources ]; then
+
+
+
+
+
+
+
+    xrdb -merge $sysresources
+
 fi
 
-# TODO: Replace with xremap
-xset r rate 250 20 && xcape -e 'Control_L=Escape' -t 200
+if [ -f $sysmodmap ]; then
+    xmodmap $sysmodmap
+fi
 
-sxhkd & 
-exec bspwm
+if [ -f "$userresources" ]; then
+
+
+
+
+
+
+
+    xrdb -merge "$userresources"
+
+fi
+
+if [ -f "$usermodmap" ]; then
+    xmodmap "$usermodmap"
+fi
+
+# start some nice programs
+
+if [ -d /etc/X11/xinit/xinitrc.d ] ; then
+ for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
+  [ -x "$f" ] && . "$f"
+ done
+ unset f
+fi
+
+picom -b &
+exec i3
