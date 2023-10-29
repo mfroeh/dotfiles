@@ -1,0 +1,4 @@
+keymap:
+  - name: Ctrl-[ -> Esc
+    remap:
+      C-Leftbrace: Esc
