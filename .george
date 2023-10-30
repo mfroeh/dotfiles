@@ -15,3 +15,4 @@
 ~/.config/i3/config -> i3/config
 ~/.config/polybar/config.ini -> polybar/config.ini
 
+~/.config/nvim -> nvim
