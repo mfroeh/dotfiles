@@ -16,3 +16,4 @@
 ~/.config/polybar/config.ini -> polybar/config.ini
 
 ~/.config/nvim -> nvim
+~/.config/kitty -> kitty

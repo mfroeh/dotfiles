@@ -9,6 +9,14 @@ setopt appendhistory
 
 alias vim=nvim
 
+if command -v bat &> /dev/null; then
+  alias cat=bat
+fi
+
+if command -v lsd &> /dev/null; then
+  alias ls="lsd --icon=never"
+fi
+
 # Required for cuda on WSL
 export LD_LIBRARY_PATH=/usr/lib/wsl/lib:$LD_LIBRARY_PATH
 
