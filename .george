@@ -1,5 +1,4 @@
-~/.config/nvim -> nvim-lazy
-~/.config/git -> .config/git
+~/.config/git -> git
 
 ~/.vimrc -> .vimrc
 

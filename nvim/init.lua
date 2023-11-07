@@ -168,6 +168,25 @@ require("lazy").setup({
     end
   },
 
+  {
+    "ibhagwan/fzf-lua",
+    init = function()
+      require("fzf-lua").setup({
+        "max-perf",
+        preview_opts = "hidden",
+        buffers = { prompt = 'Buffers: ', ignore_current_buffer = true, sort_lastused = true },
+        winopts = {
+          border = {" ", "─", " ", " ", " ", " ", " ", " " },
+          win_height = 0.5,
+          win_width = 0.5,
+          win_row = 0.1,
+          win_col = 0.5,
+        },
+      })
+      vim.keymap.set("n", "<C-P>", "<CMD>lua require('fzf-lua').files({})<CR>", { silent = true })
+    end
+  },
+
   {"folke/todo-comments.nvim", dependencies = { "nvim-lua/plenary.nvim" }},
   {"hiphish/rainbow-delimiters.nvim", init = function() require("rainbow-delimiters.setup").setup() end},
 })
@@ -200,6 +219,8 @@ vim.opt.wildmenu = true                  -- Show completions options inside comm
 
 vim.opt.undofile = true                  -- Persistent undo
 vim.opt.undodir = vim.fn.expand("~/.config/nvim/undo")
+
+vim.opt.signcolumn = "number"
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
