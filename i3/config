@@ -37,6 +37,8 @@ bindsym Mod4+space exec rofi -show run
 
 bindsym $mod+f fullscreen toggle
 
+bindsym $mod+s layout toggle stacking split
+
 bindsym $mod+q kill
 
 bindsym $mod+r mode "resize"
