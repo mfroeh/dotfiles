@@ -12,7 +12,7 @@ COLOR_DIR="%F{yellow}"
 COLOR_GIT="%F{cyan}"
 COLOR_PCHAR="%F{208}"
 setopt PROMPT_SUBST # Evaluate function calls in prompt
-PROMPT='${COLOR_USR}%n@%m %F{white}in ${COLOR_DIR}%~ ${COLOR_GIT}${vcs_info_msg_0_}
+PROMPT='${COLOR_USR}%n@%m ${COLOR_DIR}%~ ${COLOR_GIT}${vcs_info_msg_0_}
 ${COLOR_PCHAR}η '
 RPROMPT=""
 

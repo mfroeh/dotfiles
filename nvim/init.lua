@@ -1,13 +1,14 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+
 if not vim.loop.fs_stat(lazypath) then
-	vim.fn.system({
-		"git",
-		"clone",
-		"--filter=blob:none",
-		"https://github.com/folke/lazy.nvim.git",
-		"--branch=stable", -- latest stable release
-		lazypath,
-	})
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
 end
 vim.opt.rtp:prepend(lazypath)
 
@@ -15,26 +16,26 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 
   -- Generic text editing
-  {"kylechui/nvim-surround", version = "*", init = function() require("nvim-surround").setup() end},
-  {"numToStr/Comment.nvim", init = function() require("Comment").setup() end},
-  {"windwp/nvim-autopairs", init = function() require("nvim-autopairs").setup() end},
+  { "kylechui/nvim-surround", version = "*",                                          init = function() require(
+    "nvim-surround").setup() end },
+  { "numToStr/Comment.nvim",  init = function() require("Comment").setup() end },
+  { "windwp/nvim-autopairs",  init = function() require("nvim-autopairs").setup() end },
   {
     "junegunn/vim-easy-align",
-    init = function() 
-      vim.keymap.set("n", "ga", "<Plug>(EasyAlign)")
-      vim.keymap.set("x", "ga", "<Plug>(EasyAlign)")
+    init = function()
+      vim.keymap.set({"n", "x"}, "ga", "<Plug>(EasyAlign)")
     end
   },
 
   -- Colorscheme
-  { "RRethy/nvim-base16", init = function() vim.cmd("colorscheme base16-gruvbox-dark-hard") end},
+  { "RRethy/nvim-base16",       init = function() vim.cmd("colorscheme base16-gruvbox-dark-hard") end },
 
   {
-    "williamboman/mason.nvim", 
+    "williamboman/mason.nvim",
     dependencies = { "williamboman/mason-lspconfig.nvim" },
-    init = function() 
+    init = function()
       require("mason").setup()
-      require("mason-lspconfig").setup({ ensure_installed = { "rust_analyzer", "clangd" } })
+      require("mason-lspconfig").setup({ ensure_installed = { "rust_analyzer", "clangd", "lua_ls" } })
     end
   },
 
@@ -53,10 +54,13 @@ require("lazy").setup({
           vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
           vim.keymap.set("n", "<C-k>", vim.lsp.buf.code_action, opts)
           vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+          vim.keymap.set("n", "<leader>ff", vim.lsp.buf.format, opts);
+          vim.keymap.set("n", "<M-o>", "<CMD>ClangdSwitchSourceHeader<CR>");
         end
       })
       require("lspconfig").clangd.setup({})
       require("lspconfig").rust_analyzer.setup({})
+      require("lspconfig").lua_ls.setup({})
     end
   },
 
@@ -118,22 +122,22 @@ require("lazy").setup({
         },
         -- Installed sources:
         sources = {
-          { name = "path" },                              -- file paths
-          { name = "nvim_lsp", keyword_length = 3 },      -- from language server
-          { name = "nvim_lsp_signature_help"},            -- display function signatures with current parameter emphasized
-          { name = "nvim_lua", keyword_length = 2},       -- complete neovim"s Lua runtime API such vim.lsp.*
-          { name = "buffer", keyword_length = 2 },        -- source current buffer
-          { name = "vsnip", keyword_length = 2 },         -- nvim-cmp source for vim-vsnip 
-          { name = "calc"},                               -- source for math calculation
+          { name = "path" },                         -- file paths
+          { name = "nvim_lsp",               keyword_length = 3 }, -- from language server
+          { name = "nvim_lsp_signature_help" },      -- display function signatures with current parameter emphasized
+          { name = "nvim_lua",               keyword_length = 2 }, -- complete neovim"s Lua runtime API such vim.lsp.*
+          { name = "buffer",                 keyword_length = 2 }, -- source current buffer
+          { name = "vsnip",                  keyword_length = 2 }, -- nvim-cmp source for vim-vsnip
+          { name = "calc" },                         -- source for math calculation
         },
         window = {
-          completion = cmp.config.window.bordered(),
-          documentation = cmp.config.window.bordered(),
+          completion = { border = "" },
+          documentation = { border = "" },
         },
         formatting = {
-          fields = {"menu", "abbr", "kind"},
+          fields = { "menu", "abbr", "kind" },
           format = function(entry, item)
-            local menu_icon ={
+            local menu_icon = {
               nvim_lsp = "λ",
               vsnip = "⋗",
               buffer = "Ω",
@@ -156,9 +160,9 @@ require("lazy").setup({
         auto_install = true,
         highlight = {
           enable = true,
-          additional_vim_regex_highlighting=false,
+          additional_vim_regex_highlighting = false,
         },
-        ident = { enable = true }, 
+        ident = { enable = true },
         rainbow = {
           enable = true,
           extended_mode = true,
@@ -176,7 +180,7 @@ require("lazy").setup({
         preview_opts = "hidden",
         buffers = { prompt = 'Buffers: ', ignore_current_buffer = true, sort_lastused = true },
         winopts = {
-          border = {" ", "─", " ", " ", " ", " ", " ", " " },
+          border = { " ", "─", " ", " ", " ", " ", " ", " " },
           win_height = 0.5,
           win_width = 0.5,
           win_row = 0.1,
@@ -187,43 +191,50 @@ require("lazy").setup({
     end
   },
 
-  {"folke/todo-comments.nvim", dependencies = { "nvim-lua/plenary.nvim" }},
-  {"hiphish/rainbow-delimiters.nvim", init = function() require("rainbow-delimiters.setup").setup() end},
+  { "folke/todo-comments.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
+  {
+    "folke/zen-mode.nvim",
+    init = function()
+      require("zen-mode").setup()
+      vim.keymap.set("n", "<C-y>", "<CMD>ZenMode<CR>");
+    end
+  },
+  { "hiphish/rainbow-delimiters.nvim", init = function() require("rainbow-delimiters.setup").setup() end },
 })
 
-vim.opt.number = true                     -- Show numbers on the left
-vim.opt.relativenumber = true             -- Make all numbers relative to the current line
+vim.opt.number         = true -- Show numbers on the left
+vim.opt.relativenumber = true -- Make all numbers relative to the current line
 
-vim.opt.tabstop     = 2             -- Show tabs as 4 spaces
-vim.opt.softtabstop = 2                  -- Delete spaces in quantities
-vim.opt.shiftwidth  = 2                   -- Number of spaces to use when using >> or auto indenting
-vim.opt.expandtab   = true                 -- Insert spaces when using tabs or indenting
-vim.opt.autoindent  = true                -- Copies the indent from the current line when starting a new line
-vim.opt.smartindent = true               -- Smarter autoindent
+vim.opt.tabstop        = 2    -- Show tabs as 4 spaces
+vim.opt.softtabstop    = 2    -- Delete spaces in quantities
+vim.opt.shiftwidth     = 2    -- Number of spaces to use when using >> or auto indenting
+vim.opt.expandtab      = true -- Insert spaces when using tabs or indenting
+vim.opt.autoindent     = true -- Copies the indent from the current line when starting a new line
+vim.opt.smartindent    = true -- Smarter autoindent
 
-vim.opt.incsearch = true                 -- Highlight matches whilst searching
-vim.opt.ignorecase = true                -- Ignore case of letters when searching
-vim.opt.smartcase = true                 -- Ignore ignorecase if pattern contains uppercase characters
+vim.opt.incsearch      = true -- Highlight matches whilst searching
+vim.opt.ignorecase     = true -- Ignore case of letters when searching
+vim.opt.smartcase      = true -- Ignore ignorecase if pattern contains uppercase characters
 
-vim.opt.termguicolors = true             -- Use 24-bit colors
+vim.opt.termguicolors  = true -- Use 24-bit colors
 
-vim.opt.hidden = true                    -- Hide buffers instead of unloading them, disables the "No write since last change" prompt
-vim.opt.confirm = true                   -- Prompt to save modified buffers on save
+vim.opt.hidden         = true -- Hide buffers instead of unloading them, disables the "No write since last change" prompt
+vim.opt.confirm        = true -- Prompt to save modified buffers on save
 
-vim.opt.splitright = true                -- Always put new window to the right of current one
-vim.opt.splitbelow = true                -- Always put new window below current one
+vim.opt.splitright     = true -- Always put new window to the right of current one
+vim.opt.splitbelow     = true -- Always put new window below current one
 
-vim.opt.cursorline = true                -- Highlight entire current line
+vim.opt.cursorline     = true -- Highlight entire current line
 
-vim.opt.wildmenu = true                  -- Show completions options inside command mode
+vim.opt.wildmenu       = true -- Show completions options inside command mode
 
-vim.opt.undofile = true                  -- Persistent undo
-vim.opt.undodir = vim.fn.expand("~/.config/nvim/undo")
+vim.opt.undofile       = true -- Persistent undo
+vim.opt.undodir        = vim.fn.expand("~/.config/nvim/undo")
 
-vim.opt.signcolumn = "number"
+vim.opt.signcolumn     = "number"
 
-vim.g.mapleader = " "
-vim.g.maplocalleader = ","
+vim.g.mapleader        = " "
+vim.g.maplocalleader   = ","
 
 vim.diagnostic.config({
   signs = true,
@@ -245,13 +256,13 @@ vim.diagnostic.config({
 -- noselect: Do not select, force to select one from the menu
 -- shortness: avoid showing extra messages when using completion
 -- updatetime: set updatetime for CursorHold
-vim.opt.completeopt = {"menuone", "noselect", "noinsert"}
-vim.opt.shortmess = vim.opt.shortmess + { c = true}
-vim.api.nvim_set_option("updatetime", 300) 
+vim.opt.completeopt = { "menuone", "noselect", "noinsert" }
+vim.opt.shortmess = vim.opt.shortmess + { c = true }
+vim.api.nvim_set_option("updatetime", 300)
 
 vim.keymap.set("n", "<C-D>", "<C-D>zz")
 vim.keymap.set("n", "<C-U>", "<C-U>zz")
 
--- Treesitter folding 
+-- Treesitter folding
 -- vim.wo.foldmethod = "expr"
 -- vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
