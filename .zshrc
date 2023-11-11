@@ -1,5 +1,19 @@
-PROMPT="%F{white}%n@%m%f in %F{cyan}%~%f
-%F{blue}η%f "
+# Enabling and setting git info var to be used in prompt config.
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' enable git svn
+# This line obtains information from the vcs.
+zstyle ":vcs_info:git*" formats '[%b]'
+precmd() {
+    vcs_info
+}
+
+COLOR_USR="%F{white}"
+COLOR_DIR="%F{yellow}"
+COLOR_GIT="%F{cyan}"
+COLOR_PCHAR="%F{208}"
+setopt PROMPT_SUBST # Evaluate function calls in prompt
+PROMPT='${COLOR_USR}%n@%m %F{white}in ${COLOR_DIR}%~ ${COLOR_GIT}${vcs_info_msg_0_}
+${COLOR_PCHAR}η '
 RPROMPT=""
 
 HISTFILE=$HOME/.cache/zsh_history
@@ -8,6 +22,7 @@ SAVEHIST=10000
 setopt appendhistory
 
 alias vim=nvim
+alias c++="g++ -std=c++20 -Wall -Wextra -pedantic"
 
 if command -v bat &> /dev/null; then
   alias cat=bat

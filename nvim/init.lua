@@ -249,6 +249,9 @@ vim.opt.completeopt = {"menuone", "noselect", "noinsert"}
 vim.opt.shortmess = vim.opt.shortmess + { c = true}
 vim.api.nvim_set_option("updatetime", 300) 
 
+vim.keymap.set("n", "<C-D>", "<C-D>zz")
+vim.keymap.set("n", "<C-U>", "<C-U>zz")
+
 -- Treesitter folding 
 -- vim.wo.foldmethod = "expr"
 -- vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
