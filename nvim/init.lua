@@ -25,7 +25,19 @@ require("lazy").setup({
     end
   },
   { "numToStr/Comment.nvim", init = function() require("Comment").setup() end },
-  { "windwp/nvim-autopairs", init = function() require("nvim-autopairs").setup() end },
+  {
+    "windwp/nvim-autopairs",
+    init = function()
+      require("nvim-autopairs").setup()
+      -- If you want insert `(` after select function or method item
+      local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+      local cmp = require('cmp')
+      cmp.event:on(
+        'confirm_done',
+        cmp_autopairs.on_confirm_done()
+      )
+    end
+  },
   {
     "junegunn/vim-easy-align",
     init = function()
@@ -34,7 +46,7 @@ require("lazy").setup({
   },
 
   -- Colorscheme
-  { "RRethy/nvim-base16",       init = function() vim.cmd("colorscheme base16-gruvbox-dark-hard") end },
+  { "RRethy/nvim-base16",    init = function() vim.cmd("colorscheme base16-gruvbox-dark-hard") end },
 
   {
     "williamboman/mason.nvim",
@@ -191,16 +203,16 @@ require("lazy").setup({
             enable = true,
             set_jumps = true,
             goto_next_start = {
-              ["]f"] = "@function.outer",
+              ["]m"] = "@function.outer",
             },
             goto_next_end = {
-              ["]F"] = "@function.outer",
+              ["]M"] = "@function.outer",
             },
             goto_previous_start = {
-              ["[f"] = "@function.outer",
+              ["[m"] = "@function.outer",
             },
             goto_previous_end = {
-              ["[F"] = "@function.outer",
+              ["[M"] = "@function.outer",
             }
           }
         }
@@ -237,10 +249,11 @@ require("lazy").setup({
         },
       })
       vim.keymap.set("n", "<C-P>", "<CMD>lua require('fzf-lua').files({})<CR>", { silent = true })
+      vim.keymap.set("n", "<C-S>", "<CMD>lua require('fzf-lua').lsp_document_symbols({})<CR>", { silent = true })
     end
   },
 
-  { "folke/todo-comments.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
+  { "folke/todo-comments.nvim",        dependencies = { "nvim-lua/plenary.nvim" } },
   {
     "folke/zen-mode.nvim",
     init = function()
@@ -311,6 +324,9 @@ vim.api.nvim_set_option("updatetime", 300)
 
 vim.keymap.set("n", "<C-D>", "<C-D>zz")
 vim.keymap.set("n", "<C-U>", "<C-U>zz")
+
+vim.keymap.set("v", "<", "<gv");
+vim.keymap.set("v", ">", ">gv");
 
 -- Treesitter folding
 -- vim.wo.foldmethod = "expr"
