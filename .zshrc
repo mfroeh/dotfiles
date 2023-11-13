@@ -21,6 +21,9 @@ HISTSIZE=10000
 SAVEHIST=10000
 setopt appendhistory
 
+autoload -Uz compinit && compinit
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+
 alias vim=nvim
 alias c++="g++ -std=c++20 -Wall -Wextra -pedantic"
 

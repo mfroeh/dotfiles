@@ -16,14 +16,20 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 
   -- Generic text editing
-  { "kylechui/nvim-surround", version = "*",                                          init = function() require(
-    "nvim-surround").setup() end },
-  { "numToStr/Comment.nvim",  init = function() require("Comment").setup() end },
-  { "windwp/nvim-autopairs",  init = function() require("nvim-autopairs").setup() end },
+  {
+    "kylechui/nvim-surround",
+    version = "*",
+    init = function()
+      require(
+        "nvim-surround").setup()
+    end
+  },
+  { "numToStr/Comment.nvim", init = function() require("Comment").setup() end },
+  { "windwp/nvim-autopairs", init = function() require("nvim-autopairs").setup() end },
   {
     "junegunn/vim-easy-align",
     init = function()
-      vim.keymap.set({"n", "x"}, "ga", "<Plug>(EasyAlign)")
+      vim.keymap.set({ "n", "x" }, "ga", "<Plug>(EasyAlign)")
     end
   },
 
@@ -122,13 +128,13 @@ require("lazy").setup({
         },
         -- Installed sources:
         sources = {
-          { name = "path" },                         -- file paths
+          { name = "path" },                                       -- file paths
           { name = "nvim_lsp",               keyword_length = 3 }, -- from language server
-          { name = "nvim_lsp_signature_help" },      -- display function signatures with current parameter emphasized
+          { name = "nvim_lsp_signature_help" },                    -- display function signatures with current parameter emphasized
           { name = "nvim_lua",               keyword_length = 2 }, -- complete neovim"s Lua runtime API such vim.lsp.*
           { name = "buffer",                 keyword_length = 2 }, -- source current buffer
           { name = "vsnip",                  keyword_length = 2 }, -- nvim-cmp source for vim-vsnip
-          { name = "calc" },                         -- source for math calculation
+          { name = "calc" },                                       -- source for math calculation
         },
         window = {
           completion = { border = "" },
@@ -154,6 +160,7 @@ require("lazy").setup({
 
   {
     "nvim-treesitter/nvim-treesitter",
+    dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
     init = function()
       require("nvim-treesitter.configs").setup({
         ensure_installed = { "lua", "rust", "toml", "c", "cpp" },
@@ -167,8 +174,50 @@ require("lazy").setup({
           enable = true,
           extended_mode = true,
           max_file_lines = nil,
+        },
+        textobjects = {
+          select = {
+            enable = true,
+            lookahead = true, -- Jump forward to text objects
+            include_surrounding_whitespace = true,
+            keymaps = {
+              ["af"] = "@function.outer",
+              ["if"] = "@function.inner",
+              ["aa"] = "@parameter.outer",
+              ["ia"] = "@parameter.inner",
+            },
+          },
+          move = {
+            enable = true,
+            set_jumps = true,
+            goto_next_start = {
+              ["]f"] = "@function.outer",
+            },
+            goto_next_end = {
+              ["]F"] = "@function.outer",
+            },
+            goto_previous_start = {
+              ["[f"] = "@function.outer",
+            },
+            goto_previous_end = {
+              ["[F"] = "@function.outer",
+            }
+          }
         }
       })
+      local ts_repeat_move = require "nvim-treesitter.textobjects.repeatable_move"
+      -- Repeat movement with ; and ,
+      -- ensure ; goes forward and , goes backward regardless of the last direction
+      vim.keymap.set({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move_next)
+      vim.keymap.set({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_previous)
+      -- vim way: ; goes to the direction you were moving.
+      -- vim.keymap.set({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move)
+      -- vim.keymap.set({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_opposite)
+      -- Optionally, make builtin f, F, t, T also repeatable with ; and ,
+      vim.keymap.set({ "n", "x", "o" }, "f", ts_repeat_move.builtin_f)
+      vim.keymap.set({ "n", "x", "o" }, "F", ts_repeat_move.builtin_F)
+      vim.keymap.set({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t)
+      vim.keymap.set({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T)
     end
   },
 
@@ -231,7 +280,7 @@ vim.opt.wildmenu       = true -- Show completions options inside command mode
 vim.opt.undofile       = true -- Persistent undo
 vim.opt.undodir        = vim.fn.expand("~/.config/nvim/undo")
 
-vim.opt.signcolumn     = "number"
+vim.opt.signcolumn     = "yes"
 
 vim.g.mapleader        = " "
 vim.g.maplocalleader   = ","
