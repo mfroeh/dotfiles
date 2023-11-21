@@ -53,7 +53,7 @@ require("lazy").setup({
     dependencies = { "williamboman/mason-lspconfig.nvim" },
     init = function()
       require("mason").setup()
-      require("mason-lspconfig").setup({ ensure_installed = { "rust_analyzer", "clangd", "lua_ls" } })
+      require("mason-lspconfig").setup({ ensure_installed = { "rust_analyzer", "clangd", "lua_ls", "cmake" } })
     end
   },
 
@@ -76,9 +76,17 @@ require("lazy").setup({
           vim.keymap.set("n", "<M-o>", "<CMD>ClangdSwitchSourceHeader<CR>");
         end
       })
-      require("lspconfig").clangd.setup({})
+      require("lspconfig").clangd.setup({
+        cmd = { "clangd",
+          "--clang-tidy",
+          "--clang-tidy-checks=*",
+          "--cross-file-rename",
+          "--all-scopes-completion",
+          "--fallback-style=Google" }, -- TODO: clang-tidy has no effect :(
+      })
       require("lspconfig").rust_analyzer.setup({})
       require("lspconfig").lua_ls.setup({})
+      require("lspconfig").cmake.setup({})
     end
   },
 
