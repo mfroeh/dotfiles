@@ -53,7 +53,7 @@ require("lazy").setup({
     dependencies = { "williamboman/mason-lspconfig.nvim" },
     init = function()
       require("mason").setup()
-      require("mason-lspconfig").setup({ ensure_installed = { "rust_analyzer", "clangd", "lua_ls", "cmake" } })
+      require("mason-lspconfig").setup({ ensure_installed = { "rust_analyzer", "clangd", "lua_ls", "cmake", "texlab" } })
     end
   },
 
@@ -87,6 +87,7 @@ require("lazy").setup({
       require("lspconfig").rust_analyzer.setup({})
       require("lspconfig").lua_ls.setup({})
       require("lspconfig").cmake.setup({})
+      require("lspconfig").texlab.setup({})
     end
   },
 
@@ -183,7 +184,7 @@ require("lazy").setup({
     dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
     init = function()
       require("nvim-treesitter.configs").setup({
-        ensure_installed = { "lua", "rust", "toml", "c", "cpp" },
+        ensure_installed = { "lua", "rust", "toml", "c", "cpp", "markdown", "latex" },
         auto_install = true,
         highlight = {
           enable = true,
@@ -270,6 +271,13 @@ require("lazy").setup({
     end
   },
   { "hiphish/rainbow-delimiters.nvim", init = function() require("rainbow-delimiters.setup").setup() end },
+
+  {
+    "lervag/vimtex",
+    init = function()
+      vim.g.vimtex_view_general_viewer = "zathura"
+    end
+  }
 })
 
 vim.opt.number         = true -- Show numbers on the left
