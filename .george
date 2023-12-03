@@ -18,3 +18,5 @@
 ~/.config/kitty -> kitty
 
 ~/.condarc -> condarc
+~/.config/zathura/zathurarc -> zathurarc
+~/.config/bat/config -> bat/config
