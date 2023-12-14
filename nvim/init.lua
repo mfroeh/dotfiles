@@ -46,7 +46,21 @@ require("lazy").setup({
   },
 
   -- Colorscheme
-  { "RRethy/nvim-base16",    init = function() vim.cmd("colorscheme base16-gruvbox-dark-hard") end },
+  { "RRethy/nvim-base16",    init = function() vim.cmd("colorscheme base16-gruvbox-material-dark-hard") end },
+
+  {
+    "folke/neodev.nvim",
+    init = function()
+      require("neodev").setup({
+        override = function(root_dir, library)
+          if root_dir:find("nvim", 1, true) == 1 then
+            library.enabled = true
+            library.plugins = true
+          end
+        end
+      })
+    end
+  },
 
   {
     "williamboman/mason.nvim",
@@ -88,6 +102,22 @@ require("lazy").setup({
       require("lspconfig").lua_ls.setup({})
       require("lspconfig").cmake.setup({})
       require("lspconfig").texlab.setup({})
+    end
+  },
+
+  {
+    "folke/trouble.nvim",
+    init = function()
+      require("trouble").setup({
+        icons = false,
+        position = "bottom",
+      })
+      vim.keymap.set("n", "<leader>xx", function() require("trouble").toggle() end)
+      vim.keymap.set("n", "<leader>xw", function() require("trouble").toggle("workspace_diagnostics") end)
+      vim.keymap.set("n", "<leader>xd", function() require("trouble").toggle("document_diagnostics") end)
+      vim.keymap.set("n", "<leader>xq", function() require("trouble").toggle("quickfix") end)
+      vim.keymap.set("n", "<leader>xl", function() require("trouble").toggle("loclist") end)
+      vim.keymap.set("n", "gR", function() require("trouble").toggle("lsp_references") end)
     end
   },
 
@@ -276,6 +306,13 @@ require("lazy").setup({
     "lervag/vimtex",
     init = function()
       vim.g.vimtex_view_general_viewer = "zathura"
+    end
+  },
+
+  {
+    "lewis6991/gitsigns.nvim",
+    init = function()
+      require("gitsigns").setup({})
     end
   }
 })
