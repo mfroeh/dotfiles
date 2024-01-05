@@ -39,7 +39,7 @@ fi
 export LD_LIBRARY_PATH=/usr/lib/wsl/lib:$LD_LIBRARY_PATH
 
 # Bootstrap sheldon
-if [[ ! -f "$HOME/.local/bin/sheldon" ]]; then 
+if [[ $(uname) != "Darwin" ]] && [[ ! -f "$HOME/.local/bin/sheldon" ]]; then 
 	curl --proto '=https' -fLsS https://rossmacarthur.github.io/install/crate.sh | bash -s -- --repo rossmacarthur/sheldon --to ~/.local/bin
 fi
 
@@ -67,5 +67,12 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
-source /usr/share/fzf/key-bindings.zsh
-source /usr/share/fzf/completion.zsh
+if [[ $(uname) != "Darwin" ]]; then
+  # sudo pacman -S fzf
+  source /usr/share/fzf/key-bindings.zsh
+  source /usr/share/fzf/completion.zsh
+else
+  # brew install fzf
+  source /opt/homebrew/opt/fzf/shell/completion.zsh
+  source /opt/homebrew/opt/fzf/shell/key-bindings.zsh
+fi
