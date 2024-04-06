@@ -21,8 +21,12 @@ HISTSIZE=10000
 SAVEHIST=10000
 setopt appendhistory
 
-autoload -Uz compinit && compinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+
+# compgen
+autoload -Uz +X compinit && compinit
+autoload -Uz +X bashcompinit && bashcompinit
+alias fman="compgen -c | fzf | xargs man"
 
 alias vim=nvim
 alias c++="g++ -std=c++20 -Wall -Wextra -pedantic"
